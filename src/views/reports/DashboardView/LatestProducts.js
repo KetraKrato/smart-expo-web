@@ -86,7 +86,7 @@ const LatestProducts = ({ className, ...rest }) => {
     // setUser(value)
     // console.log(rest)
   },[rest])
-
+//face notification page
   return (
     <Card
       className={clsx(classes.root, className)}
