@@ -112,7 +112,7 @@ const [user,setUser] = useState({
   img_name:""
 
 })
-
+// register Exhibitor page 
  const [values, setValues] = useState({
    
   firstName: 'Katarina',
