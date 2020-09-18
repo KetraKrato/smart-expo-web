@@ -13,6 +13,8 @@ import SettingsView from 'src/views/settings/SettingsView';
 
 const routes = [
   {
+
+    // add route  dashboard login and  video  page 
     path: 'app',
     element: <DashboardLayout />,
     children: [
