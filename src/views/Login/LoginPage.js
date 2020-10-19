@@ -3,8 +3,8 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import {
-  AccessAlarm, 
-  ThreeDRotation,
+  // AccessAlarm,
+  // ThreeDRotation,
   Box,
   Button,
   // Buon,
@@ -14,8 +14,8 @@ import {
   TextField,
   Typography,
   makeStyles,
-  BottomNavigation,
-  GridList,
+  // BottomNavigation,
+  // GridList,
 } from '@material-ui/core';
 import FacebookIcon from 'src/icons/Facebook';
 // import GoogleIcon from 'src/icons/Google';
@@ -48,6 +48,10 @@ const useStyles = makeStyles((theme) => ({
   buttonC: {
     width: '420px'
   },
+  forgot: {
+    cursor: 'pointer'
+
+  },
 }));
 const LoginPage = () => {
   const classes = useStyles();
@@ -66,13 +70,12 @@ const LoginPage = () => {
               email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
               password: Yup.string().max(255).required('Password is required')
             })}
-           // onSubmit={() => { navigate('/app/dashboard', { replace: true }); }}
+            onSubmit={() => { navigate('/app/dashboard', { replace: true }); }}
           >
             {({ handleSubmit }) => (
               <form onSubmit={handleSubmit}>
                 <Grid
                   container
-                  spacing={8}
                   className={classes.box}
                   direction="column"
                   justify="space-evenly"
@@ -91,13 +94,14 @@ const LoginPage = () => {
                       <Grid
                         container
                         direction="row"
-                        justify="flex-start"
+                        justify="center"
                         alignItems="center"
                         xs={12}
                       >
-                        <Grid item xs={2}><PersonIcon color="primary" fontSize="large" /></Grid>
-                        <Grid item xs={10}>
+                        <Grid item xs={1}><PersonIcon color="primary" fontSize="large" /></Grid>
+                        <Grid item xs={7}>
                           <TextField
+                            fullWidth
                             variant="standard"
                             margin="normal"
                             required
@@ -115,18 +119,19 @@ const LoginPage = () => {
                         direction="column"
                         justify="space-around"
                         alignItems="center"
-                        spacing={2}
+                        xs={12}
                       >
                         <Grid
                           container
                           direction="row"
                           justify="center"
                           alignItems="center"
+                          xs={12}
                         >
-                          <Grid item>
+                          <Grid item xs={1}>
                             <VpnKeyIcon color="primary" fontSize="large"/>
                           </Grid>
-                          <Grid item>
+                          <Grid item xs={7}>
                             <TextField
                               variant="standard"
                               margin="normal"
@@ -145,12 +150,15 @@ const LoginPage = () => {
                           direction="row-reverse"
                           justify="space-between"
                           alignItems="flex-start"
+                          xs={8}
                         >
                           <Typography
                             align="right"
                             color="textSecondary"
                             variant="subtitle2"
                             display="inline"
+                            onClick={handleSubmit}
+                            className={classes.forgot}
                           >
                             Forgot Password?
                           </Typography>
@@ -164,6 +172,7 @@ const LoginPage = () => {
                       color="primary"
                       size="large"
                       variant="contained"
+                      onClick={handleSubmit}
                     >
                       Login
                     </Button>
@@ -178,6 +187,9 @@ const LoginPage = () => {
                       align="right"
                       color="textSecondary"
                       variant="subtitle2"
+                      style={{
+                        cursor: "pointer"
+                      }}
                     >
                       Don't have an Account?
                     </Typography>
