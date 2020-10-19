@@ -15,6 +15,7 @@ import {
   Typography,
   makeStyles,
   BottomNavigation,
+  GridList,
 } from '@material-ui/core';
 import FacebookIcon from 'src/icons/Facebook';
 // import GoogleIcon from 'src/icons/Google';
@@ -85,55 +86,75 @@ const LoginPage = () => {
                       Sign In
                     </Typography>
                   </Grid>
-                  <Grid item>
-                    <Grid
-                      container
-                      direction="row"
-                      justify="center"
-                      alignItems="center"
-                      spacing={2}
-                    >
-                      <PersonIcon color="primary" fontSize="large" />
-                      <TextField
-                        color="primary"
-                        variant="standard"
-                        margin="normal"
-                        required
-                        id="email"
-                        label="Email Address"
-                        name="email"
-                        autoComplete="email"
-                        autoFocus
-                      />
-                    </Grid>
-                    <Grid
-                      container
-                      direction="row"
-                      justify="center"
-                      alignItems="center"
-                      spacing={2}
-                    >
-                      <VpnKeyIcon color="primary" fontSize="large" />
-                      <TextField
-                        variant="standard"
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="email"
-                        label="Password"
-                        name="password"
-                        autoComplete="email"
-                        type="password"
-
-                      />
-                      <Grid item>
-                        <Typography
-                          align="right"
-                          color="textSecondary"
-                          variant="subtitle2"
+                  <Grid item direction="column" container>
+                    <Grid item>
+                      <Grid
+                        container
+                        direction="row"
+                        justify="flex-start"
+                        alignItems="center"
+                        xs={12}
+                      >
+                        <Grid item xs={2}><PersonIcon color="primary" fontSize="large" /></Grid>
+                        <Grid item xs={10}>
+                          <TextField
+                            variant="standard"
+                            margin="normal"
+                            required
+                            id="Email"
+                            label="Email Address"
+                            name="Email"
+                            autoComplete="email"
+                            type="email"
+                            autoFocus
+                          />
+                        </Grid>
+                      </Grid>
+                      <Grid
+                        container
+                        direction="column"
+                        justify="space-around"
+                        alignItems="center"
+                        spacing={2}
+                      >
+                        <Grid
+                          container
+                          direction="row"
+                          justify="center"
+                          alignItems="center"
                         >
-                          Forgot Password?
-                        </Typography>
+                          <Grid item>
+                            <VpnKeyIcon color="primary" fontSize="large"/>
+                          </Grid>
+                          <Grid item>
+                            <TextField
+                              variant="standard"
+                              margin="normal"
+                              required
+                              fullWidth
+                              id="email"
+                              label="Password"
+                              name="password"
+                              autoComplete="email"
+                              type="password"
+                            />
+                          </Grid>
+                        </Grid>
+                        <Grid
+                          container
+                          direction="row-reverse"
+                          justify="space-between"
+                          alignItems="flex-start"
+                        >
+                          <Typography
+                            align="right"
+                            color="textSecondary"
+                            variant="subtitle2"
+                            display="inline"
+                          >
+                            Forgot Password?
+                          </Typography>
+                        </Grid>
                       </Grid>
                     </Grid>
                   </Grid>
