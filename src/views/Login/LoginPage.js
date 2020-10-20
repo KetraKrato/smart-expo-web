@@ -14,6 +14,9 @@ import {
   TextField,
   Typography,
   makeStyles,
+  Input,
+  InputAdornment,
+  IconButton,
   // BottomNavigation,
   // GridList,
 } from '@material-ui/core';
@@ -23,6 +26,8 @@ import Page from 'src/components/Page';
 // import { fromPairs } from 'lodash';
 import PersonIcon from '@material-ui/icons/Person';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,13 +55,29 @@ const useStyles = makeStyles((theme) => ({
   },
   forgot: {
     cursor: 'pointer'
-
+  },
+  textbox: {
+    width: '257px'
   },
 }));
 const LoginPage = () => {
   const classes = useStyles();
   const navigate = useNavigate();
+  const [values, setValues] = React.useState({
+    showPassword: false,
+  });
 
+  const handleClickShowPassword = () => {
+    setValues({ ...values, showPassword: !values.showPassword });
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
+  const handleSignUp = () => {
+    navigate('/registerpage', { replace: true });
+  };
   return (
     <Page
       className={classes.root}
@@ -89,69 +110,60 @@ const LoginPage = () => {
                       Sign In
                     </Typography>
                   </Grid>
-                  <Grid item direction="column" container>
-                    <Grid item>
+                  <Grid container direction="column" justify="center" alignItems="center" spacing={4}>
+                    <Grid item xs={6}>
+                      <Input
+                        className={classes.textbox}
+                        variant="standard"
+                        margin="normal"
+                        required
+                        id="Username"
+                        placeholder="Username"
+                        name="Username"
+                        autoComplete="Username"
+                        type="text"
+                        autoFocus
+                        startAdornment={
+                          <InputAdornment position="start">
+                            <PersonIcon color="primary" fontSize="large" />
+                          </InputAdornment>
+                        }
+                      />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Input
+                        fullWidth
+                        variant="standard"
+                        margin="normal"
+                        required
+                        id="Password"
+                        placeholder="Password"
+                        name="Password"
+                        type={values.showPassword ? 'text' : 'password'}
+                        startAdornment={
+                          <InputAdornment position="start">
+                            <VpnKeyIcon color="primary" fontSize="large" />
+                          </InputAdornment>
+                        }
+                        endAdornment={
+                          <InputAdornment position="end">
+                            <IconButton
+                              aria-label="toggle password visibility"
+                              onClick={handleClickShowPassword}
+                              onMouseDown={handleMouseDownPassword}
+                            >
+                              {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                            </IconButton>
+                          </InputAdornment>
+                        }
+                      />
                       <Grid
                         container
                         direction="row"
-                        justify="center"
-                        alignItems="center"
-                        xs={12}
+                        justify="flex-end"
+                        alignItems="flex-start"
                       >
-                        <Grid item xs={1}><PersonIcon color="primary" fontSize="large" /></Grid>
-                        <Grid item xs={7}>
-                          <TextField
-                            fullWidth
-                            variant="standard"
-                            margin="normal"
-                            required
-                            id="Email"
-                            label="Email Address"
-                            name="Email"
-                            autoComplete="email"
-                            type="email"
-                            autoFocus
-                          />
-                        </Grid>
-                      </Grid>
-                      <Grid
-                        container
-                        direction="column"
-                        justify="space-around"
-                        alignItems="center"
-                        xs={12}
-                      >
-                        <Grid
-                          container
-                          direction="row"
-                          justify="center"
-                          alignItems="center"
-                          xs={12}
-                        >
-                          <Grid item xs={1}>
-                            <VpnKeyIcon color="primary" fontSize="large"/>
-                          </Grid>
-                          <Grid item xs={7}>
-                            <TextField
-                              variant="standard"
-                              margin="normal"
-                              required
-                              fullWidth
-                              id="email"
-                              label="Password"
-                              name="password"
-                              autoComplete="email"
-                              type="password"
-                            />
-                          </Grid>
-                        </Grid>
-                        <Grid
-                          container
-                          direction="row-reverse"
-                          justify="space-between"
-                          alignItems="flex-start"
-                          xs={8}
-                        >
+                        <Grid item>
                           <Typography
                             align="right"
                             color="textSecondary"
@@ -193,7 +205,9 @@ const LoginPage = () => {
                     >
                       Don't have an Account?
                     </Typography>
-                    <Button>
+                    <Button
+                      onClick={handleSignUp}
+                    >
                       Sign up
                     </Button>
                   </Grid>

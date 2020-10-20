@@ -57,7 +57,9 @@ const useStyles = makeStyles((theme) => ({
   },
   forgot: {
     cursor: 'pointer'
-
+  },
+  textbox: {
+    width: '257px'
   },
 }));
 const LoginPage = () => {
@@ -75,8 +77,10 @@ const LoginPage = () => {
     event.preventDefault();
   };
 
+  const handleSignIn = () => {
+    navigate('/loginpage', { replace: true });
+  };
 
-  
   return (
     <Page
       className={classes.root}
@@ -106,13 +110,13 @@ const LoginPage = () => {
                       align="center"
                       className={classes.hh}
                     >
-                      Sign In
+                      Sign Up
                     </Typography>
                   </Grid>
                   <Grid container direction="column" justify="center" alignItems="center" spacing={4}>
                     <Grid item xs={6}>
                       <Input
-                        fullWidth
+                        className={classes.textbox}
                         variant="standard"
                         margin="normal"
                         required
@@ -131,7 +135,7 @@ const LoginPage = () => {
                     </Grid>
                     <Grid item xs={6}>
                       <Input
-                        fullWidth
+                        className={classes.textbox}
                         variant="standard"
                         margin="normal"
                         required
@@ -149,7 +153,7 @@ const LoginPage = () => {
                     </Grid>
                     <Grid item xs={6}>
                       <Input
-                        fullWidth
+                        className={classes.textbox}
                         variant="standard"
                         margin="normal"
                         required
@@ -162,6 +166,10 @@ const LoginPage = () => {
                             <EmailIcon color="primary" fontSize="large" />
                           </InputAdornment>
                         }
+                        endAdornment={
+                          <InputAdornment position="end">
+                          </InputAdornment>
+                        }
                       />
                     </Grid>
                     <Grid item xs={6}>
@@ -170,7 +178,7 @@ const LoginPage = () => {
                         variant="standard"
                         margin="normal"
                         required
-                        id="Passwprd"
+                        id="Password"
                         placeholder="Enter your password"
                         name="Password"
                         type={values.showPassword ? 'text' : 'password'}
@@ -229,7 +237,7 @@ const LoginPage = () => {
                       variant="contained"
                       onClick={handleSubmit}
                     >
-                      Login
+                      Register
                     </Button>
                   </Grid>
                   <Grid
@@ -245,8 +253,10 @@ const LoginPage = () => {
                     >
                       Don't have an Account?
                     </Typography>
-                    <Button>
-                      Sign up
+                    <Button
+                      onClick={handleSignIn}
+                    >
+                      Sign in
                     </Button>
                   </Grid>
                 </Grid>
