@@ -11,9 +11,11 @@ import ProductListView from 'src/views/product/ProductListView';
 import RegisterView from 'src/views/auth/RegisterView';
 import SettingsView from 'src/views/settings/SettingsView';
 import LoginPage from 'src/views/Login/LoginPage';
+import RegisterPage from 'src/views/Register/RegisterPage';
 import { element } from 'prop-types';
 
 import LoginLayout from 'src/layouts/LoginLayout';
+// import RegisterLayout from 'src/layouts/RegisterLayout';
 
 const routes = [
   {
@@ -47,6 +49,7 @@ const routes = [
     element: <LoginLayout />,
     children: [
       { path: 'loginpage', element: <LoginPage /> },
+      { path: 'registerpage', element: <RegisterPage /> },
     ]
   },
 ];
