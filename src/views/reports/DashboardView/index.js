@@ -14,6 +14,7 @@ import TotalCustomers from './TotalCustomers';
 import TotalProfit from './TotalProfit';
 import TrafficByDevice from './TrafficByDevice';
 import Customer from "../../customer/CustomerListView"
+import Chart from './Chart';
 import axios from 'axios';
 import socketIOClient from 'socket.io-client'
 import moment from "moment"
@@ -158,7 +159,7 @@ const Dashboard = () => {
             xs={12}
           >
          
-           
+           <Chart  />
             <Sales  data= {dataWhite} />
 
           </Grid>
