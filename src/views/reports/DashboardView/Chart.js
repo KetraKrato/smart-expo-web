@@ -17,6 +17,7 @@ const data = [
   createData('12:00', 1500),
   createData('15:00', 2000),
   createData('18:00', 2400),
+  createData('19:30', 2100),
   createData('21:00', 2400),
   createData('24:00', undefined),
 ];
