@@ -11,7 +11,7 @@ import {
   Container,
   Grid,
   // Link,
-  TextField,
+  // TextField,
   Typography,
   makeStyles,
   Input,
@@ -20,7 +20,7 @@ import {
   // BottomNavigation,
   // GridList,
 } from '@material-ui/core';
-import FacebookIcon from 'src/icons/Facebook';
+// import FacebookIcon from 'src/icons/Facebook';
 // import GoogleIcon from 'src/icons/Google';
 import Page from 'src/components/Page';
 // import { fromPairs } from 'lodash';
@@ -123,11 +123,11 @@ const LoginPage = () => {
                         autoComplete="Username"
                         type="text"
                         autoFocus
-                        startAdornment={
+                        startAdornment={(
                           <InputAdornment position="start">
                             <PersonIcon color="primary" fontSize="large" />
                           </InputAdornment>
-                        }
+                        )}
                       />
                     </Grid>
                     <Grid item xs={6}>
@@ -140,12 +140,12 @@ const LoginPage = () => {
                         placeholder="Password"
                         name="Password"
                         type={values.showPassword ? 'text' : 'password'}
-                        startAdornment={
+                        startAdornment={(
                           <InputAdornment position="start">
                             <VpnKeyIcon color="primary" fontSize="large" />
                           </InputAdornment>
-                        }
-                        endAdornment={
+                        )}
+                        endAdornment={(
                           <InputAdornment position="end">
                             <IconButton
                               aria-label="toggle password visibility"
@@ -155,7 +155,7 @@ const LoginPage = () => {
                               {values.showPassword ? <Visibility /> : <VisibilityOff />}
                             </IconButton>
                           </InputAdornment>
-                        }
+                        )}
                       />
                       <Grid
                         container
@@ -200,7 +200,7 @@ const LoginPage = () => {
                       color="textSecondary"
                       variant="subtitle2"
                       style={{
-                        cursor: "pointer"
+                        cursor: 'pointer'
                       }}
                     >
                       Don't have an Account?
