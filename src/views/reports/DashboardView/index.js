@@ -19,6 +19,7 @@ import TotalProfit from './TotalProfit';
 import TrafficByDevice from './TrafficByDevice';
 import Customer from '../../customer/CustomerListView';
 import Chart from './Chart';
+import BarChart from './BarChart';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -107,11 +108,8 @@ const Dashboard = () => {
       <Container maxWidth={false}>
         <Grid
           container
-          spacing={3}
+          spacing={4}
         >
-          {/* { value.map((i)=>
-          <div key={i}> hello</div>
-          )} */}
           <Grid
             item
             lg={12}
@@ -124,81 +122,93 @@ const Dashboard = () => {
           </Grid>
           <Grid
             item
-            lg={3}
-            sm={6}
-            xl={3}
-            xs={12}
-          >
-            <Budget />
-          </Grid>
-
-          <Grid
-            item
-            lg={3}
-            sm={6}
-            xl={3}
-            xs={12}
-          >
-            <TotalCustomers />
-          </Grid>
-          <Grid
-            item
-            lg={3}
-            sm={6}
-            xl={3}
-            xs={12}
-          >
-            <TasksProgress />
-          </Grid>
-          <Grid
-            item
-            lg={3}
-            sm={6}
-            xl={3}
-            xs={12}
-          >
-            <TotalProfit />
-          </Grid>
-          <Grid
-            item
-            lg={8}
-            md={12}
+            lg={12}
+            sm={12}
             xl={9}
             xs={12}
           >
-            <Chart />
-            <Sales data={dataWhite} />
-          </Grid>
+            <Grid
+              container
+              spacing={6}
+            >
+              {/* { value.map((i)=>
+          <div key={i}> hello</div>
+          )} */}
+              <Grid
+                item
+                lg={8}
+                md={12}
+                xl={12}
+                xs={12}
+              >
+                <Chart />
+                <Sales data={dataWhite} />
+              </Grid>
+              <Grid
+                item
+                lg={4}
+                md={6}
+                xl={6}
+                xs={12}
+              >
+                <TrafficByDevice />
+              </Grid>
+              <Grid
+                item
+                lg={4}
+                md={6}
+                xl={6}
+                xs={12}
+              >
+                <BarChart />
+              </Grid>
+              <Grid
+                item
+                lg={3}
+                sm={6}
+                xl={3}
+                xs={12}
+              >
+                <Budget />
+              </Grid>
 
-          <Grid
-            item
-            lg={4}
-            md={6}
-            xl={3}
-            xs={12}
-          >
-            <LatestProducts data={value} />
-          </Grid>
-
-          <Grid
-            item
-            lg={8}
-            md={12}
-            xl={9}
-            xs={12}
-          >
-            <Customer data={dataWhite} />
-          </Grid>
-          <Grid
-            item
-            lg={4}
-            md={6}
-            xl={3}
-            xs={12}
-          >
-            <TrafficByDevice />
-          </Grid>
-          {/* <Grid
+              <Grid
+                item
+                lg={3}
+                sm={6}
+                xl={3}
+                xs={12}
+              >
+                <TotalCustomers />
+              </Grid>
+              <Grid
+                item
+                lg={3}
+                sm={6}
+                xl={3}
+                xs={12}
+              >
+                <TasksProgress />
+              </Grid>
+              <Grid
+                item
+                lg={3}
+                sm={6}
+                xl={3}
+                xs={12}
+              >
+                <TotalProfit />
+              </Grid>
+              <Grid
+                item
+                lg={8}
+                md={12}
+                xl={12}
+                xs={12}
+              >
+                <Customer data={dataWhite} />
+              </Grid>
+              {/* <Grid
             item
             lg={8}
             md={12}
@@ -207,6 +217,18 @@ const Dashboard = () => {
           >
             <LatestOrders />
           </Grid> */}
+            </Grid>
+          </Grid>
+          <Grid
+            item
+            lg={12}
+            sm={12}
+            xl={3}
+            xs={12}
+          >
+            <LatestProducts data={value} />
+          </Grid>
+
         </Grid>
       </Container>
     </Page>
