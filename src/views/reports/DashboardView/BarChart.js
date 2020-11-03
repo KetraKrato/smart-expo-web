@@ -5,9 +5,10 @@ import {
 } from 'recharts';
 // import Title from './Title';
 import {
-  Card, CardContent, CardHeader, Typography, Divider, MenuItem, FormControl, Select,
+  Card, CardContent, CardHeader, Typography, Divider, MenuItem, FormControl, Select, Grid,
 } from '@material-ui/core';
 // import { Bar } from 'react-chartjs-2';
+import MenuI from './MenuI.js';
 
 // Generate Sales Data
 function createData(time, amount, amount2) {
@@ -32,7 +33,19 @@ export default function Chart() {
 
   return (
     <Card>
-      <CardHeader title="เปรียบเทียบการเข้า-ออก ตามตำแหน่ง" />
+      <Grid 
+        container         
+        direction="row"
+        justify="space-between"
+        alignItems="center">
+        <Grid item>
+          <CardHeader title="เปรียบเทียบการเข้า-ออก ตามตำแหน่ง" />
+        </Grid>
+        <Grid item>
+          <MenuI/>
+          <MenuI/>
+        </Grid>
+      </Grid>
       <Divider />
       <CardContent>
         <ResponsiveContainer width="100%" height={500}>

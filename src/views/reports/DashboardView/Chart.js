@@ -5,7 +5,6 @@ import {
 } from 'recharts';
 // import Title from './Title';
 import { Container, Grid, Typography } from '@material-ui/core';
-
 import {
   Box,
   Card,
@@ -17,6 +16,7 @@ import {
   Select,
 } from '@material-ui/core';
 import theme from 'src/theme';
+import MenuI from './MenuI.js';
 
 // Generate Sales Data
 function createData(time, amount, amount2) {
@@ -46,41 +46,23 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 export default function Chart() {
-  const classes = useStyles();
-  const [age, setAge] = React.useState('');
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
+//  const classes = useStyles();
+//  const [age, setAge] = React.useState('');
+//  const handleChange = (event) => {
+//    setAge(event.target.value);
+//  };
   return (
     <Card>
       <Grid
         container
-        direction="row-reverse"
-        justify="flex-start"
+        direction="row"
+        justify="flex-end"
         alignItems="center"
       >
         <Grid
-          lg={12}
-          sm={12}
-          xl={2}
-          xs={12}
+          item
         >
-          <FormControl variant="outlined" className={classes.formControl}>
-            <Select
-              value={age}
-              onChange={handleChange}
-              displayEmpty
-              className={classes.selectEmpty}
-              inputProps={{ 'aria-label': 'Without label' }}
-            >
-              <MenuItem value="">
-                30 วันที่ผ่านมา
-              </MenuItem>
-              <MenuItem value={45}>45 วันที่ผ่านมา</MenuItem>
-              <MenuItem value={60}>Twenty</MenuItem>
-              <MenuItem value={90}>Thirty</MenuItem>
-            </Select>
-          </FormControl>
+          <MenuI/>
         </Grid>
       </Grid>
       <CardContent>

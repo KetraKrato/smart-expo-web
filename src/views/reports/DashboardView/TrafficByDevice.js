@@ -11,16 +11,18 @@ import {
   Typography,
   colors,
   makeStyles,
-  useTheme
+  useTheme,
+  Grid
 } from '@material-ui/core';
 import LaptopMacIcon from '@material-ui/icons/LaptopMac';
 import PhoneIcon from '@material-ui/icons/Phone';
 import TabletIcon from '@material-ui/icons/Tablet';
+import MenuI from './MenuI.js';
 
 const useStyles = makeStyles(() => ({
   root: {
-    height: '100%'
-  }
+    height: '100%',
+  },
 }));
 
 const TrafficByDevice = ({ className, ...rest }) => {
@@ -81,7 +83,7 @@ const TrafficByDevice = ({ className, ...rest }) => {
     },
     {
       title: 'Mobile',
-      value: 23,
+      value: 22,
       icon: PhoneIcon,
       color: colors.orange[600]
     }
@@ -92,7 +94,20 @@ const TrafficByDevice = ({ className, ...rest }) => {
       className={clsx(classes.root, className)}
       {...rest}
     >
-      <CardHeader title="Traffic by Device" />
+      <Grid
+        container
+        direction="row"
+        justify="space-between"
+        alignItems="center"
+      >
+        <Grid item>
+          <CardHeader title="Traffic by Device" />
+        </Grid>
+        <Grid item>
+            <MenuI/>
+        </Grid>
+
+      </Grid>
       <Divider />
       <CardContent>
         <Box
