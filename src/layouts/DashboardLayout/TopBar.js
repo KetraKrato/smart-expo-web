@@ -74,7 +74,11 @@ const TopBar = ({
 }) => {
   const classes = useStyles();
   const [notifications] = useState([]);
+  function a (data) {
+        alert (data)
 
+  }
+  const [click ,setClick] = React.useState(0)
   return (
     <AppBar
       className={clsx(classes.root, className)}
@@ -91,9 +95,7 @@ const TopBar = ({
             color="inherit"
             aria-label="open drawer"
           >
-            <MenuIcon>
-              <MenuBar click="true"/>
-            </MenuIcon>
+            <MenuBar />
           </IconButton>
         <div className={classes.search}>
             <div className={classes.searchIcon}>
