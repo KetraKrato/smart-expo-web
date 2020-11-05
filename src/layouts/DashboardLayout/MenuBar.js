@@ -11,16 +11,78 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
+import { Typography } from '@material-ui/core';
+import { NavLink as RouterLink } from 'react-router-dom';
+
+import  EqualizerIcon from '@material-ui/icons/Equalizer';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import ReceiptIcon from '@material-ui/icons/Receipt';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import HelpIcon from '@material-ui/icons/Help';
+import CameraAltIcon from '@material-ui/icons/CameraAlt';
+import SettingsIcon from '@material-ui/icons/Settings';
+import PersonIcon from '@material-ui/icons/Person';
+
 
 const useStyles = makeStyles({
   list: {
-    width: 250,
+    width: 360,
   },
   fullList: {
     width: 'auto',
   },
+  listItem:{
+    height: '75px',
+  },
 });
+const items = [
+  {
+    href: '/app/dashboard',
+    icon: EqualizerIcon,
+    title: 'Dashboard'
+  },
+  {
+    href: '/app/register',
+    icon: VisibilityIcon,
+    title: 'Review'
+  },
+  {
+    href: '/app/products',
+    icon: ReceiptIcon,
+    title: 'Status'
+  },
+  {
+    href: '/app/register',
+    icon: PersonAddIcon,
+    title: 'Register Profile'
+  },
+  {
+    href: '/app/helpcenter',
+    icon: HelpIcon,
+    title: 'Help Center'
+  },
+  {
+    href: '/app/settings',
+    icon: CameraAltIcon,
+    title: 'Settings Camera'
+  },
+  {
+    href: '/app/settings',
+    icon: SettingsIcon,
+    title: 'Setting'
+  },
+];
 
+const itemSubmenu =[
+  {
+    icon: PersonIcon,
+    title: 'Insider',
+  },
+  {
+    icon: PersonIcon,
+    title: 'Outsider',
+  },
+];
 
 export default function SwipeableTemporaryDrawer(props) {
   const classes = useStyles();
@@ -41,6 +103,10 @@ export default function SwipeableTemporaryDrawer(props) {
     setState({ ...state, [anchor]: open });
   };
 
+  function showSubmanu(){
+  
+  }
+
   const list = (anchor) => (
     <div
       className={clsx(classes.list, {
@@ -50,23 +116,24 @@ export default function SwipeableTemporaryDrawer(props) {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+      {/* <List>
+      <Typography variant='h1'>IMPEKPA</Typography>
+        {['Dashboard', 'Review', 'Status', 'Register Profile','Help Center','Settings Camera','Settings'].map((text, index) => (
           <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+            <ListItemIcon><EqualizerIcon/></ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
         ))}
-      </List>
-      <Divider />
+      </List> */}
       <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
+        {items.map((item)=>(
+          <ListItem botton className={classes.listItem} component={RouterLink}
+          to={item.href} onMouseOver={showSubmanu()}>
+          <ListItemIcon><item.icon color="primary" fontSize="large"/></ListItemIcon>
+          <ListItemText primary={item.title} />
+        </ListItem>
         ))}
-      </List>
+        </List>
     </div>
   );
 
