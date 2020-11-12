@@ -15,6 +15,7 @@ import RegisterPage from 'src/views/Register/RegisterPage';
 import { element } from 'prop-types';
 
 import LoginLayout from 'src/layouts/LoginLayout';
+import ReviewPage from 'src/views/Review';
 // import RegisterLayout from 'src/layouts/RegisterLayout';
 
 const routes = [
@@ -25,6 +26,7 @@ const routes = [
     element: <DashboardLayout />,
     children: [
       { path: 'account', element: <AccountView /> },
+      { path: 'review', element: <ReviewPage /> },
       { path: 'register', element: <AccountView /> },
       { path: 'dashboard', element: <DashboardView /> },
       { path: 'products', element: <ProductListView /> },

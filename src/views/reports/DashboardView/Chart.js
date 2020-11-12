@@ -62,7 +62,7 @@ export default function Chart() {
         <Grid
           item
         >
-          <MenuI/>
+          <MenuI />
         </Grid>
       </Grid>
       <CardContent>

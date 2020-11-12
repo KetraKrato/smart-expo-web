@@ -14,7 +14,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { Typography } from '@material-ui/core';
 import { NavLink as RouterLink } from 'react-router-dom';
 
-import  EqualizerIcon from '@material-ui/icons/Equalizer';
+import EqualizerIcon from '@material-ui/icons/Equalizer';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
@@ -23,7 +23,6 @@ import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import SettingsIcon from '@material-ui/icons/Settings';
 import PersonIcon from '@material-ui/icons/Person';
 
-
 const useStyles = makeStyles({
   list: {
     width: 360,
@@ -31,7 +30,7 @@ const useStyles = makeStyles({
   fullList: {
     width: 'auto',
   },
-  listItem:{
+  listItem: {
     height: '75px',
   },
 });
@@ -42,7 +41,7 @@ const items = [
     title: 'Dashboard'
   },
   {
-    href: '/app/register',
+    href: '/app/review',
     icon: VisibilityIcon,
     title: 'Review'
   },
@@ -73,7 +72,7 @@ const items = [
   },
 ];
 
-const itemSubmenu =[
+const itemSubmenu = [
   {
     icon: PersonIcon,
     title: 'Insider',
@@ -92,8 +91,6 @@ export default function SwipeableTemporaryDrawer(props) {
     bottom: false,
     right: false,
   });
- 
-
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -103,8 +100,8 @@ export default function SwipeableTemporaryDrawer(props) {
     setState({ ...state, [anchor]: open });
   };
 
-  function showSubmanu(){
-  
+  function showSubmanu() {
+
   }
 
   const list = (anchor) => (
@@ -126,14 +123,19 @@ export default function SwipeableTemporaryDrawer(props) {
         ))}
       </List> */}
       <List>
-        {items.map((item)=>(
-          <ListItem botton className={classes.listItem} component={RouterLink}
-          to={item.href} onMouseOver={showSubmanu()}>
-          <ListItemIcon><item.icon color="primary" fontSize="large"/></ListItemIcon>
-          <ListItemText primary={item.title} />
-        </ListItem>
+        {items.map((item) => (
+          <ListItem
+            botton
+            className={classes.listItem}
+            component={RouterLink}
+            to={item.href}
+            onMouseOver={showSubmanu()}
+          >
+            <ListItemIcon><item.icon color="primary" fontSize="large" /></ListItemIcon>
+            <ListItemText primary={item.title} />
+          </ListItem>
         ))}
-        </List>
+      </List>
     </div>
   );
 
@@ -141,8 +143,7 @@ export default function SwipeableTemporaryDrawer(props) {
     <div>
       {['left'].map((anchor) => (
         <React.Fragment key={anchor}>
-        <MenuIcon onClick={toggleDrawer(anchor, true)}> 
-            </MenuIcon>
+          <MenuIcon onClick={toggleDrawer(anchor, true)} />
           {/* <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button> */}
           <SwipeableDrawer
             anchor={anchor}
