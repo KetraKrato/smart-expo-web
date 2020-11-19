@@ -5,6 +5,7 @@ import MainLayout from 'src/layouts/MainLayout';
 import AccountView from 'src/views/account/AccountView';
 // import CustomerListView from 'src/views/customer/CustomerListView';
 import DashboardView from 'src/views/reports/DashboardView';
+import DashboardCamera from 'src/views/reports/DashboardView/DashboardCamera/DashboardCamera';
 import LoginView from 'src/views/auth/LoginView';
 import NotFoundView from 'src/views/errors/NotFoundView';
 import ProductListView from 'src/views/product/ProductListView';
@@ -29,6 +30,7 @@ const routes = [
       { path: 'review', element: <ReviewPage /> },
       { path: 'register', element: <AccountView /> },
       { path: 'dashboard', element: <DashboardView /> },
+      { path: 'dashboardcamera', element: <DashboardCamera /> },
       { path: 'products', element: <ProductListView /> },
       { path: 'settings', element: <SettingsView /> },
       { path: '*', element: <Navigate to="/404" /> }
