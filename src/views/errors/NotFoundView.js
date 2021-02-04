@@ -3,10 +3,10 @@ import {
   Box,
   Container,
   Typography,
-  makeStyles
-} from '@material-ui/core';
-import Page from 'src/components/Page';
+  makeStyles,
 
+} from '@material-ui/core';
+import Page from '../../components/Page';
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.dark,
@@ -22,9 +22,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+
 const NotFoundView = () => {
   const classes = useStyles();
-
+ 
   return (
     <Page
       className={classes.root}

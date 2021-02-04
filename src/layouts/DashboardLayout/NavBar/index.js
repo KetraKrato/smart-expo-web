@@ -2,54 +2,80 @@ import React, { useEffect } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
-  Avatar,
   Box,
-  Button,
   Divider,
   Drawer,
   Hidden,
   List,
-  Typography,
   makeStyles
 } from '@material-ui/core';
+import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import {
-  AlertCircle as AlertCircleIcon,
   BarChart as BarChartIcon,
-  Lock as LockIcon,
   Settings as SettingsIcon,
-  ShoppingBag as ShoppingBagIcon,
   User as UserIcon,
-  UserPlus as UserPlusIcon,
-  Users as UsersIcon
 } from 'react-feather';
 import NavItem from './NavItem';
-
-const user = {
-  avatar: '/static/images/products/product_5.png',
-  jobTitle: 'Access Control System',
-  name: 'DEMO'
-};
-
+import RoomIcon from '@material-ui/icons/Room';
+import AirplayIcon from '@material-ui/icons/Airplay';
+import VideoCallIcon from '@material-ui/icons/VideoCall';
+import TelegramIcon from '@material-ui/icons/Telegram';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import DevicesIcon from '@material-ui/icons/Devices';
+import ListItem from '@material-ui/core/ListItem';
+import EventIcon from '@material-ui/icons/Event';
+import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
+// import Collapse from '@material-ui/core/Collapse';
+// import ListItemIcon from '@material-ui/core/ListItemIcon';
+// import StarBorder from '@material-ui/icons/StarBorder';
+// import ListItemText from '@material-ui/core/ListItemText';
 const items = [
   {
     href: '/app/dashboard',
     icon: BarChartIcon,
     title: 'Dashboard'
   },
+
   {
-    href: '/app/register',
-    icon: UsersIcon,
-    title: 'Register'
+    href: '/app/event',
+    icon: EventIcon,
+    title: 'Event Management'
   },
   {
-    href: '/app/products',
-    icon: ShoppingBagIcon,
-    title: 'Products'
+    href: '/app/vistorManage',
+    icon: PeopleAltIcon,
+    title: 'Vistor Management'
+  },
+  {
+    href: '/app/video-moniter',
+    icon: VideoLibraryIcon,
+    title: 'Video Moniter'
+  },
+  {
+    href: '/app/map',
+    icon: RoomIcon,
+    title: 'Locations'
+  },
+
+  {
+    href: '/app/device',
+    icon: DevicesIcon,
+    title: 'Decives Manager'
+  },
+  {
+    href: '/app/video-record',
+    icon: VideoCallIcon,
+    title: 'Video Record'
+  },
+  {
+    href: '/app/massager',
+    icon: TelegramIcon,
+    title: 'Massager'
   },
   {
     href: '/app/account',
     icon: UserIcon,
-    title: 'Account'
+    title: 'Account Manager'
   },
   {
     href: '/app/settings',
@@ -57,23 +83,13 @@ const items = [
     title: 'Settings'
   },
   {
-    href: '/login',
-    icon: LockIcon,
-    title: 'Login'
-  },
-  {
-    href: '/register',
-    icon: UserPlusIcon,
-    title: 'Register'
-  },
-  {
     href: '/404',
-    icon: AlertCircleIcon,
-    title: 'Error'
+    icon: ExitToAppIcon,
+    title: 'Logout'
   }
 ];
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   mobileDrawer: {
     width: 256
   },
@@ -86,12 +102,19 @@ const useStyles = makeStyles(() => ({
     cursor: 'pointer',
     width: 64,
     height: 64
-  }
+  },
+  nested: {
+    paddingLeft: theme.spacing(4),
+  },
 }));
 
 const NavBar = ({ onMobileClose, openMobile }) => {
   const classes = useStyles();
   const location = useLocation();
+  const [open, setOpen] = React.useState(false);
+  const handleClick = () => {
+      setOpen(!open);
+    };
 
   useEffect(() => {
     if (openMobile && onMobileClose) {
@@ -101,84 +124,39 @@ const NavBar = ({ onMobileClose, openMobile }) => {
   }, [location.pathname]);
 
   const content = (
-    <Box
-      height="100%"
-      display="flex"
-      flexDirection="column"
-    >
-      <Box
-        alignItems="center"
-        display="flex"
-        flexDirection="column"
-        p={2}
-      >
-        <Avatar
-          className={classes.avatar}
-          component={RouterLink}
-          src={user.avatar}
-          to="/app/account"
-        />
-        <Typography
-          className={classes.name}
-          color="textPrimary"
-          variant="h5"
-        >
-          {user.name}
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="body2"
-        >
-          {user.jobTitle}
-        </Typography>
-      </Box>
+    <Box height="100%" display="flex" flexDirection="column">
       <Divider />
       <Box p={2}>
         <List>
-          {items.map((item) => (
+          {items.map(item => (
+            <div>
+               <ListItem button>
+
             <NavItem
               href={item.href}
               key={item.title}
               title={item.title}
               icon={item.icon}
+              // onClick={handleClick}
             />
+               </ListItem>
+
+             {/* <Collapse in={open} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                  <NavItem
+                  href={item.href}
+                  key={item.title}
+                  title={item.title}
+                  icon={item.icon}
+                  onClick={handleClick}
+             />
+                </List>
+              </Collapse> */}
+            </div>
           ))}
         </List>
       </Box>
       <Box flexGrow={1} />
-      {/* <Box
-        p={2}
-        m={2}
-        bgcolor="background.dark"
-      >
-        <Typography
-          align="center"
-          gutterBottom
-          variant="h4"
-        >
-          Need more?
-        </Typography>
-        <Typography
-          align="center"
-          variant="body2"
-        >
-          Upgrade to PRO version and access 20 more screens
-        </Typography>
-        <Box
-          display="flex"
-          justifyContent="center"
-          mt={2}
-        >
-          <Button
-            color="primary"
-            component="a"
-            href="https://react-material-kit.devias.io"
-            variant="contained"
-          >
-            See PRO version
-          </Button>
-        </Box>
-      </Box> */}
     </Box>
   );
 

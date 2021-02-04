@@ -16,24 +16,24 @@ import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { Grid, Container } from '@material-ui/core';
-import Page from 'src/components/Page';
-
+import {historyService} from "../../services"
+import Page from '../../components/Page';
+import moment from "moment"
+import Avatar from "@material-ui/core/Avatar"
+import {apiConstants} from "../../_constants"
+import GroupIcon from '@material-ui/icons/Group';
+import { colors} from "@material-ui/core"
+import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
+import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
 function createData(rank, photo, name, age, status, detail) {
   return {
     rank, photo, name, age, status,detail
   };
 }
 
-const rows = [
-  createData(1,'photo','Nattatam Watanakajonchaikul', 22, 'Admin', 'icon ...'),
-  createData(2,'photo','Watanaka Tinkuran', 10, 'Admin', 'icon ...'),
-  createData(3,'photo','LLLLLLLL dfsdfsdfsdfdsf', 25, 'Admin', 'icon ...'),
-];
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -61,24 +61,36 @@ function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0]);
 }
 
+
+
+
 const headCells = [
   {
     id: 'rank', numeric: false, disablePadding: true, label: 'ลำดับ'
   },
   {
-    id: 'photo', numeric: false, disablePadding: false, label: 'รูปภาพ'
+    id: 'created', numeric: false, disablePadding: false, label: 'เวลาที่พบ'
   },
   {
-    id: 'name', numeric: true, disablePadding: false, label: 'ชื่อ-นามสกุล'
+    id: 'photo', numeric: false, disablePadding: false, label: 'รูปภาพที่พบ'
   },
   {
-    id: 'age', numeric: true, disablePadding: false, label: 'อายุ'
+    id: 'group', numeric: true, disablePadding: false, label: 'กลุ่ม'
   },
   {
-    id: 'status', numeric: true, disablePadding: false, label: 'สถานะ'
+    id: 'user', numeric: true, disablePadding: false, label: 'ตรวจพบ'
   },
   {
-    id: 'detail', numeric: true, disablePadding: false, label: 'รายละเอียด'
+    id: 'picture', numeric: true, disablePadding: false, label: 'ใบหน้าในระบบ'
+  },
+  {
+    id: 'device', numeric: true, disablePadding: false, label: 'กล้องที่พบ'
+  },
+  {
+    id: 'location', numeric: true, disablePadding: false, label: 'สถานที่พบ'
+  },
+  {
+    id: 'event', numeric: true, disablePadding: false, label: 'งานที่พบ'
   },
 ];
 
@@ -89,6 +101,7 @@ function EnhancedTableHead(props) {
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
+
 
   return (
     <TableHead>
@@ -176,7 +189,7 @@ const EnhancedTableToolbar = (props) => {
         </Typography>
       ) : (
         <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-          Nutrition
+         Visitor History
         </Typography>
       )}
 
@@ -212,7 +225,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
   },
   table: {
-    minWidth: 1500,
+    minWidth: 1,
   },
   visuallyHidden: {
     border: 0,
@@ -225,6 +238,34 @@ const useStyles = makeStyles((theme) => ({
     top: 20,
     width: 1,
   },
+  avatar: {
+    '& svg': {
+        fontSize: 32
+      },
+    backgroundColor: colors.lightBlue[600],
+    height:48,
+    width: 48,
+    color:colors.grey[100]
+  },
+  avatarVerify: {
+    '& svg': {
+        fontSize: 32
+      },
+    backgroundColor: colors.lightGreen[600],
+    height:48,
+    width: 48,
+    color:colors.grey[100]
+  },
+  avatarWarning: {
+    '& svg': {
+        fontSize: 32
+      },
+    backgroundColor: colors.red[600],
+    height:48,
+    width: 48,
+    color:colors.grey[100]
+  }
+
 }));
 
 export default function EnhancedTable() {
@@ -235,6 +276,26 @@ export default function EnhancedTable() {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+
+  const [rows,setRows] = React.useState([
+    createData(1,'photo','Nattatam Watanakajonchaikul', 22, 'Admin', 'icon ...'),
+    createData(2,'photo','Watanaka Tinkuran', 10, 'Admin', 'icon ...'),
+    createData(3,'photo','LLLLLLLL dfsdfsdfsdfdsf', 25, 'Admin', 'icon ...'),
+  ])
+
+  React.useEffect(async ()=>{
+    let getHistory = await historyService.getHistory().then((data)=>{
+      return data
+  
+    }).catch((e)=>{
+      throw e
+    })
+    console.log(getHistory.data.history)
+    setRows(getHistory.data.history)
+
+  },[])
+
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -289,39 +350,16 @@ export default function EnhancedTable() {
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   return (
+    <Container maxWidth={false}>
+
+  <Grid container spacing={3}>
+
+  <Grid xs={12}>
     <Page
       className={classes.root}
       title="Review"
     >
-      <Container maxWidth={false}>
-        <Grid
-          container
-          spacing={4}
-        >
-          <Grid
-            item
-            lg={12}
-            sm={12}
-            xl={12}
-            xs={12}
-          >
-            <Typography variant="h1">รายงานผลแสดงข้อมูลโดยรวม</Typography>
-            <Typography variant="subtitle1">Business Intelligence</Typography>
-          </Grid>
-          <Grid
-            container
-            direction="column"
-            justify="center"
-            alignItems="center"
-          >
-            <Grid
-              item
-              lg={12}
-              sm={12}
-              xl={12}
-              xs={12}
-            >
-              <div className={classes.root}>
+     
                 <Paper className={classes.paper}>
                   <EnhancedTableToolbar numSelected={selected.length} />
                   <TableContainer>
@@ -336,7 +374,7 @@ export default function EnhancedTable() {
                         numSelected={selected.length}
                         order={order}
                         orderBy={orderBy}
-                        onSelectAllClick={handleSelectAllClick}
+                        // onSelectAllClick={handleSelectAllClick}
                         onRequestSort={handleRequestSort}
                         rowCount={rows.length}
                       />
@@ -351,28 +389,101 @@ export default function EnhancedTable() {
                               <TableRow
                                 hover
                                 onClick={(event) => handleClick(event, row.name)}
-                                role="checkbox"
-                                aria-checked={isItemSelected}
+                                // role="checkbox"
+                                // aria-checked={isItemSelected}
                                 tabIndex={-1}
-                                key={row.name}
-                                selected={isItemSelected}
+                                key={row.id}
+                                // selected={isItemSelected}
                               >
                                 <TableCell padding="checkbox">
-                                  <Checkbox
+                                  {/* <Checkbox
                                     checked={isItemSelected}
                                     inputProps={{ 'aria-labelledby': labelId }}
-                                  />
+                                  /> */}
+                                    { !row.face?.member_picture ? (
+                                    
+                                      <Avatar   className={classes.avatar}>
+                                       <GroupIcon></GroupIcon>
+                                      </Avatar> )
+                                      :(
+                                          <div>
+                                             { row.face?.member_picture.member.type ? 
+                                             ( <Avatar   className={classes.avatarVerify}>
+                                             <VerifiedUserIcon></VerifiedUserIcon>
+                                             </Avatar>
+                                             ):(
+                                              <Avatar   className={classes.avatarWarning}>
+                                              <PersonAddDisabledIcon></PersonAddDisabledIcon>
+                                             </Avatar>
+                                             )
+                                             }
+                                          </div>
+                                       )
+                                    }
                                 </TableCell>
                                 <TableCell component="th" id={labelId} scope="row" >
-                                  {row.rank}
+                                  {row.id}
                                 </TableCell>
                                 <TableCell component="th" id={labelId} scope="row" >
-                                  {row.photo}
+
+                                  {moment(row.created).format("DD-MM-YYYY")}
+                                  <br></br>
+                                  {moment(row.created).format("HH:mm:ss")}
+
                                 </TableCell>
-                                <TableCell align="left">{row.name}</TableCell>
-                                <TableCell align="center">{row.age}</TableCell>
-                                <TableCell align="center">{row.status}</TableCell>
-                                <TableCell align="center">{row.detail}</TableCell>
+                                <TableCell component="th" id={labelId} scope="row"align="center" >
+                                    <Avatar
+                                    alt="image_detection"
+                                    className={classes.avatar}
+                                    src={apiConstants.uri+row.face_path?.substring(6,row.face_path.length)}
+                                   />
+                                </TableCell>
+
+
+                                 { row.face?.member_picture ? (
+                                 <TableCell align="left">
+                                  
+                                  {row.face?.member_picture.member.group.name}
+                                  </TableCell>
+                                 ): (
+                                  <TableCell align="left">
+                                    Stanger</TableCell>
+                                  )   
+                                }
+                                 { row.face?.member_picture ? (
+                                 <TableCell align="left">
+                                  
+                                  <Avatar
+                                    alt="image_detection"
+                                    className={classes.avatar}
+                                    src={apiConstants.uri+row.face.member_picture.image_path?.substring(6,row.face.member_picture.image_path.length)}
+                                   />
+                                  </TableCell>
+                                 ): (
+                                  <TableCell align="center">
+                                  <Avatar
+                                    alt="image_detection"
+                                    className={classes.avatar}
+                                    src={apiConstants.uri+"/images/upload_images/"+ row.face?.image_name}
+                                   />
+                                  </TableCell>
+                                 )   
+                                }
+                                 { row.face?.member_picture ? (
+                                 <TableCell align="left">
+                                  
+                                  {row.face?.member_picture.member.firstName}
+                                  </TableCell>
+                                 ): (
+                                  <TableCell align="left">
+                                  ไม่พบในฐานข้อมูล
+                                  </TableCell>
+                                 )   
+                                }
+                               
+                                <TableCell align="center">{row.device?.device_name} </TableCell>
+                                <TableCell align="center">{row.device?.location.LocationName} </TableCell>
+                                <TableCell align="center">{row.device?.location.event.eventName}</TableCell>
                               </TableRow>
                             );
                           })}
@@ -394,15 +505,11 @@ export default function EnhancedTable() {
                     onChangeRowsPerPage={handleChangeRowsPerPage}
                   />
                 </Paper>
-                <FormControlLabel
-                  control={<Switch checked={dense} onChange={handleChangeDense} />}
-                  label="Dense padding"
-                />
-              </div>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Container>
+                
     </Page>
+    </Grid>
+    </Grid>
+</Container>
+    
   );
 }
