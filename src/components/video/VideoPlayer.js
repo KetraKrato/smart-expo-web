@@ -2,33 +2,62 @@ import React from 'react'
 //引入依赖
 import 'video.js/dist/video-js.css'
 import 'videojs-flash'
+import { connect } from 'react-redux';
 import videojs from 'video.js'
-
 const url = [
     {
-        url:"rtsp://admin:admin@192.168.1.100:8557/h264",
-        name:"CAMERA1"
+        url:"rtmp://localhost/live/STREAM_NAME",
+        name:"Camera 1"
     },
     {
-        url:"rtsp://admin:admin@192.168.1.100:8557/h264",
-        name:"CAMERA2"
+        url:"rtmp://202.69.69.180:443/webcast/bshdlive-pc",
+        name:"Camera 2"
     }
 ]
 class App extends React.Component{
     state={
-        nowPlay:""
+        nowPlay:"",
+        device_name:"",
+        stream_url:""
     }
 //组件挂载完成之后初始化播放控件
+componentDidUpdate(previousProps, previousState) {
+    if (previousProps.device_name !== this.props?.device_name) {
+        this.setState({device_name:this.props.device_name})
+        console.log(this.state.device_name)
+        this.setState({stream_url:this.state.stream_url})
+        const videoJsOptions = {
+            autoplay: true,
+            controls: true,
+            sources: [{
+              src: this.state.stream_url,
+              type: 'rtmp/flv'
+            }]
+          }
+          if(this.state.device_name===this.props.device_name){
+            return
+        }
+        this.setState({
+            device_name:this.state.device_name
+        })
+            this.player.pause();
+            this.player.src(this.props.stream_url);
+            this.player.load();
+            this.player.play();
+    }
+}
+
     componentDidMount(){
     const videoJsOptions = {
             autoplay: true,
             controls: true,
             sources: [{
-              src: 'rtmp://localhost/live/cameratest1',
-              type: "rtmp/flv"
+              src: 'rtmp://0.0.0.0/live/STREAM_NAME1',
+              type: 'rtmp/flv'
             }]
           }
-        this.player = videojs('my-video', videoJsOptions , function onPlayerReady() { //(id或者refs获取节点，options，回调函数)
+          this.setState({nowPlay:"start"})
+          this.player = videojs('my-video', videoJsOptions , function onPlayerReady() { //(id或者refs获取节点，options，回调函数)
             videojs.log('Your player is ready!');
             // In this context, `this` is the player that was created by Video.js.
             this.play();
@@ -37,6 +66,7 @@ class App extends React.Component{
               videojs.log('Awww...over so soon?!');
             });
           }); 
+         
     }
 
     handleClick(item){
@@ -71,7 +101,6 @@ class App extends React.Component{
                 className="main-wrap"
             >
                 <div>
-                    <ul style={{listStyleType: "decimal-leading-zero",float:"left"}}>
                     {/* {
                         url.map((item,index)=>{
                             return <li style={{height:60}} key={item.name} onClick={()=>this.handleClick(item)}>
@@ -79,8 +108,7 @@ class App extends React.Component{
                                     </li>
                         })
                     } */}
-                    </ul>
-                    <video style={{width:"50vw",height:"70vh",margin:"0 auto"}} id="my-video" className="video-js vjs-default-skin">
+                    <video style={{width:"30vw",height:"50vh",margin:"0 auto"}} id="my-video" className="video-js vjs-default-skin">
                     </video>
                 </div>
             </div>   
@@ -88,4 +116,14 @@ class App extends React.Component{
     }
 }
 
-export default App
+function mapState(state) {
+    const { device } = state.device;
+    console.log(device)
+    return device ;
+}
+
+const actionCreators = {
+   
+};
+const connectedDevice = connect(mapState, actionCreators)(App);
+export default connectedDevice 

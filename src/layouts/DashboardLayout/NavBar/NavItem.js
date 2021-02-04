@@ -83,3 +83,4 @@ NavItem.propTypes = {
 };
 
 export default NavItem;
+// {props.data.devices.device_name}

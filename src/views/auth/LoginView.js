@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import React,{useEffect } from 'react';
+import { Link as RouterLink,  useLocation,useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import {
@@ -12,9 +12,11 @@ import {
   Typography,
   makeStyles
 } from '@material-ui/core';
-import FacebookIcon from 'src/icons/Facebook';
-import GoogleIcon from 'src/icons/Google';
-import Page from 'src/components/Page';
+
+import Page from '../../components/Page';
+import { userActions } from '../../_actions';
+import { useDispatch, useSelector, } from 'react-redux';
+import { useCookies } from 'react-cookie';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,7 +29,30 @@ const useStyles = makeStyles((theme) => ({
 
 const LoginView = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const loggingIn = useSelector(state => state.authentication);
   const navigate = useNavigate();
+  const [cookies, setCookie, removeCookie] = useCookies(['name']);
+
+
+  useEffect(() => { 
+        dispatch(userActions.logout()); 
+        removeCookie('access_token')
+        //  userService.verify()
+
+    }, []);
+    const location = useLocation();
+
+  useEffect(()=>{
+      if(loggingIn.loggedIn)
+       {
+         navigate('/app/dashboard', { replace: true });
+       }
+       
+
+  },[loggingIn])
+
+ 
 
   return (
     <Page
@@ -43,15 +68,19 @@ const LoginView = () => {
         <Container maxWidth="sm">
           <Formik
             initialValues={{
-              email: 'demo@devias.io',
+              email: 'admin@security.io',
               password: 'Password123'
             }}
             validationSchema={Yup.object().shape({
               email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
               password: Yup.string().max(255).required('Password is required')
             })}
-            onSubmit={() => {
-              navigate('/app/dashboard', { replace: true });
+            onSubmit={(e) => {
+            if (e.email && e.password) {
+                // get return url from location state or default to home page
+                const { from } = location.state || { from: { pathname: "/app/dashboard" } };
+                dispatch(userActions.login(e.email,e.password, from));
+            }
             }}
           >
             {({
@@ -83,37 +112,6 @@ const LoginView = () => {
                   container
                   spacing={3}
                 >
-                  <Grid
-                    item
-                    xs={12}
-                    md={6}
-                  >
-                    <Button
-                      color="primary"
-                      fullWidth
-                      startIcon={<FacebookIcon />}
-                      onClick={handleSubmit}
-                      size="large"
-                      variant="contained"
-                    >
-                      Login with Facebook
-                    </Button>
-                  </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                    md={6}
-                  >
-                    <Button
-                      fullWidth
-                      startIcon={<GoogleIcon />}
-                      onClick={handleSubmit}
-                      size="large"
-                      variant="contained"
-                    >
-                      Login with Google
-                    </Button>
-                  </Grid>
                 </Grid>
                 <Box
                   mt={3}
@@ -156,7 +154,6 @@ const LoginView = () => {
                 <Box my={2}>
                   <Button
                     color="primary"
-                    disabled={isSubmitting}
                     fullWidth
                     size="large"
                     type="submit"
@@ -165,6 +162,7 @@ const LoginView = () => {
                     Sign in now
                   </Button>
                 </Box>
+                
                 <Typography
                   color="textSecondary"
                   variant="body1"

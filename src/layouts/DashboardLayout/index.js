@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import React, { useState,useEffect } from 'react';
+import { Outlet,Navigate } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core';
 import NavBar from './NavBar';
 import TopBar from './TopBar';
-
+import { useCookies } from 'react-cookie';
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.dark,
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
     paddingTop: 64,
     [theme.breakpoints.up('lg')]: {
-      paddingLeft: '30px',
+      paddingLeft: 256
     }
   },
   contentContainer: {
@@ -36,14 +36,17 @@ const useStyles = makeStyles((theme) => ({
 const DashboardLayout = () => {
   const classes = useStyles();
   const [isMobileNavOpen, setMobileNavOpen] = useState(false);
+ const [cookies] = useCookies(['name']);
+  const isLoggedIn = cookies.access_token;
+  
 
-  return (
+  return isLoggedIn? (
     <div className={classes.root}>
       <TopBar onMobileNavOpen={() => setMobileNavOpen(true)} />
-      {/* <NavBar
+      <NavBar
         onMobileClose={() => setMobileNavOpen(false)}
         openMobile={isMobileNavOpen}
-      /> */}
+      />
       <div className={classes.wrapper}>
         <div className={classes.contentContainer}>
           <div className={classes.content}>
@@ -52,7 +55,7 @@ const DashboardLayout = () => {
         </div>
       </div>
     </div>
-  );
+  ): (<Navigate to={"/login"} replace={true}/> )
 };
 
 export default DashboardLayout;
