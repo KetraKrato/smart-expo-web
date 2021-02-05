@@ -174,7 +174,7 @@ const LoginView = () => {
                     to="/register"
                     variant="h6"
                   >
-                    Sign up
+                    Sign up!
                   </Link>
                 </Typography>
               </form>
