@@ -11,7 +11,12 @@ import {
   Link,
   TextField,
   Typography,
-  makeStyles
+  makeStyles,
+  Grid,
+  InputLabel,
+  Select,
+  MenuItem,
+  FormControl
 } from '@material-ui/core';
 import Page from '../../components/Page';
 
@@ -33,17 +38,27 @@ const RegisterView = () => {
       className={classes.root}
       title="Register"
     >
-      <Box
+      <Box  
         display="flex"
         flexDirection="column"
         height="100%"
         justifyContent="center"
       >
-        <Container maxWidth="sm">
+        <Container>
+
           <Formik
             initialValues={{
+            nametitle:'',
+            name: '',
+              surname: '',
+              nameeng: '',
+              surnameeng: '',
+              sex: '',
+              birthday: '',
+              location:'',
               email: '',
               password: '',
+              confirmpassword: '',
               policy: false
             }}
             validationSchema={
@@ -67,7 +82,8 @@ const RegisterView = () => {
               values
             }) => (
               <form onSubmit={handleSubmit}>
-                <Box mb={3}>
+                <Grid container>
+                <Box sm={12}>
                   <Typography
                     color="textPrimary"
                     variant="h2"
@@ -82,8 +98,80 @@ const RegisterView = () => {
                     Use your email to create new account
                   </Typography>
                 </Box>
-              
-                
+                </Grid>
+                <Grid 
+                  container
+                  direction="row"
+                  justify="space-between"
+                  alignItems="center"
+                  spacing={1}
+                  xs={12}           
+                  >
+                  <Grid item xs={2}>
+                      <TextField
+                  error={Boolean(touched.nametitle && errors.nametitle)}
+                  fullWidth
+                  helperText={touched.nametitle && errors.nametitle}
+                  label="Name Title"
+                  margin="normal"
+                  name="honorific-prefix"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  type="text"
+                  value={values.nametitle}
+                  variant="outlined"
+                  />
+                  </Grid>
+                  <Grid item xs={5}>
+                    <TextField
+                  error={Boolean(touched.name && errors.name)}
+                  fullWidth
+                  helperText={touched.name && errors.name}
+                  label="Name"
+                  margin="normal"
+                  name="given-name"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  type="text"
+                  value={values.name}
+                  variant="outlined"
+                />
+                  </Grid>
+                  <Grid item xs={5}>
+                    <TextField
+                  error={Boolean(touched.surname && errors.surname)}
+                  fullWidth
+                  helperText={touched.surname && errors.surname}
+                  label="Surname"
+                  margin="normal"
+                  name="family-name"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  type="text"
+                  value={values.surname}
+                  variant="outlined"
+                    />
+                    </Grid>
+                </Grid>
+                <Box fullWidth>
+                        <FormControl variant="outlined" className={classes.formControl}>
+            <InputLabel id="demo-simple-select-outlined-label">Age</InputLabel>
+        <Select
+          labelId="demo-simple-select-outlined-label"
+          id="demo-simple-select-outlined"
+          value={values.age}
+          onChange={handleChange}
+          label="Age"
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={"Male"}>Male</MenuItem>
+          <MenuItem value={"Female"}>Female</MenuItem>
+          <MenuItem value={"Other"}>Other</MenuItem>
+        </Select>
+      </FormControl>
+      </Box>
                 <TextField
                   error={Boolean(touched.email && errors.email)}
                   fullWidth
@@ -96,7 +184,7 @@ const RegisterView = () => {
                   type="email"
                   value={values.email}
                   variant="outlined"
-                />
+                    />
                 <TextField
                   error={Boolean(touched.password && errors.password)}
                   fullWidth
@@ -109,7 +197,21 @@ const RegisterView = () => {
                   type="password"
                   value={values.password}
                   variant="outlined"
+                    />
+                <TextField
+                  error={Boolean(touched.confirmpassword && errors.confirmpassword && touched.password)}
+                  fullWidth
+                  helperText={touched.confirmpassword && errors.confirmpassword && touched.password}
+                  label="ConfirmPassword"
+                  margin="normal"
+                  name="password"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  type="password"
+                  value={values.confirmpassword}
+                  variant="outlined"
                 />
+                
                 <Box
                   alignItems="center"
                   display="flex"

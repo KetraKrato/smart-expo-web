@@ -8,6 +8,7 @@ import NotFoundView from './views/errors/NotFoundView';
 import MapView from "./views/map"
 import DashboardView from "./views/reports/DashboardView"
 import AccountView from "./views/account"
+import AddAccountView from "./views/account/AddAccountView"
 import Event from "./views/Event/EventView"
 // import RemoteControl from "./views/remoteControl"
 // import AppManager from "./views/adb/index"
@@ -18,7 +19,8 @@ const routes = [
     children: [
       { path:'map', element: <MapView />},
       { path:'dashboard', element: <DashboardView />},
-      { path:'account' , element: < AccountView /> },
+      { path: 'account', element: < AccountView /> },
+      { path:'add_account' , element: < AddAccountView /> },
       { path:'event' , element: < Event /> },
    
 
