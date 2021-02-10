@@ -55,7 +55,7 @@ const RegisterView = () => {
               surnameeng: '',
               sex: '',
               birthday: '',
-              location:'',
+              address:'',
               email: '',
               password: '',
               confirmpassword: '',
@@ -153,26 +153,50 @@ const RegisterView = () => {
                     />
                     </Grid>
                 </Grid>
-                <Box fullWidth>
-                        <FormControl variant="outlined" className={classes.formControl}>
-            <InputLabel id="demo-simple-select-outlined-label">Age</InputLabel>
+                <Grid
+                  container
+                  direction="row"
+                  justify="space-between"
+                  alignItems="center"
+                  spacing={1}
+                  xs={12}>
+                  <Grid item xs={1}>
+<FormControl variant="outlined" className={classes.formControl}>
+        <InputLabel htmlFor="outlined-age-native-simple">Sex</InputLabel>
         <Select
-          labelId="demo-simple-select-outlined-label"
-          id="demo-simple-select-outlined"
-          value={values.age}
+          native
+          value={values.sex}
           onChange={handleChange}
-          label="Age"
+          label="sex"
+          inputProps={{
+            name: 'sex',
+            id: 'outlined-age-native-simple',
+          }}
         >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={"Male"}>Male</MenuItem>
-          <MenuItem value={"Female"}>Female</MenuItem>
-          <MenuItem value={"Other"}>Other</MenuItem>
+          <option aria-label="None" value="" />
+          <option value={"male"}>Male</option>
+          <option value={"female"}>Female</option>
+          <option value={"other"}>Other</option>
         </Select>
       </FormControl>
-      </Box>
-                <TextField
+                  </Grid>
+                  <Grid item xs={11}>  <TextField
+                  error={Boolean(touched.address && errors.address)}
+                  fullWidth
+                  helperText={touched.address && errors.address}
+                  label="Address"
+                  margin="normal"
+                  name="street-address"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  type="text"
+                  value={values.email}
+                  variant="outlined"
+                  />
+                    </Grid>
+                </Grid>
+                <Grid container>
+                  <Grid item xs={12}>  <TextField
                   error={Boolean(touched.email && errors.email)}
                   fullWidth
                   helperText={touched.email && errors.email}
@@ -184,7 +208,9 @@ const RegisterView = () => {
                   type="email"
                   value={values.email}
                   variant="outlined"
-                    />
+                  />
+                    </Grid>
+                <Grid item xs={12}>
                 <TextField
                   error={Boolean(touched.password && errors.password)}
                   fullWidth
@@ -198,6 +224,8 @@ const RegisterView = () => {
                   value={values.password}
                   variant="outlined"
                     />
+                    </Grid>
+                   <Grid item xs={12}>
                 <TextField
                   error={Boolean(touched.confirmpassword && errors.confirmpassword && touched.password)}
                   fullWidth
@@ -210,8 +238,10 @@ const RegisterView = () => {
                   type="password"
                   value={values.confirmpassword}
                   variant="outlined"
-                />
-                
+                    />
+                    </Grid>
+                </Grid>
+
                 <Box
                   alignItems="center"
                   display="flex"
