@@ -25,6 +25,7 @@ import DevicesIcon from '@material-ui/icons/Devices';
 import ListItem from '@material-ui/core/ListItem';
 import EventIcon from '@material-ui/icons/Event';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 // import Collapse from '@material-ui/core/Collapse';
 // import ListItemIcon from '@material-ui/core/ListItemIcon';
 // import StarBorder from '@material-ui/icons/StarBorder';
@@ -81,6 +82,11 @@ const items = [
     href: '/app/settings',
     icon: SettingsIcon,
     title: 'Settings'
+  },
+  {
+    href: '/app/blacklist',
+    icon: HighlightOffIcon,
+    title: 'Blacklist'
   },
   {
     href: '/404',

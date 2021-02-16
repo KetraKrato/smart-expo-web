@@ -50,6 +50,12 @@ const RegisterView = () => {
             initialValues={{
             nametitle:'',
             name: '',
+              surname: '',
+              nameeng: '',
+              surnameeng: '',
+              sex: '',
+              birthday: '',
+              address:'',
               email: '',
               password: '',
               confirmpassword: '',
@@ -92,6 +98,102 @@ const RegisterView = () => {
                     Use your email to create new account
                   </Typography>
                 </Box>
+                </Grid>
+                <Grid 
+                  container
+                  direction="row"
+                  justify="space-between"
+                  alignItems="center"
+                  spacing={1}
+                  xs={12}           
+                  >
+                  <Grid item xs={2}>
+                      <TextField
+                  error={Boolean(touched.nametitle && errors.nametitle)}
+                  fullWidth
+                  helperText={touched.nametitle && errors.nametitle}
+                  label="Name Title"
+                  margin="normal"
+                  name="honorific-prefix"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  type="text"
+                  value={values.nametitle}
+                  variant="outlined"
+                  />
+                  </Grid>
+                  <Grid item xs={5}>
+                    <TextField
+                  error={Boolean(touched.name && errors.name)}
+                  fullWidth
+                  helperText={touched.name && errors.name}
+                  label="Name"
+                  margin="normal"
+                  name="given-name"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  type="text"
+                  value={values.name}
+                  variant="outlined"
+                />
+                  </Grid>
+                  <Grid item xs={5}>
+                    <TextField
+                  error={Boolean(touched.surname && errors.surname)}
+                  fullWidth
+                  helperText={touched.surname && errors.surname}
+                  label="Surname"
+                  margin="normal"
+                  name="family-name"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  type="text"
+                  value={values.surname}
+                  variant="outlined"
+                    />
+                    </Grid>
+                </Grid>
+                <Grid
+                  container
+                  direction="row"
+                  justify="space-between"
+                  alignItems="center"
+                  spacing={1}
+                  xs={12}>
+                  <Grid item xs={1}>
+<FormControl variant="outlined" className={classes.formControl}>
+        <InputLabel htmlFor="outlined-age-native-simple">Sex</InputLabel>
+        <Select
+          native
+          value={values.sex}
+          onChange={handleChange}
+          label="sex"
+          inputProps={{
+            name: 'sex',
+            id: 'outlined-age-native-simple',
+          }}
+        >
+          <option aria-label="None" value="" />
+          <option value={"male"}>Male</option>
+          <option value={"female"}>Female</option>
+          <option value={"other"}>Other</option>
+        </Select>
+      </FormControl>
+                  </Grid>
+                  <Grid item xs={11}>  <TextField
+                  error={Boolean(touched.address && errors.address)}
+                  fullWidth
+                  helperText={touched.address && errors.address}
+                  label="Address"
+                  margin="normal"
+                  name="street-address"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  type="text"
+                  value={values.email}
+                  variant="outlined"
+                  />
+                    </Grid>
                 </Grid>
                 <Grid container>
                   <Grid item xs={12}>  <TextField
