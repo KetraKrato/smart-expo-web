@@ -184,10 +184,10 @@ const EnhancedTableToolbar = (props) => {
           selected
         </Typography>
       ) : (
-        <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-         Visitor History
-        </Typography>
-      )}
+          <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
+            Visitor History
+          </Typography>
+        )}
 
       {numSelected > 0 ? (
         <Tooltip title="Delete">
@@ -357,7 +357,7 @@ export default function EnhancedTable() {
     >
      
                 <Paper className={classes.paper}>
-                  <EnhancedTableToolbar numSelected={selected.length} />
+                  {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
                   <TableContainer>
                     <Table
                       className={classes.table}

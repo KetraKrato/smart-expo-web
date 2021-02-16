@@ -11,6 +11,7 @@ import AccountView from "./views/account"
 import AddAccountView from "./views/account/AddAccountView"
 import Event from "./views/Event/EventView"
 import Blacklist from "./views/Blacklist/pageBlacklist"
+import AddBlacklist from "./views/Blacklist/AddBlacklist"
 // import RemoteControl from "./views/remoteControl"
 // import AppManager from "./views/adb/index"
 const routes = [
@@ -22,7 +23,8 @@ const routes = [
       { path:'dashboard', element: <DashboardView />},
       { path: 'account', element: < AccountView /> },
       { path: 'add_account', element: < AddAccountView /> },
-      { path:'blacklist' , element: < Blacklist /> },
+      { path: 'blacklist', element: < Blacklist /> },
+      { path:'add_blacklist' , element: < AddBlacklist /> },
       { path:'event' , element: < Event /> },
    
 

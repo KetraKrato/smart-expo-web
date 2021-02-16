@@ -4,7 +4,7 @@ import PropTypes, { element } from 'prop-types';
 import { v4 as uuid } from 'uuid';
 import moment from 'moment';
 import Typography from '@material-ui/core/Typography';
-import TableBlacklist from "../Blacklist/index"
+import TableBlacklist from "./TableBlacklist"
 import {
   Box,
   Button,
@@ -14,11 +14,17 @@ import {
   colors,
   makeStyles,
     Container,
-  Grid,
+    Grid,
+  fade,
   
 } from '@material-ui/core';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-const useStyles = makeStyles(({
+import SearchIcon from '@material-ui/icons/Search';
+import InputBase from '@material-ui/core/InputBase';
+import { useNavigate } from 'react-router-dom';
+
+
+const useStyles = makeStyles((theme) =>({
     root: {
         height: '100%',
         borderRadius:20
@@ -41,10 +47,52 @@ const useStyles = makeStyles(({
         alignItems:"center",
         color:colors.grey[100],
     
-      }
+      },
+  search: {
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: fade(theme.palette.common.white, 0.25),
+    },
+    marginRight: theme.spacing(2),
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(3),
+      width: 'auto',
+    },
+  },
+  searchIcon: {
+    // padding: theme.spacing(0, 2),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    },
+  inputRoot: {
+    color: 'inherit',
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      width: '20ch',
+    },
+    },
+    topbar: {
+    padding: theme.spacing(5,0,0,0)
+    },
+  
 }));
 
 const Video = ({ className, ...rest }) => {
+const navigate = useNavigate();
   const classes = useStyles();
   const [products] = useState([]);
   React.useEffect(()=>{
@@ -53,10 +101,36 @@ const Video = ({ className, ...rest }) => {
   },[rest])
 
     return (  
-        <Container maxWidth={false}>
-            <Grid Container spacing={3}>
+        <Container maxWidth>
+            <Grid container
+                direction="row"
+                justify="center"
+                alignItems="center" spacing={3}>
                 <Grid item lg={12} md={12} xl={12} xs={12}>
-                    <Typography>Blacklist</Typography>
+                    <Grid container xs={12} spacing={3} className={classes.topbar} >
+                        <Grid item xs={9}> <Typography variant="h1">Blacklist</Typography></Grid>
+                        <Grid item xs={0.5}><Button  variant="contained" color="primary" size="large" className={classes.margin}
+       onClick= {()=>{
+             navigate('/app/add_blacklist', { replace: true });
+       }}
+       >
+          Add
+        </Button></Grid>
+                    <Grid item xs={2.5}> <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
+            </div>
+            <InputBase
+              placeholder="Search…"
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+              inputProps={{ 'aria-label': 'search' }}
+            />
+                        </div>
+                        </Grid>
+                        </Grid>
                 </Grid>
                  <Grid item lg={12} md={12} xl={12} xs={12}>
     <Card
