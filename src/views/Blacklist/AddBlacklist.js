@@ -19,6 +19,8 @@ import {
   FormControl
 } from '@material-ui/core';
 import Page from '../../components/Page';
+import NumberFormat from 'react-number-format';
+import PropTypes from 'prop-types';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,8 +28,71 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     paddingBottom: theme.spacing(3),
     paddingTop: theme.spacing(3)
-  }
+  },
+  formControl: {
+    paddingTop: theme.spacing(1),
+    //marginTop: theme.spacing(1),
+    //minWidth: 120,
+  },
 }));
+
+function NumberFormatCustom(props) {
+  const { inputRef, onChange, ...other } = props;
+
+  return (
+    <NumberFormat
+      {...other}
+      getInputRef={inputRef}
+      onValueChange={(values) => {
+        onChange({
+          target: {
+            name: props.name,
+            value: values.value,
+          },
+        });
+      }}
+      thousandSeparator
+      isNumericString
+      format="#-###-###-####"
+      mask="_"
+    />
+  );
+}
+
+NumberFormatCustom.propTypes = {
+  inputRef: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
+// function BirthFormatCustom(props) {
+//   const { inputRef, onChange, ...other } = props;
+
+//   return (
+//     <NumberFormat
+//       {...other}
+//       getInputRef={inputRef}
+//       onValueChange={(values) => {
+//         onChange({
+//           target: {
+//             name: props.name,
+//             value: values.value,
+//           },
+//         });
+//       }}
+//       thousandSeparator
+//       isNumericString
+//       format="##/##/##"
+//       mask="DD/MM/YY"
+//     />
+//   );
+// }
+
+// BirthFormatCustom.propTypes = {
+//   inputRef: PropTypes.func.isRequired,
+//   name: PropTypes.string.isRequired,
+//   onChange: PropTypes.func.isRequired,
+// };
 
 const RegisterView = () => {
   const classes = useStyles();
@@ -53,12 +118,16 @@ const RegisterView = () => {
               surname: '',
               nameeng: '',
               surnameeng: '',
+              IdCardNumber: '',
+              PassportNumber:'',
               sex: '',
+              race: '',
+              nationality: '',
               birthday: '',
+              age: '',
+              height: '',
+              weight: '',
               address:'',
-              email: '',
-              password: '',
-              confirmpassword: '',
               policy: false
             }}
             validationSchema={
@@ -88,15 +157,15 @@ const RegisterView = () => {
                     color="textPrimary"
                     variant="h2"
                   >
-                    Create new account
+                    Add Blacklist
                   </Typography>
-                  <Typography
+                  {/* <Typography
                     color="textSecondary"
                     gutterBottom
                     variant="body2"
                   >
                     Use your email to create new account
-                  </Typography>
+                  </Typography> */}
                 </Box>
                 </Grid>
                 <Grid 
@@ -104,7 +173,7 @@ const RegisterView = () => {
                   direction="row"
                   justify="space-between"
                   alignItems="center"
-                  spacing={1}
+                  spacing={0}
                   xs={12}           
                   >
                   <Grid item xs={2}>
@@ -153,16 +222,56 @@ const RegisterView = () => {
                     />
                     </Grid>
                 </Grid>
+                <Grid container spacing={0}>
+                  <Grid item xs={12}>
+                   <TextField
+                  error={Boolean(touched.IdCardNumber && errors.IdCardNumber)}
+                  fullWidth
+                  helperText={touched.IdCardNumber && errors.IdCardNumber}
+                  label="ID CardNumber"
+                  margin="normal"
+                    name="number"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  type="text"
+                  value={values.IdCardNumber}
+                    variant="outlined"
+                  InputProps={{
+                      inputComponent: NumberFormatCustom,
+                            }}
+                    />
+                    </Grid>
+                </Grid>
+                <Grid container spacing={0}>
+                  <Grid item xs={12}>
+                   <TextField
+                  error={Boolean(touched.PassportNumber && errors.PassportNumber)}
+                  fullWidth
+                  helperText={touched.PassportNumber && errors.PassportNumber}
+                  label="Passport Number"
+                  margin="normal"
+                    name="number"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  type="text"
+                  value={values.PassportNumber}
+                    variant="outlined"
+                  InputProps={{
+                      inputComponent: NumberFormatCustom,
+                            }}
+                    />
+                    </Grid>
+                </Grid>
                 <Grid
                   container
                   direction="row"
-                  justify="space-between"
+                  justify="flex-start"
                   alignItems="center"
-                  spacing={1}
+                  spacing={0}
                   xs={12}>
                   <Grid item xs={1}>
 <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel htmlFor="outlined-age-native-simple">Sex</InputLabel>
+        <InputLabel className={classes.formControl} htmlFor="outlined-age-native-simple">Sex</InputLabel>
         <Select
           native
           value={values.sex}
@@ -180,66 +289,127 @@ const RegisterView = () => {
         </Select>
       </FormControl>
                   </Grid>
-                  <Grid item xs={11}>  <TextField
+                  <Grid item xs={1}>
+                    <TextField
+                  error={Boolean(touched.IdCardNumber && errors.IdCardNumber)}
+                  fullWidth
+                  helperText={touched.IdCardNumber && errors.IdCardNumber}
+                  label="ID CardNumber"
+                  margin="normal"
+                    name="number"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  type="text"
+                  value={values.IdCardNumber}
+                    variant="outlined"
+                  InputProps={{
+                      inputComponent: NumberFormatCustom,
+                            }}
+                    />
+                </Grid>
+                </Grid>
+                <Grid container xs={12}>
+                  <Grid container xs={9}>
+                    <Grid container xs={12}
+                      direction="row"
+                      justify="flex-start"
+                      alignItems="center">
+                       <Grid item xs={1}>
+                          <FormControl variant="outlined" className={classes.formControl}>
+                              <InputLabel className={classes.formControl} htmlFor="outlined-age-native-simple">Sex</InputLabel>
+                                  <Select
+                                    native
+                                    value={values.sex}
+                                    onChange={handleChange}
+                                    label="sex"
+                                    inputProps={{
+                                    name: 'sex',
+                                    id: 'outlined-age-native-simple',
+                                    }}
+                                  >
+                                  <option aria-label="None" value="" />
+                                  <option value={"male"}>Male</option>
+                                  <option value={"female"}>Female</option>
+                                  <option value={"other"}>Other</option>
+                                  </Select>
+                        </FormControl>
+                      </Grid>
+                      <Grid item xs={1}>
+                        <TextField
+                          error={Boolean(touched.race && errors.race)}
+                          fullWidth
+                          helperText={touched.race && errors.race}
+                          label="Race"
+                          margin="normal"
+                          name="text"
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+                          type="text"
+                          value={values.race}
+                          variant="outlined"
+                        />
+                      </Grid>
+                      <Grid item xs={1}>
+                        <TextField
+                          error={Boolean(touched.nationality && errors.nationality)}
+                          fullWidth
+                          helperText={touched.nationality && errors.nationality}
+                          label="Nationality"
+                          margin="normal"
+                          name="text"
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+                          type="text"
+                          value={values.nationality}
+                          variant="outlined"
+                        />
+                      </Grid>
+                      <Grid item xs={1}>
+                        <TextField
+                          error={Boolean(touched.birthday && errors.birthday)}
+                          fullWidth
+                          helperText={touched.birthday && errors.birthday}
+                          label="Birthday"
+                          margin="normal"
+                          name="text"
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+                          type="text"
+                          value={values.birthday}
+                          variant="outlined"
+                          //  InputProps={{
+                          //       inputComponent: BirthFormatCustom,
+                          //   }}
+                        />
+                      </Grid>
+                    </Grid>
+                    <Grid container xs={12}>
+
+                    </Grid>
+                    <Grid container xs={12}>
+                      <Grid item xs={12}>
+                        <TextField
                   error={Boolean(touched.address && errors.address)}
                   fullWidth
                   helperText={touched.address && errors.address}
                   label="Address"
                   margin="normal"
-                  name="street-address"
+                    name="number"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   type="text"
-                  value={values.email}
-                  variant="outlined"
-                  />
-                    </Grid>
-                </Grid>
-                <Grid container>
-                  <Grid item xs={12}>  <TextField
-                  error={Boolean(touched.email && errors.email)}
-                  fullWidth
-                  helperText={touched.email && errors.email}
-                  label="Email Address"
-                  margin="normal"
-                  name="email"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  type="email"
-                  value={values.email}
-                  variant="outlined"
-                  />
-                    </Grid>
-                <Grid item xs={12}>
-                <TextField
-                  error={Boolean(touched.password && errors.password)}
-                  fullWidth
-                  helperText={touched.password && errors.password}
-                  label="Password"
-                  margin="normal"
-                  name="password"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  type="password"
-                  value={values.password}
-                  variant="outlined"
+                  value={values.address}
+                    variant="outlined"
+                  InputProps={{
+                      inputComponent: NumberFormatCustom,
+                            }}
                     />
+                      </Grid>
                     </Grid>
-                   <Grid item xs={12}>
-                <TextField
-                  error={Boolean(touched.confirmpassword && errors.confirmpassword && touched.password)}
-                  fullWidth
-                  helperText={touched.confirmpassword && errors.confirmpassword && touched.password}
-                  label="ConfirmPassword"
-                  margin="normal"
-                  name="password"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  type="password"
-                  value={values.confirmpassword}
-                  variant="outlined"
-                    />
-                    </Grid>
+                  </Grid>
+                  <Grid container xs={3}>
+
+                  </Grid>
                 </Grid>
 
                 <Box

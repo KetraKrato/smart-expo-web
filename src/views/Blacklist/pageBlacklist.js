@@ -55,13 +55,13 @@ const useStyles = makeStyles((theme) =>({
     '&:hover': {
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
-    marginRight: theme.spacing(2),
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(3),
-      width: 'auto',
-    },
+    // marginRight: theme.spacing(2),
+    // marginLeft: 0,
+    // width: '100%',
+    // [theme.breakpoints.up('sm')]: {
+    //   marginLeft: theme.spacing(3),
+    //   width: 'auto',
+    // },
   },
   searchIcon: {
     // padding: theme.spacing(0, 2),
@@ -71,9 +71,12 @@ const useStyles = makeStyles((theme) =>({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingLeft: '1em',
     },
   inputRoot: {
     color: 'inherit',
+    border: '1px solid #000',
+    borderRadius: '5px',
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
@@ -81,12 +84,12 @@ const useStyles = makeStyles((theme) =>({
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create('width'),
     width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
+    [theme.breakpoints.up('xs')]: {
+      width: '38ch',
     },
     },
     topbar: {
-    padding: theme.spacing(5,0,0,0)
+      padding: theme.spacing(5,0,0,0)
     },
   
 }));
@@ -107,16 +110,20 @@ const navigate = useNavigate();
                 justify="center"
                 alignItems="center" spacing={3}>
                 <Grid item lg={12} md={12} xl={12} xs={12}>
-                    <Grid container xs={12} spacing={3} className={classes.topbar} >
+                <Grid container
+                      direction="row"
+                      justify="flex-start"
+                      alignItems="center"
+                      xs={12} spacing={1} className={classes.topbar} >
                         <Grid item xs={9}> <Typography variant="h1">Blacklist</Typography></Grid>
-                        <Grid item xs={0.5}><Button  variant="contained" color="primary" size="large" className={classes.margin}
+                        <Grid item><Button  variant="contained" color="primary" size="large" className={classes.margin}
        onClick= {()=>{
              navigate('/app/add_blacklist', { replace: true });
        }}
        >
           Add
         </Button></Grid>
-                    <Grid item xs={2.5}> <div className={classes.search}>
+                    <Grid item xs={2}> <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
