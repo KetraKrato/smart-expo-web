@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState} from 'react';
 import { Link as RouterLink} from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -96,12 +96,13 @@ NumberFormatCustom.propTypes = {
 
 const RegisterView = () => {
   const classes = useStyles();
+  const [data,setData] = useState({})
   // const navigate = useNavigate();na
 
   return (
     <Page
       className={classes.root}
-      title="Register"
+      title="Add Blacklist"
     >
       <Box  
         display="flex"
@@ -110,11 +111,10 @@ const RegisterView = () => {
         justifyContent="center"
       >
         <Container>
-
           <Formik
             initialValues={{
-            nametitle:'',
-            name: '',
+              nametitle:'',
+              name: '',
               surname: '',
               nameeng: '',
               surnameeng: '',
@@ -127,17 +127,19 @@ const RegisterView = () => {
               age: '',
               height: '',
               weight: '',
-              address:'',
+              address: '',
+              phone_number:'',
               policy: false
             }}
             validationSchema={
               Yup.object().shape({
                 email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                password: Yup.string().max(255).required('password is required'),
+                name: Yup.string().max(255).required('name is required'),
                 policy: Yup.boolean().oneOf([true], 'This field must be checked')
               })
             }
-            onSubmit={() => {
+            onSubmit={(data) => {
+              setData(data)
               // navigate('/app/dashboard', { replace: true });
             }}
           >
@@ -177,19 +179,19 @@ const RegisterView = () => {
                   xs={12}           
                   >
                   <Grid item xs={2}>
-                      <TextField
+                <TextField
                   error={Boolean(touched.nametitle && errors.nametitle)}
                   fullWidth
                   helperText={touched.nametitle && errors.nametitle}
-                  label="Name Title"
+                  label="NameTitle"
                   margin="normal"
-                  name="honorific-prefix"
+                      name="nametitle"
+                    autoComplete="honorific-prefix"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  type="text"
                   value={values.nametitle}
                   variant="outlined"
-                  />
+                />
                   </Grid>
                   <Grid item xs={5}>
                     <TextField
@@ -197,8 +199,9 @@ const RegisterView = () => {
                   fullWidth
                   helperText={touched.name && errors.name}
                   label="Name"
-                  margin="normal"
-                  name="given-name"
+                      margin="normal"
+                      name="name"
+                  autoComplete="given-name"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   type="text"
@@ -212,8 +215,9 @@ const RegisterView = () => {
                   fullWidth
                   helperText={touched.surname && errors.surname}
                   label="Surname"
-                  margin="normal"
-                  name="family-name"
+                      margin="normal"
+                      name="surname"
+                  autoComplete="family-name"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   type="text"
@@ -230,7 +234,7 @@ const RegisterView = () => {
                   helperText={touched.IdCardNumber && errors.IdCardNumber}
                   label="ID CardNumber"
                   margin="normal"
-                    name="number"
+                  name="IdCardNumber"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   type="text"
@@ -250,63 +254,15 @@ const RegisterView = () => {
                   helperText={touched.PassportNumber && errors.PassportNumber}
                   label="Passport Number"
                   margin="normal"
-                    name="number"
+                    name="PassportNumber"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   type="text"
                   value={values.PassportNumber}
                     variant="outlined"
-                  InputProps={{
-                      inputComponent: NumberFormatCustom,
-                            }}
+                  
                     />
                     </Grid>
-                </Grid>
-                <Grid
-                  container
-                  direction="row"
-                  justify="flex-start"
-                  alignItems="center"
-                  spacing={0}
-                  xs={12}>
-                  <Grid item xs={1}>
-<FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel className={classes.formControl} htmlFor="outlined-age-native-simple">Sex</InputLabel>
-        <Select
-          native
-          value={values.sex}
-          onChange={handleChange}
-          label="sex"
-          inputProps={{
-            name: 'sex',
-            id: 'outlined-age-native-simple',
-          }}
-        >
-          <option aria-label="None" value="" />
-          <option value={"male"}>Male</option>
-          <option value={"female"}>Female</option>
-          <option value={"other"}>Other</option>
-        </Select>
-      </FormControl>
-                  </Grid>
-                  <Grid item xs={1}>
-                    <TextField
-                  error={Boolean(touched.IdCardNumber && errors.IdCardNumber)}
-                  fullWidth
-                  helperText={touched.IdCardNumber && errors.IdCardNumber}
-                  label="ID CardNumber"
-                  margin="normal"
-                    name="number"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  type="text"
-                  value={values.IdCardNumber}
-                    variant="outlined"
-                  InputProps={{
-                      inputComponent: NumberFormatCustom,
-                            }}
-                    />
-                </Grid>
                 </Grid>
                 <Grid container xs={12}>
                   <Grid container xs={9}>
@@ -341,7 +297,7 @@ const RegisterView = () => {
                           helperText={touched.race && errors.race}
                           label="Race"
                           margin="normal"
-                          name="text"
+                          name="race"
                           onBlur={handleBlur}
                           onChange={handleChange}
                           type="text"
@@ -356,7 +312,7 @@ const RegisterView = () => {
                           helperText={touched.nationality && errors.nationality}
                           label="Nationality"
                           margin="normal"
-                          name="text"
+                          name="nationality"
                           onBlur={handleBlur}
                           onChange={handleChange}
                           type="text"
@@ -371,7 +327,7 @@ const RegisterView = () => {
                           helperText={touched.birthday && errors.birthday}
                           label="Birthday"
                           margin="normal"
-                          name="text"
+                          name="birthday"
                           onBlur={handleBlur}
                           onChange={handleChange}
                           type="text"
@@ -394,15 +350,12 @@ const RegisterView = () => {
                   helperText={touched.address && errors.address}
                   label="Address"
                   margin="normal"
-                    name="number"
+                    name="address"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   type="text"
                   value={values.address}
                     variant="outlined"
-                  InputProps={{
-                      inputComponent: NumberFormatCustom,
-                            }}
                     />
                       </Grid>
                     </Grid>
