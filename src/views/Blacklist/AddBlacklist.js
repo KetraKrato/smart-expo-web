@@ -23,6 +23,7 @@ import NumberFormat from 'react-number-format';
 import PropTypes from 'prop-types';
 import DropzoneDialog from './DropzoneDialog';
 import CardMedia from '@material-ui/core/CardMedia';
+import Klee from './Klee.jpg'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -38,8 +39,8 @@ const useStyles = makeStyles((theme) => ({
     //minWidth: 120,
   },
   media: {
-    width:345,
-    height: 140,
+    width:150,
+    height: 150,
   },
 }));
 
@@ -387,11 +388,6 @@ const RegisterView = () => {
                   </Grid>
                   <Grid container xs={3}>
                     <DropzoneDialog className={classes.media} />
-                    <CardMedia
-                      className={classes.media}
-                    image="../Blcklist/Klee.JPG"
-                    title="Contemplative Reptile"
-                    />
                   </Grid>
                 </Grid>
 

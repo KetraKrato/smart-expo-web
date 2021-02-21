@@ -5,7 +5,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import { string } from 'yup';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
-
+import Klee from './Klee.jpg'
 
 export default class DropzoneDialogExample extends Component {
     constructor(props) {
@@ -23,16 +23,17 @@ export default class DropzoneDialogExample extends Component {
         var reader = new FileReader();
         var url = reader.readAsDataURL(file);
         console.log(url)
-        this.setState({
-            filesURL: [reader.result],
-            open: false
-        });
-
+        reader.onloadend = function (e) {
+            this.setState({
+                filesURL: [reader.result],
+                open: false
+            });
+        }
     }
 
     handleSave(files) {
         //Saving files to state for further use and closing Modal.
-
+        
         this.setState({
             files: files,
             open: false,
@@ -54,10 +55,16 @@ export default class DropzoneDialogExample extends Component {
                 <Button onClick={this.handleOpen.bind(this)}>
                     Add Image
                 </Button>
-                <CardMedia
-                    image="Klee.jpg"
+               
+                    <CardMedia
+                    component="img"
+                    width="150"
+                    height="150"
+                    image={ Klee }
                     title="Contemplative Reptile"
                     />
+                
+
                 <DropzoneDialog
                     open={this.state.open}
                     onSave={this.handleSave.bind(this)}
