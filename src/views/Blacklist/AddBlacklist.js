@@ -21,6 +21,9 @@ import {
 import Page from '../../components/Page';
 import NumberFormat from 'react-number-format';
 import PropTypes from 'prop-types';
+import DropzoneDialog from './DropzoneDialog';
+import CardMedia from '@material-ui/core/CardMedia';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,6 +36,10 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(1),
     //marginTop: theme.spacing(1),
     //minWidth: 120,
+  },
+  media: {
+    width:345,
+    height: 140,
   },
 }));
 
@@ -338,6 +345,24 @@ const RegisterView = () => {
                           //   }}
                         />
                       </Grid>
+                      <Grid item xs={1}>
+                        <TextField
+                          error={Boolean(touched.age && errors.age)}
+                          fullWidth
+                          helperText={touched.age && errors.age}
+                          label="Age"
+                          margin="normal"
+                          name="age"
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+                          type="number"
+                          value={values.age}
+                          variant="outlined"
+                          //  InputProps={{
+                          //       inputComponent: BirthFormatCustom,
+                          //   }}
+                        />
+                      </Grid>
                     </Grid>
                     <Grid container xs={12}>
 
@@ -361,7 +386,12 @@ const RegisterView = () => {
                     </Grid>
                   </Grid>
                   <Grid container xs={3}>
-
+                    <DropzoneDialog className={classes.media} />
+                    <CardMedia
+                      className={classes.media}
+                    image="../Blcklist/Klee.JPG"
+                    title="Contemplative Reptile"
+                    />
                   </Grid>
                 </Grid>
 
