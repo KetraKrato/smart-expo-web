@@ -55,7 +55,21 @@ const DashboardLayout = () => {
         </div>
       </div>
     </div>
-  ): (<Navigate to={"/login"} replace={true}/> )
+  ) : (<div className={classes.root}>
+      <TopBar onMobileNavOpen={() => setMobileNavOpen(true)} />
+      <NavBar
+        onMobileClose={() => setMobileNavOpen(false)}
+        openMobile={isMobileNavOpen}
+      />
+      <div className={classes.wrapper}>
+        <div className={classes.contentContainer}>
+          <div className={classes.content}>
+            <Outlet />
+          </div>
+        </div>
+      </div>
+    </div>)
+    //(<Navigate to={"/login"} replace={true} />)
 };
 
 export default DashboardLayout;

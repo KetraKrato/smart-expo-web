@@ -106,7 +106,7 @@ export default class DropzoneDialogExample extends Component {
                     marginLeft: '6px',
                     border: 'solid 1px #000',
                     borderRadius : '5px',
-                    width: '230px',
+                    width: '200px',
                     height:'300px',
                 
                 }} src={this.state.files} alt="..." />

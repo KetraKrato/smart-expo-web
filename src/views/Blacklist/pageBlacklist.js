@@ -50,14 +50,16 @@ const useStyles = makeStyles((theme) =>({
       },
   search: {
     position: 'relative',
+    margin: theme.spacing(1, 0, 1, 2),
+    padding: theme.spacing(0,1,0,0),
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
-    },
+    // backgroundColor: fade(theme.palette.common.white, 0.15),
+    // '&:hover': {
+    //   backgroundColor: fade(theme.palette.common.white, 0.25),
+    // },
     // marginRight: theme.spacing(2),
     // marginLeft: 0,
-    // width: '100%',
+    width: '100%',
     // [theme.breakpoints.up('sm')]: {
     //   marginLeft: theme.spacing(3),
     //   width: 'auto',
@@ -77,20 +79,26 @@ const useStyles = makeStyles((theme) =>({
     color: 'inherit',
     border: '1px solid #000',
     borderRadius: '5px',
+    width: '100%',
   },
   inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
+    padding: theme.spacing(1.5,0,1.5,1),
     // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('xs')]: {
-      width: '38ch',
-    },
+    //width: '100%',
+    // [theme.breakpoints.up('xs')]: {
+    //   width: '38ch',
+    // },
     },
     topbar: {
       padding: theme.spacing(5,0,0,0)
-    },
+  },
+  Cancel: {
+    background: '#ba000d',
+    color: '#ffffff',
+
+  },
   
 }));
 
@@ -107,36 +115,48 @@ const navigate = useNavigate();
         <Container maxWidth>
             <Grid container
                 direction="row"
-                justify="center"
+                justify="space-between"
                 alignItems="center" spacing={3}>
                 <Grid item lg={12} md={12} xl={12} xs={12}>
                 <Grid container
                       direction="row"
-                      justify="flex-start"
+                      justify="space-between"
                       alignItems="center"
                       xs={12} spacing={1} className={classes.topbar} >
-                        <Grid item xs={9}> <Typography variant="h1">Blacklist</Typography></Grid>
-                        <Grid item><Button  variant="contained" color="primary" size="large" className={classes.margin}
-       onClick= {()=>{
-             navigate('/app/add_blacklist', { replace: true });
-       }}
-       >
-          Add
-        </Button></Grid>
-                    <Grid item xs={2}> <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
+              <Grid item xs={9}> <Typography variant="h1">Blacklist</Typography></Grid>
+              <Grid item xs={3}>
+                <Grid container
+                  direction="row"
+                  justify="flex-end"
+                  alignItems="center"
+                  xs={12}
+                >
+                  <Grid item xs={2}>
+                    <Button variant="contained" color="primary" size="large" className={classes.margin}
+                      onClick= {()=>{
+                            navigate('/app/add_blacklist', { replace: true });
+                      }}
+                      >
+                                Add
+                      </Button>
+              </Grid>
+                    <Grid item xs={10}> <div className={classes.search}>
+                        <div className={classes.searchIcon}>
+                            <SearchIcon />
+                          </div>
+                          <InputBase
+                            placeholder="Search…"
+                            classes={{
+                              root: classes.inputRoot,
+                              input: classes.inputInput,
+                            }}
+                            inputProps={{ 'aria-label': 'search' }}
+                          />
                         </div>
                         </Grid>
+                </Grid>
+              </Grid>
+                       
                         </Grid>
                 </Grid>
                  <Grid item lg={12} md={12} xl={12} xs={12}>

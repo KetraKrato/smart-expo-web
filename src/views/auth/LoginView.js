@@ -44,10 +44,10 @@ const LoginView = () => {
     const location = useLocation();
 
   useEffect(()=>{
-      if(loggingIn.loggedIn)
-       {
-         navigate('/app/dashboard', { replace: true });
-       }
+    if (loggingIn.loggedIn) {
+      navigate('/app/dashboard', { replace: true });
+    }
+
        
 
   },[loggingIn])
@@ -81,6 +81,7 @@ const LoginView = () => {
                 const { from } = location.state || { from: { pathname: "/app/dashboard" } };
                 dispatch(userActions.login(e.email,e.password, from));
             }
+
             }}
           >
             {({

@@ -24,7 +24,7 @@ import PropTypes from 'prop-types';
 import DropzoneDialog from './DropzoneDialog';
 import CardMedia from '@material-ui/core/CardMedia';
 import Klee from './Klee.jpg'
-
+import { red } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   formControl: {
     paddingTop: theme.spacing(1),
     //marginTop: theme.spacing(1),
-    //minWidth: 120,
+    width: '100%' ,
   },
   media: {
     width:150,
@@ -45,6 +45,16 @@ const useStyles = makeStyles((theme) => ({
   text: {
     height:100
   },
+    Cancel: {
+    background: '#ba000d',
+    color: '#ffffff',
+
+  },
+  Name: {
+    marginLeft: '8px',
+    paddingRight : '8px'
+  },
+  
 }));
 
 function NumberFormatCustom(props) {
@@ -76,40 +86,18 @@ NumberFormatCustom.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-// function BirthFormatCustom(props) {
-//   const { inputRef, onChange, ...other } = props;
+const date = '2021-06-26' // or Date or Moment.js
 
-//   return (
-//     <NumberFormat
-//       {...other}
-//       getInputRef={inputRef}
-//       onValueChange={(values) => {
-//         onChange({
-//           target: {
-//             name: props.name,
-//             value: values.value,
-//           },
-//         });
-//       }}
-//       thousandSeparator
-//       isNumericString
-//       format="##/##/##"
-//       mask="DD/MM/YY"
-//     />
-//   );
-// }
 
-// BirthFormatCustom.propTypes = {
-//   inputRef: PropTypes.func.isRequired,
-//   name: PropTypes.string.isRequired,
-//   onChange: PropTypes.func.isRequired,
-// };
 
 const RegisterView = () => {
   const classes = useStyles();
   const [data,setData] = useState({})
   // const navigate = useNavigate();na
 
+  const onChange = (jsDate, dateString) => {
+
+  }
   return (
     <Page
       className={classes.root}
@@ -124,17 +112,17 @@ const RegisterView = () => {
         <Container>
           <Formik
             initialValues={{
-              nametitle:'',
+              nametitle: '',
               name: '',
               surname: '',
               nameeng: '',
               surnameeng: '',
               IdCardNumber: '',
-              PassportNumber:'',
+              PassportNumber: '',
               sex: '',
               race: '',
               nationality: '',
-              birthday: '',
+              birthday:'',
               age: '',
               height: '',
               weight: '',
@@ -188,52 +176,59 @@ const RegisterView = () => {
                   alignItems="center"
                   spacing={0}
                   xs={12}           
-                  >
-                  <Grid item xs={2}>
-                <TextField
-                  error={Boolean(touched.nametitle && errors.nametitle)}
-                  fullWidth
-                  helperText={touched.nametitle && errors.nametitle}
-                  label="NameTitle"
-                  margin="normal"
-                      name="nametitle"
-                    autoComplete="honorific-prefix"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.nametitle}
-                  variant="outlined"
-                />
+                >
+                   <Grid item xs={2}>
+                          <FormControl variant="outlined" className={classes.formControl}>
+                              <InputLabel className={classes.formControl} htmlFor="outlined-age-native-simple">NameTitle</InputLabel>
+                                  <Select
+                                    native
+                                    value={values.nametitle}
+                                    onChange={handleChange}
+                                    label="NameTitle"
+                                    inputProps={{
+                                    name: 'nametitle',
+                                    id: 'outlined-age-native-simple',
+                                    }}
+                                  >
+                                  <option aria-label="None" value="" />
+                                  <option value={"male"}>Mr.</option>
+                                  <option value={"female"}>Mrs.</option>
+                                  <option value={"other"}>Other</option>
+                                  </Select>
+                        </FormControl>
+                      </Grid>
+                  <Grid item xs={5}>
+                    <TextField
+                      className={classes.Name}
+                      error={Boolean(touched.name && errors.name)}
+                      fullWidth
+                      helperText={touched.name && errors.name}
+                      label="Name"
+                          margin="normal"
+                          name="name"
+                      autoComplete="given-name"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      type="text"
+                      value={values.name}
+                      variant="outlined"
+                    />
                   </Grid>
                   <Grid item xs={5}>
                     <TextField
-                  error={Boolean(touched.name && errors.name)}
-                  fullWidth
-                  helperText={touched.name && errors.name}
-                  label="Name"
-                      margin="normal"
-                      name="name"
-                  autoComplete="given-name"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  type="text"
-                  value={values.name}
-                  variant="outlined"
-                />
-                  </Grid>
-                  <Grid item xs={5}>
-                    <TextField
-                  error={Boolean(touched.surname && errors.surname)}
-                  fullWidth
-                  helperText={touched.surname && errors.surname}
-                  label="Surname"
-                      margin="normal"
-                      name="surname"
-                  autoComplete="family-name"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  type="text"
-                  value={values.surname}
-                  variant="outlined"
+                      className={classes.Name}
+                      error={Boolean(touched.surname && errors.surname)}
+                      fullWidth
+                      helperText={touched.surname && errors.surname}
+                      label="Surname"
+                          margin="normal"
+                          name="surname"
+                      autoComplete="family-name"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      type="text"
+                      value={values.surname}
+                      variant="outlined"
                     />
                     </Grid>
                 </Grid>
@@ -276,11 +271,13 @@ const RegisterView = () => {
                     </Grid>
                 </Grid>
                 <Grid container xs={12}>
-                  <Grid container xs={9}>
+                  <Grid container xs={10} >
                     <Grid container xs={12}
                       direction="row"
                       justify="flex-start"
-                      alignItems="center">
+                      alignItems="center"
+                      spacing={1}
+                    >
                        <Grid item xs={1}>
                           <FormControl variant="outlined" className={classes.formControl}>
                               <InputLabel className={classes.formControl} htmlFor="outlined-age-native-simple">Sex</InputLabel>
@@ -316,7 +313,7 @@ const RegisterView = () => {
                           variant="outlined"
                         />
                       </Grid>
-                      <Grid item xs={1}>
+                      <Grid item xs={2}>
                         <TextField
                           error={Boolean(touched.nationality && errors.nationality)}
                           fullWidth
@@ -333,6 +330,25 @@ const RegisterView = () => {
                       </Grid>
                       <Grid item xs={1}>
                         <TextField
+                          error={Boolean(touched.age && errors.age)}
+                          fullWidth
+                          helperText={touched.age && errors.age}
+                          label="Age"
+                          margin="normal"
+                          name="age"
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+                          type="number"
+                          value={values.age}
+                          variant="outlined"
+                          //  InputProps={{
+                          //       inputComponent: BirthFormatCustom,
+                          //   }}
+                        />
+                      </Grid>
+                      <Grid item xs={2}>
+                        <TextField
+                          id="date"
                           error={Boolean(touched.birthday && errors.birthday)}
                           fullWidth
                           helperText={touched.birthday && errors.birthday}
@@ -341,64 +357,49 @@ const RegisterView = () => {
                           name="birthday"
                           onBlur={handleBlur}
                           onChange={handleChange}
-                          type="text"
+                          type="date"
                           value={values.birthday}
                           variant="outlined"
-                          //  InputProps={{
-                          //       inputComponent: BirthFormatCustom,
-                          //   }}
+                          emptyLabel
+                         InputLabelProps={{
+                            shrink: true,
+                          }}
                         />
+                    
                       </Grid>
-                      <Grid item xs={1}>
-                        <TextField
-                          error={Boolean(touched.age && errors.age)}
-                          fullWidth
-                          helperText={touched.age && errors.age}
-                          label="Age"
-                          margin="normal"
-                          name="age"
-                          onBlur={handleBlur}
-                          onChange={handleChange}
-                          type="number"
-                          value={values.age}
-                          variant="outlined"
-                          //  InputProps={{
-                          //       inputComponent: BirthFormatCustom,
-                          //   }}
-                        />
-                      </Grid>
+                      
                     </Grid>
-                    <Grid container xs={12}>
-                           <Grid item xs={1}>
+                    <Grid container xs={12} spacing={1}>
+                           <Grid item xs={2}>
                         <TextField
                           error={Boolean(touched.age && errors.age)}
                           fullWidth
                           helperText={touched.age && errors.age}
-                          label="Age"
+                          label="Height"
                           margin="normal"
-                          name="age"
+                          name="height"
                           onBlur={handleBlur}
                           onChange={handleChange}
                           type="number"
-                          value={values.age}
+                          value={values.height}
                           variant="outlined"
                           //  InputProps={{
                           //       inputComponent: BirthFormatCustom,
                           //   }}
                         />
                       </Grid>
-                      <Grid item xs={1}>
+                      <Grid item xs={2}>
                         <TextField
                           error={Boolean(touched.age && errors.age)}
                           fullWidth
                           helperText={touched.age && errors.age}
-                          label="Age"
+                          label="Weight"
                           margin="normal"
-                          name="age"
+                          name="weight"
                           onBlur={handleBlur}
                           onChange={handleChange}
                           type="number"
-                          value={values.age}
+                          value={values.weight}
                           variant="outlined"
                           //  InputProps={{
                           //       inputComponent: BirthFormatCustom,
@@ -428,7 +429,11 @@ const RegisterView = () => {
                       </Grid>
                     </Grid>
                   </Grid>
-                  <Grid container xs={3}>
+                  <Grid container
+                    direction="row"
+                    justify="flex-end"
+                    alignItems="center"
+                    xs={2}>
                     <Grid item>
                       <DropzoneDialog
                         className={classes.media}
@@ -436,61 +441,40 @@ const RegisterView = () => {
                     </Grid>
                   </Grid>
                 </Grid>
-
-                <Box
+                <Grid container
+                  direction="row"
+                  justify="flex-end"
                   alignItems="center"
-                  display="flex"
-                  ml={-1}
+                  spacing={1}
                 >
-                  <Checkbox
-                    checked={values.policy}
-                    name="policy"
-                    onChange={handleChange}
-                  />
-                  <Typography
-                    color="textSecondary"
-                    variant="body1"
-                  >
-                    I have read the
-                    {' '}
-                    <Link
-                      color="primary"
-                      component={RouterLink}
-                      to="#"
-                      underline="always"
-                      variant="h6"
+                  <Grid item>
+                    <Button
+                      className={classes.Cancel}
+                      disabled={isSubmitting}
+                      // fullWidth
+                      size="large"
+                      type="submit"
+                      variant="contained"
                     >
-                      Terms and Conditions
-                    </Link>
-                  </Typography>
-                </Box>
-                {Boolean(touched.policy && errors.policy) && (
-                  <FormHelperText error>
-                    {errors.policy}
-                  </FormHelperText>
-                )}
-                <Box my={2}>
-                  <Button
+                      Cancle
+                    </Button>
+                  </Grid>
+                  <Grid item>
+                     <Button
                     color="primary"
                     disabled={isSubmitting}
                     // fullWidth
                     size="large"
                     type="submit"
                     variant="contained"
-                  >
-                    Cancle
-                  </Button>
-                  <Button
-                    color="primary"
-                    disabled={isSubmitting}
-                    // fullWidth
-                    size="large"
-                    type="submit"
-                    variant="contained"
-                  >
+                    >
                     Add
                   </Button>
-                </Box>
+                  </Grid>
+              
+       
+                </Grid>                     
+               
               
               </form>
             )}
