@@ -1,45 +1,90 @@
 import React, { Component } from 'react'
 import {DropzoneDialog} from 'material-ui-dropzone'
 import Button from '@material-ui/core/Button';
-import CardMedia from '@material-ui/core/CardMedia';
 import { string } from 'yup';
-import { makeStyles } from '@material-ui/core/styles';
-import Avatar from '@material-ui/core/Avatar';
-import Klee from './Klee.jpg'
+
+
+import NoImage from './NoImage.png'
 
 export default class DropzoneDialogExample extends Component {
     constructor(props) {
         super(props);
         this.state = {
             open: false,
-            files: [],
+            files: [NoImage],
             filesURL: null
         };
     }
     
     handleClose() {
-        
-        var file = this.state.files[0];
+        this.setState({
+                open: false
+        });
+        console.log("handleclose")
+
+    }
+    setFile(files){ 
+        var file = files.target.file[0]
+        console.log(file)
         var reader = new FileReader();
-        var url = reader.readAsDataURL(file);
-        console.log(url)
-        reader.onloadend = function (e) {
+        if (file) {
+            var url = reader.readAsDataURL(file);
+            console.log(url)
+            console.log("checkfile")
+            console.log(this.state.files)
+            
             this.setState({
                 filesURL: [reader.result],
-                open: false
             });
         }
+        else {
+            console.log(this.state.files)
+            console.log("Not file")
+        }
     }
-
     handleSave(files) {
         //Saving files to state for further use and closing Modal.
-        
-        this.setState({
-            files: files,
-            open: false,
-        });
-       
+        // this.setState({
+        //     files: files,
+        //     open: false,
+        // });
+        // this.setState(prevState => ({
+        //     file: files,
+        //     open: false
+        // }))
+        console.log(files)
+        // this.setState(prevState => {
+        // return {
+        //     files: files,
+        //     // filesURL : URL.createObjectURL(files.target.files[0]),
+        //     open: false,
+        //  }
+        // })
+        var file = files[0];
+   
+    const reader = new FileReader();
+    var url     = reader.readAsDataURL(file);
+    try{
+        reader.onloadend = function (result) {
+        console.log(file)
+        console.log(reader.result)
+            this.setState({
+                files: [reader.result],
+                open: false,
+            });
+     }.bind(this)
     }
+    catch(e) {
+      alert("นำเข้ารูปภาพล้มเหลว")
+    } 
+    // console.log(profile); // Would see a path?
+  };
+        //console.log(this.state.files)
+        // this.setFile(files)
+    check() { 
+        console.log(this.state.files)
+    }
+
 
     handleOpen() {
         this.setState({
@@ -51,18 +96,20 @@ export default class DropzoneDialogExample extends Component {
         
         return (
             
-            <div>
-                <Button onClick={this.handleOpen.bind(this)}>
+            <div onClick={this.handleOpen.bind(this)}>
+                
+                {/* <Button onClick={this.handleOpen.bind(this)}>
                     Add Image
-                </Button>
-               
-                    <CardMedia
-                    component="img"
-                    width="150"
-                    height="150"
-                    image={ Klee }
-                    title="Contemplative Reptile"
-                    />
+                </Button> */}
+
+                <img style={{
+                    marginLeft: '6px',
+                    border: 'solid 1px #000',
+                    borderRadius : '5px',
+                    width: '230px',
+                    height:'300px',
+                
+                }} src={this.state.files} alt="..." />
                 
 
                 <DropzoneDialog

@@ -42,6 +42,9 @@ const useStyles = makeStyles((theme) => ({
     width:150,
     height: 150,
   },
+  text: {
+    height:100
+  },
 }));
 
 function NumberFormatCustom(props) {
@@ -366,28 +369,71 @@ const RegisterView = () => {
                       </Grid>
                     </Grid>
                     <Grid container xs={12}>
-
+                           <Grid item xs={1}>
+                        <TextField
+                          error={Boolean(touched.age && errors.age)}
+                          fullWidth
+                          helperText={touched.age && errors.age}
+                          label="Age"
+                          margin="normal"
+                          name="age"
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+                          type="number"
+                          value={values.age}
+                          variant="outlined"
+                          //  InputProps={{
+                          //       inputComponent: BirthFormatCustom,
+                          //   }}
+                        />
+                      </Grid>
+                      <Grid item xs={1}>
+                        <TextField
+                          error={Boolean(touched.age && errors.age)}
+                          fullWidth
+                          helperText={touched.age && errors.age}
+                          label="Age"
+                          margin="normal"
+                          name="age"
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+                          type="number"
+                          value={values.age}
+                          variant="outlined"
+                          //  InputProps={{
+                          //       inputComponent: BirthFormatCustom,
+                          //   }}
+                        />
+                      </Grid>
                     </Grid>
                     <Grid container xs={12}>
                       <Grid item xs={12}>
                         <TextField
-                  error={Boolean(touched.address && errors.address)}
-                  fullWidth
-                  helperText={touched.address && errors.address}
-                  label="Address"
-                  margin="normal"
-                    name="address"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  type="text"
-                  value={values.address}
-                    variant="outlined"
-                    />
+                          id="outlined-multiline-static"
+                          error={Boolean(touched.address && errors.address)}
+                          fullWidth
+                          multiline
+                          rows={4}
+                          helperText={touched.address && errors.address}
+                          label="Address"
+                          margin="normal"
+                          name="address"
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+                          type="text"
+                          value={values.address}
+                          variant="outlined"
+                        />
+
                       </Grid>
                     </Grid>
                   </Grid>
                   <Grid container xs={3}>
-                    <DropzoneDialog className={classes.media} />
+                    <Grid item>
+                      <DropzoneDialog
+                        className={classes.media}
+                    />
+                    </Grid>
                   </Grid>
                 </Grid>
 
@@ -427,28 +473,25 @@ const RegisterView = () => {
                   <Button
                     color="primary"
                     disabled={isSubmitting}
-                    fullWidth
+                    // fullWidth
                     size="large"
                     type="submit"
                     variant="contained"
                   >
-                    Sign up now
+                    Cancle
+                  </Button>
+                  <Button
+                    color="primary"
+                    disabled={isSubmitting}
+                    // fullWidth
+                    size="large"
+                    type="submit"
+                    variant="contained"
+                  >
+                    Add
                   </Button>
                 </Box>
-                <Typography
-                  color="textSecondary"
-                  variant="body1"
-                >
-                  Have an account?
-                  {' '}
-                  <Link
-                    component={RouterLink}
-                    to="/login"
-                    variant="h6"
-                  >
-                    Sign in
-                  </Link>
-                </Typography>
+              
               </form>
             )}
           </Formik>
