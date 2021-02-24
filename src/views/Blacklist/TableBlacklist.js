@@ -30,9 +30,9 @@ import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
 import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
 
 
-function createData(rank, photo, name, age, status, detail) {
+function createData(id,  name, sex, age, company,position, detail) {
   return {
-    rank, photo, name, age, status,detail
+    id,  name, sex, age, company, position, detail
   };
 }
 
@@ -68,16 +68,13 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
-    id: 'rank', numeric: false, disablePadding: true, label: 'ID'
+    id: 'id', numeric: false, disablePadding: true, label: 'ID'
   },
   {
-    id: 'picture', numeric: true, disablePadding: false, label: ' '
+    id: 'name', numeric: true, disablePadding: false, label: 'Name'
   },
   {
-    id: 'user', numeric: true, disablePadding: false, label: 'Name'
-  },
-  {
-    id: 'device', numeric: true, disablePadding: false, label: 'Sex'
+    id: 'sex', numeric: true, disablePadding: false, label: 'Sex'
   },
   {
     id: 'age', numeric: true, disablePadding: false, label: 'Age '
@@ -109,11 +106,12 @@ function EnhancedTableHead(props) {
             onChange={onSelectAllClick}
             inputProps={{ 'aria-label': 'select all desserts' }}
           />
-  </TableCell> 
+          </TableCell> 
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? 'center' : 'left'}
+            align={ 'left'}
+            // align={headCell.numeric ? 'center' : 'left'}
             padding={headCell.disablePadding ? 'none' : 'default'}
             sortDirection={orderBy === headCell.id ? order : false}
           >
@@ -163,7 +161,8 @@ const useToolbarStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.secondary.dark,
       },
   title: {
-    flex: '1 1 100%',
+    
+     flex: '1 1 100%',
   },
 }));
 
@@ -222,6 +221,7 @@ const useStyles = makeStyles((theme) => ({
   },
   table: {
     minWidth: 1,
+    // background:'#12346f',
   },
   visuallyHidden: {
     border: 0,
@@ -275,22 +275,27 @@ export default function EnhancedTable() {
 
 
   const [rows,setRows] = React.useState([
-    createData(1,'photo','Nattatam Watanakajonchaikul', 22, 'Admin', 'icon ...'),
-    createData(2,'photo','Watanaka Tinkuran', 10, 'Admin', 'icon ...'),
-    createData(3,'photo','LLLLLLLL dfsdfsdfsdfdsf', 25, 'Admin', 'icon ...'),
+    createData(1,'Nattatam Watanakajonchaikul','Male', 22, 'DataCenter .co th', 'CEO'),
+    createData(2,'Watanaka Tinkuran','Female', 10, 'DataCheck .co th', 'Staff'),
+    createData(3,'LLLLLLLL dfsdfsdfsdfdsf', 'Female', 25, 'TechSmart', 'Staff'),
+    createData(4,'Watanaka Tinkuran', 'Female', 10, 'DataCheck .co th', 'Staff'),
+    createData(5, 'Watanaka Tinkuran', 'Female', 10, 'DataCheck .co th', 'Staff'),
+    createData(6, 'Watanaka Tinkuran', 'Female', 10, 'DataCheck .co th', 'Staff'),
+    createData(7,'Watanaka Tinkuran','Female', 10, 'DataCheck .co th', 'Staff'),
   ])
 
-  React.useEffect(async ()=>{
-    let getHistory = await historyService.getHistory().then((data)=>{
-      return data
+  //call data form backend
+  // React.useEffect(async ()=>{
+  //   let getHistory = await historyService.getHistory().then((data)=>{
+  //     return data
   
-    }).catch((e)=>{
-      throw e
-    })
-    console.log(getHistory.data.history)
-    setRows(getHistory.data.history)
+  //   }).catch((e)=>{
+  //     throw e
+  //   })
+  //   console.log(getHistory.data.history)
+  //   setRows(getHistory.data.history)
 
-  },[])
+  // },[])
 
 
   const handleRequestSort = (event, property) => {
@@ -427,13 +432,13 @@ export default function EnhancedTable() {
                                   {moment(row.created).format("HH:mm:ss")}
 
                                 </TableCell>*/}
-                                <TableCell component="th" id={labelId} scope="row"align="center" >
+                                {/* <TableCell component="th" id={labelId} scope="row"align="center" >
                                     <Avatar
                                     alt="image_detection"
                                     className={classes.avatar}
                                     src={apiConstants.uri+row.face_path?.substring(6,row.face_path.length)}
                                    />
-                                </TableCell>
+                                </TableCell> */}
 
 
                                  { row.face?.member_picture ? (
@@ -441,13 +446,24 @@ export default function EnhancedTable() {
                                   
                                   {row.face?.member_picture.member.group.name}
                                   </TableCell>
-                                 ): (
-                                  <TableCell align="left">
-                                    Stanger</TableCell>
+                                ) : (
+                                    // demo data
+                                    <div>
+                                      <TableCell component="th" id={labelId} scope="row"align="center" >
+                                          <Avatar
+                                          alt="image_detection"
+                                          className={classes.avatar}
+                                          src={apiConstants.uri+row.face_path?.substring(6,row.face_path.length)}
+                                        />
+                                        </TableCell>
+                                      <TableCell align="left">
+                                        {row.name}
+                                        </TableCell>
+                                      </div>
                                   )   
                                 }
-                                 { row.face?.member_picture ? (
-                                 <TableCell align="left">
+                                { row.sex?.member_picture ? (
+                                  <TableCell align="left">
                                   
                                   <Avatar
                                     alt="image_detection"
@@ -455,31 +471,66 @@ export default function EnhancedTable() {
                                     src={apiConstants.uri+row.face.member_picture.image_path?.substring(6,row.face.member_picture.image_path.length)}
                                    />
                                   </TableCell>
-                                 ): (
-                                  <TableCell align="center">
+                                ) : (
+                                    <TableCell>
+                                      {row.sex}
+                                    </TableCell>
+                                )
+
+                                }
+
+                                { row.age?.member_picture ? (
+                                  <TableCell align="left">
+                                  
                                   <Avatar
                                     alt="image_detection"
                                     className={classes.avatar}
-                                    src={apiConstants.uri+"/images/upload_images/"+ row.face?.image_name}
+                                    src={apiConstants.uri+row.face.member_picture.image_path?.substring(6,row.face.member_picture.image_path.length)}
                                    />
                                   </TableCell>
-                                 )   
+                                ) : (
+                                    <TableCell>
+                                      {row.age}
+                                    </TableCell>
+                                )
+
                                 }
-                                 { row.face?.member_picture ? (
-                                 <TableCell align="left">
-                                  
-                                  {row.face?.member_picture.member.firstName}
-                                  </TableCell>
-                                 ): (
+                              { row.company?.member_picture ? (
                                   <TableCell align="left">
-                                  ไม่พบในฐานข้อมูล
+                                  
+                                  <Avatar
+                                    alt="image_detection"
+                                    className={classes.avatar}
+                                    src={apiConstants.uri+row.face.member_picture.image_path?.substring(6,row.face.member_picture.image_path.length)}
+                                   />
                                   </TableCell>
-                                 )   
+                                ) : (
+                                    <TableCell>
+                                      {row.company}
+                                    </TableCell>
+                                )
+
+                                }
+                                { row.position?.member_picture ? (
+                                  <TableCell align="left">
+                                  
+                                  <Avatar
+                                    alt="image_detection"
+                                    className={classes.avatar}
+                                    src={apiConstants.uri+row.face.member_picture.image_path?.substring(6,row.face.member_picture.image_path.length)}
+                                   />
+                                  </TableCell>
+                                ) : (
+                                    <TableCell>
+                                      {row.position}
+                                    </TableCell>
+                                )
+
                                 }
                                
-                                <TableCell align="center">{row.device?.device_name} </TableCell>
+                                {/* <TableCell align="center">{row.device?.device_name} </TableCell>
                                 <TableCell align="center">{row.device?.location.LocationName} </TableCell>
-                                <TableCell align="center">{row.device?.location.event.eventName}</TableCell>
+                                <TableCell align="center">{row.device?.location.event.eventName}</TableCell> */}
                               </TableRow>
                             );
                           })}

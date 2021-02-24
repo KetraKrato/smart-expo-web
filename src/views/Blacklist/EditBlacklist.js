@@ -1,4 +1,4 @@
-import React, { useState,useEffect} from 'react';
+import React, { useState} from 'react';
 import { Link as RouterLink} from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -23,13 +23,8 @@ import NumberFormat from 'react-number-format';
 import PropTypes from 'prop-types';
 import DropzoneDialog from './DropzoneDialog';
 import CardMedia from '@material-ui/core/CardMedia';
-// import Klee from './Klee.jpg'
-// import { red } from '@material-ui/core/colors';
-import { useNavigate } from 'react-router-dom';
-import {deviceService} from "../../services"
-import { useDispatch, useSelector, } from 'react-redux';
-import {alertDialogActions} from '../../_actions';
-import Alert from "../../components/Alert"
+import Klee from './Klee.jpg'
+import { red } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -97,34 +92,17 @@ const date = '2021-06-26' // or Date or Moment.js
 
 const RegisterView = () => {
   const classes = useStyles();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const alertDialog = useSelector(state => state.alertDialog);
-  const [alert, setAlert] = useState(false)
-  const [data, setData] = useState({})
-  useEffect(()=>{
-  if ( alertDialog.type === 'success' && data != {}) {
-    deviceService.addDevice(data).then((data) => {
-      console.log(data)
-      if (data.status === 200) {
-        setAlert(true)
-      }
-    }).catch((e) => {
-      alert(e)
-    })
-        
+  const [data,setData] = useState({})
+  // const navigate = useNavigate();na
+
+  const onChange = (jsDate, dateString) => {
+
   }
-}, [alertDialog])
-
-
   return (
     <Page
       className={classes.root}
       title="Add Blacklist"
     >
-            {alert &&
-             <Alert massage="Add Blacklist is Success"></Alert>
-            }
       <Box  
         display="flex"
         flexDirection="column"
@@ -150,20 +128,18 @@ const RegisterView = () => {
               weight: '',
               address: '',
               phone_number:'',
-    
+              policy: false
             }}
             validationSchema={
               Yup.object().shape({
-                // email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
+                email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
                 name: Yup.string().max(255).required('name is required'),
-                // policy: Yup.boolean().oneOf([true], 'This field must be checked')
+                policy: Yup.boolean().oneOf([true], 'This field must be checked')
               })
             }
             onSubmit={(data) => {
-              dispatch(alertDialogActions.pending("Do you want to Confirm add Blacklist ?"));
               setData(data)
-              console.log(data)
-               // navigate('/app/dashboard', { replace: true });
+              // navigate('/app/dashboard', { replace: true });
             }}
           >
             {({
@@ -173,8 +149,7 @@ const RegisterView = () => {
               handleSubmit,
               isSubmitting,
               touched,
-              values,
-              
+              values
             }) => (
               <form onSubmit={handleSubmit}>
                 <Grid container>
@@ -229,8 +204,8 @@ const RegisterView = () => {
                       fullWidth
                       helperText={touched.name && errors.name}
                       label="Name"
-                      margin="normal"
-                      name="name"
+                          margin="normal"
+                          name="name"
                       autoComplete="given-name"
                       onBlur={handleBlur}
                       onChange={handleChange}
@@ -475,25 +450,24 @@ const RegisterView = () => {
                   <Grid item>
                     <Button
                       className={classes.Cancel}
-                      //disabled={isSubmitting}
+                      disabled={isSubmitting}
                       // fullWidth
                       size="large"
-                      //type="submit"
+                      type="submit"
                       variant="contained"
-                      onClick={() => {  navigate('/app/blacklist', { replace: true }); }}
                     >
                       Cancle
                     </Button>
                   </Grid>
                   <Grid item>
-                  <Button
+                     <Button
                     color="primary"
-                    // disabled={isSubmitting}
-                    fullWidth
+                    disabled={isSubmitting}
+                    // fullWidth
                     size="large"
                     type="submit"
                     variant="contained"
-                  >
+                    >
                     Add
                   </Button>
                   </Grid>
