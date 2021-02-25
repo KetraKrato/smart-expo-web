@@ -18,7 +18,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
-import { Grid, Container } from '@material-ui/core';
+import { Grid, Container, Button } from '@material-ui/core';
 import {historyService} from "../../services"
 import Page from '../../components/Page';
 import moment from "moment"
@@ -28,7 +28,8 @@ import GroupIcon from '@material-ui/icons/Group';
 import { colors} from "@material-ui/core"
 import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
 import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
-
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import Popover from '@material-ui/core/Popover';
 
 function createData(id,  name, sex, age, company,position, detail) {
   return {
@@ -84,6 +85,9 @@ const headCells = [
   },
   {
     id: 'position', numeric: true, disablePadding: false, label: 'Position'
+  },
+    {
+    id: ' ', numeric: false , disablePadding: false, label: ' '
   },
 ];
 
@@ -162,8 +166,9 @@ const useToolbarStyles = makeStyles((theme) => ({
       },
   title: {
     
-     flex: '1 1 100%',
+    flex: '1 1 100%',
   },
+
 }));
 
 const EnhancedTableToolbar = (props) => {
@@ -260,6 +265,17 @@ const useStyles = makeStyles((theme) => ({
     height:48,
     width: 48,
     color:colors.grey[100]
+  },
+  editpop: {
+    background: '#00e676',
+    color:'#ffffff'
+  }, '&:hover': {
+    background: '#33eb91',
+    color:'#000'
+  },
+  deletepop: {
+    background: '#ba000d',
+    color:'#ffffff'
   }
 
 }));
@@ -273,7 +289,20 @@ export default function EnhancedTable() {
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
+ const [anchorEl, setAnchorEl] = React.useState(null);
 
+  const handleClickPop = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClosePop = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
+
+  
   const [rows,setRows] = React.useState([
     createData(1,'Nattatam Watanakajonchaikul','Male', 22, 'DataCenter .co th', 'CEO'),
     createData(2,'Watanaka Tinkuran','Female', 10, 'DataCheck .co th', 'Staff'),
@@ -527,7 +556,28 @@ export default function EnhancedTable() {
                                 )
 
                                 }
-                               
+                                <TableCell>
+                                  <Button onClick={handleClickPop}>
+                                    <MoreHorizIcon/>
+                                  </Button>
+                                  <Popover
+                                      id={id}
+                                      open={open}
+                                      anchorEl={anchorEl}
+                                      onClose={handleClosePop}
+                                      anchorOrigin={{
+                                        vertical: 'bottom',
+                                        horizontal: 'center',
+                                      }}
+                                      transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'center',
+                                      }}
+                                    >
+                                      <Button fullWidth className={classes.editpop}>Edit</Button><br/>
+                                      <Button className={classes.deletepop}>Delete</Button>
+                                    </Popover>
+                                  </TableCell>
                                 {/* <TableCell align="center">{row.device?.device_name} </TableCell>
                                 <TableCell align="center">{row.device?.location.LocationName} </TableCell>
                                 <TableCell align="center">{row.device?.location.event.eventName}</TableCell> */}
