@@ -12,6 +12,7 @@ import AddAccountView from "./views/account/AddAccountView"
 import Event from "./views/Event/EventView"
 import Blacklist from "./views/Blacklist/pageBlacklist"
 import AddBlacklist from "./views/Blacklist/AddBlacklist"
+import ShowDetailBlacklist from './views/Blacklist/ShowDetailBlacklist'
 // import RemoteControl from "./views/remoteControl"
 // import AppManager from "./views/adb/index"
 const routes = [
@@ -26,7 +27,7 @@ const routes = [
       { path: 'blacklist', element: < Blacklist /> },
       { path:'add_blacklist' , element: < AddBlacklist /> },
       { path:'event' , element: < Event /> },
-   
+      { path: 'blacklist/detailblacklist' , element: < ShowDetailBlacklist/>}
 
     ,
         // { path: '*', element: <Navigate to="/404" /> }
@@ -45,7 +46,8 @@ const routes = [
       { path: '*', element: <Navigate to="/404" /> }
       // { path: '*', element: <Navigate to="/404" /> }
     ]
-  }
+  },
+    
 ];
 
 export default routes;

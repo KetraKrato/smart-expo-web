@@ -30,6 +30,7 @@ import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
 import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import Popover from '@material-ui/core/Popover';
+import { useNavigate } from 'react-router-dom';
 
 function createData(id,  name, sex, age, company,position, detail) {
   return {
@@ -288,6 +289,7 @@ export default function EnhancedTable() {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const navigate = useNavigate();
 
  const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -418,12 +420,13 @@ export default function EnhancedTable() {
                             return (
                               <TableRow
                                 hover
-                                onClick={(event) => handleClick(event, row.name)}
+                                onClick={() => {  navigate('/app/blacklist/detailblacklist', { replace: true }); }}
+                                // onClick={(event) => handleClick(event, row.name)}
                                 // role="checkbox"
                                 // aria-checked={isItemSelected}
                                 tabIndex={-1}
                                 key={row.id}
-                                // selected={isItemSelected}
+                                selected={isItemSelected}
                               >
                                 <TableCell padding="checkbox">
                                   {/* <Checkbox
