@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState,useEffect} from 'react';
 import { Link as RouterLink} from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -23,8 +23,13 @@ import NumberFormat from 'react-number-format';
 import PropTypes from 'prop-types';
 import DropzoneDialog from './DropzoneDialog';
 import CardMedia from '@material-ui/core/CardMedia';
-import Klee from './Klee.jpg'
-import { red } from '@material-ui/core/colors';
+// import Klee from './Klee.jpg'
+// import { red } from '@material-ui/core/colors';
+import { useNavigate } from 'react-router-dom';
+import {deviceService} from "../../services"
+import { useDispatch, useSelector, } from 'react-redux';
+import {alertDialogActions} from '../../_actions';
+import Alert from "../../components/Alert"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -92,31 +97,34 @@ const date = '2021-06-26' // or Date or Moment.js
 
 const RegisterView = () => {
   const classes = useStyles();
-  const [data,setData] = useState({})
-  // const navigate = useNavigate();na
-
-//call data form backend
-  // React.useEffect(async ()=>{
-  //   let getHistory = await historyService.getHistory().then((data)=>{
-  //     return data
-  
-  //   }).catch((e)=>{
-  //     throw e
-  //   })
-  //   console.log(getHistory.data.history)
-  //   setRows(getHistory.data.history)
-
-  // },[])
-
-
-  const onChange = (jsDate, dateString) => {
-
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const alertDialog = useSelector(state => state.alertDialog);
+  const [alert, setAlert] = useState(false)
+  const [data, setData] = useState({})
+  useEffect(()=>{
+  if ( alertDialog.type === 'success' && data != {}) {
+    deviceService.addDevice(data).then((data) => {
+      console.log(data)
+      if (data.status === 200) {
+        setAlert(true)
+      }
+    }).catch((e) => {
+      alert(e)
+    })
+        
   }
+}, [alertDialog])
+
+
   return (
     <Page
       className={classes.root}
       title="Add Blacklist"
     >
+            {alert &&
+             <Alert massage="Add Blacklist is Success"></Alert>
+            }
       <Box  
         display="flex"
         flexDirection="column"
@@ -132,28 +140,31 @@ const RegisterView = () => {
               nameeng: '',
               surnameeng: '',
               IdCardNumber: '',
-              PassportNumber: '',
               sex: '',
-              race: '',
-              nationality: '',
               birthday:'',
               age: '',
               height: '',
               weight: '',
               address: '',
-              phone_number:'',
-              policy: false
+              home_phone:'',
+              phone_number: '',
+              position: '',
+              company: '',
+              email:'',
+    
             }}
             validationSchema={
               Yup.object().shape({
                 email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
                 name: Yup.string().max(255).required('name is required'),
-                policy: Yup.boolean().oneOf([true], 'This field must be checked')
+                // policy: Yup.boolean().oneOf([true], 'This field must be checked')
               })
             }
             onSubmit={(data) => {
+              dispatch(alertDialogActions.pending("Do you want to Confirm add Blacklist ?"));
               setData(data)
-              // navigate('/app/dashboard', { replace: true });
+              console.log(data)
+               // navigate('/app/dashboard', { replace: true });
             }}
           >
             {({
@@ -163,7 +174,8 @@ const RegisterView = () => {
               handleSubmit,
               isSubmitting,
               touched,
-              values
+              values,
+              
             }) => (
               <form onSubmit={handleSubmit}>
                 <Grid container>
@@ -172,7 +184,7 @@ const RegisterView = () => {
                     color="textPrimary"
                     variant="h2"
                   >
-                    Add Blacklist
+                    Add Staff
                   </Typography>
                   {/* <Typography
                     color="textSecondary"
@@ -218,8 +230,8 @@ const RegisterView = () => {
                       fullWidth
                       helperText={touched.name && errors.name}
                       label="Name"
-                          margin="normal"
-                          name="name"
+                      margin="normal"
+                      name="name"
                       autoComplete="given-name"
                       onBlur={handleBlur}
                       onChange={handleChange}
@@ -268,25 +280,7 @@ const RegisterView = () => {
                 </Grid>
                 <Grid container spacing={0}>
                   <Grid item xs={12}>
-                   <TextField
-                  error={Boolean(touched.PassportNumber && errors.PassportNumber)}
-                  fullWidth
-                  helperText={touched.PassportNumber && errors.PassportNumber}
-                  label="Passport Number"
-                  margin="normal"
-                    name="PassportNumber"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  type="text"
-                  value={values.PassportNumber}
-                    variant="outlined"
-                  
-                    />
-                    </Grid>
-                </Grid>
-                <Grid container xs={12}>
-                  <Grid container xs={10} >
-                    <Grid container xs={12}
+                                        <Grid container xs={12}
                       direction="row"
                       justify="flex-start"
                       alignItems="center"
@@ -381,10 +375,7 @@ const RegisterView = () => {
                         />
                     
                       </Grid>
-                      
-                    </Grid>
-                    <Grid container xs={12} spacing={1}>
-                           <Grid item xs={2}>
+                      <Grid item xs={2}>
                         <TextField
                           error={Boolean(touched.age && errors.age)}
                           fullWidth
@@ -421,9 +412,7 @@ const RegisterView = () => {
                         />
                       </Grid>
                     </Grid>
-                    <Grid container xs={12}>
-                      <Grid item xs={12}>
-                        <TextField
+                    <TextField
                           id="outlined-multiline-static"
                           error={Boolean(touched.address && errors.address)}
                           fullWidth
@@ -439,7 +428,116 @@ const RegisterView = () => {
                           value={values.address}
                           variant="outlined"
                         />
-
+                   {/* <TextField
+                  error={Boolean(touched.PassportNumber && errors.PassportNumber)}
+                  fullWidth
+                  helperText={touched.PassportNumber && errors.PassportNumber}
+                  label="Passport Number"
+                  margin="normal"
+                    name="PassportNumber"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  type="text"
+                  value={values.PassportNumber}
+                    variant="outlined"
+                  
+                    /> */}
+                    
+                    </Grid>
+                </Grid> 
+                <Grid container xs={12}>
+                  <Grid container xs={10} >
+                    <Grid container xs={12}
+                      direction="row"
+                      justify="flex-start"
+                      alignItems="center"
+                      spacing={1}
+                    >
+                       <Grid item xs={3}>
+                          <FormControl variant="outlined" className={classes.formControl}>
+                              <InputLabel className={classes.formControl} htmlFor="outlined-age-native-simple">Position</InputLabel>
+                                  <Select
+                                    native
+                                    value={values.position}
+                                    onChange={handleChange}
+                                    label="position"
+                                    inputProps={{
+                                    name: 'position',
+                                    id: 'outlined-age-native-simple',
+                                    }}
+                                  >
+                                  <option aria-label="None" value="" />
+                                  <option value={"male"}>Staff</option>
+                                  <option value={"female"}>Sale</option>
+                                  <option value={"other"}>Other</option>
+                                  </Select>
+                        </FormControl>
+                      </Grid>
+                      <Grid item xs>
+                        <TextField
+                          error={Boolean(touched.company && errors.company)}
+                          fullWidth
+                          //helperText={touched.race && errors.race}
+                          label="Company"
+                          margin="normal"
+                          name="company"
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+                          type="text"
+                          value={values.company}
+                          variant="outlined"
+                        />
+                      </Grid>
+                      
+                    </Grid>
+                    <Grid container xs={12}>
+                      <Grid item xs={12}>
+                        <TextField
+                          id="outlined-multiline-static"
+                          //error={Boolean(touched.address && errors.address)}
+                          fullWidth
+                          // multiline
+                          // rows={4}
+                          helperText={touched.address && errors.address}
+                          label="Home Phone"
+                          margin="normal"
+                          name="home_phone"
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+                          type="text"
+                          value={values.home_phone}
+                          variant="outlined"
+                        />
+                      <TextField
+                      //className={classes.Name}
+                      // error={Boolean(touched.name && errors.name)}
+                      fullWidth
+                      //helperText={touched.name && errors.name}
+                      label="Moblie Phone"
+                      margin="normal"
+                      name="phone_number"
+                      autoComplete="given-name"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      type="text"
+                      value={values.phone_number}
+                      variant="outlined"
+                        />
+                        <TextField
+                      //className={classes.Name}
+                      error={Boolean(touched.name && errors.name)}
+                      fullWidth
+                      helperText={touched.email && errors.email}
+                      label="Email"
+                      margin="normal"
+                      name="email"
+                      autoComplete="given-name"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      type="email"
+                      value={values.email}
+                      variant="outlined"
+                    />
                       </Grid>
                     </Grid>
                   </Grid>
@@ -464,24 +562,25 @@ const RegisterView = () => {
                   <Grid item>
                     <Button
                       className={classes.Cancel}
-                      disabled={isSubmitting}
+                      //disabled={isSubmitting}
                       // fullWidth
                       size="large"
-                      type="submit"
+                      //type="submit"
                       variant="contained"
+                      onClick={() => {  navigate('/app/blacklist/', { replace: true }); }}
                     >
                       Cancle
                     </Button>
                   </Grid>
                   <Grid item>
-                     <Button
+                  <Button
                     color="primary"
-                    disabled={isSubmitting}
-                    // fullWidth
+                    // disabled={isSubmitting}
+                    fullWidth
                     size="large"
                     type="submit"
                     variant="contained"
-                    >
+                  >
                     Add
                   </Button>
                   </Grid>

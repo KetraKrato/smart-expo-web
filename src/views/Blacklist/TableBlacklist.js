@@ -420,8 +420,8 @@ export default function EnhancedTable() {
                             return (
                               <TableRow
                                 hover
-                                onClick={() => {  navigate('/app/blacklist/detailblacklist', { replace: true }); }}
-                                // onClick={(event) => handleClick(event, row.name)}
+                                
+                                onClick={(event) => handleClick(event, row.name)}
                                 // role="checkbox"
                                 // aria-checked={isItemSelected}
                                 tabIndex={-1}
@@ -488,7 +488,7 @@ export default function EnhancedTable() {
                                           src={apiConstants.uri+row.face_path?.substring(6,row.face_path.length)}
                                         />
                                         </TableCell>
-                                      <TableCell align="left">
+                                      <TableCell align="left" style={{ cursor: 'pointer' }} onClick={() => { navigate('/app/blacklist/detailblacklist/' + row.id +'/' , { replace: true }); }}>
                                         {row.name}
                                         </TableCell>
                                       </div>

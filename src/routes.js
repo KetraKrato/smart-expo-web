@@ -13,6 +13,8 @@ import Event from "./views/Event/EventView"
 import Blacklist from "./views/Blacklist/pageBlacklist"
 import AddBlacklist from "./views/Blacklist/AddBlacklist"
 import ShowDetailBlacklist from './views/Blacklist/ShowDetailBlacklist'
+import AddStaff from './views/account/AddStaff'
+import EditBlacklist from "./views/Blacklist/EditBlacklist"
 // import RemoteControl from "./views/remoteControl"
 // import AppManager from "./views/adb/index"
 const routes = [
@@ -27,8 +29,9 @@ const routes = [
       { path: 'blacklist', element: < Blacklist /> },
       { path:'add_blacklist' , element: < AddBlacklist /> },
       { path:'event' , element: < Event /> },
-      { path: 'blacklist/detailblacklist' , element: < ShowDetailBlacklist/>}
-
+      { path: 'blacklist/detailblacklist/:id' , element: < ShowDetailBlacklist/> },
+      { path: 'add_staff', element: < AddStaff /> },
+      { path: 'blacklist/editblacklist/:id', element: <EditBlacklist/>}
     ,
         // { path: '*', element: <Navigate to="/404" /> }
     ]

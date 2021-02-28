@@ -45,7 +45,7 @@ const AccountList = () => {
       <Grid item>
        <Button  variant="contained" color="primary" size="large" className={classes.margin}
        onClick= {()=>{
-             navigate('/app/add_account', { replace: true });
+             navigate('/app/add_staff', { replace: true });
        }}
        >
           Add Account

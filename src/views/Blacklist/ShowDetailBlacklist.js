@@ -25,8 +25,9 @@ import DropzoneDialog from './DropzoneDialog';
 import CardMedia from '@material-ui/core/CardMedia';
 import Klee from './Klee.jpg'
 import { red } from '@material-ui/core/colors';
-
-
+import { useNavigate ,useParams} from 'react-router-dom';
+import { PanoramaSharp } from '@material-ui/icons';
+import {userService} from "../../services"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,8 +42,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%' ,
   },
   media: {
-    width:150,
-    height: 150,
+    paddingLeft: '24px'
   },
   text: {
     height:100
@@ -116,8 +116,22 @@ const date = '2021-06-26' // or Date or Moment.js
 const RegisterView = () => {
   const classes = useStyles();
     const [data, setData] = useState({})
-    
+  const navigate = useNavigate();
+  const params = useParams(); 
   // const navigate = useNavigate();na
+
+//call data form backend
+  // React.useEffect(async ()=>{
+  //   let getDataUser = await userService.getDetailaUser(params.id).then((data)=>{
+  //     return data
+  
+  //   }).catch((e)=>{
+  //     throw e
+  //   })
+  //   console.log(getDataUser.data.history)
+    
+  // },[])
+
 
   const onChange = (jsDate, dateString) => {
 
@@ -149,7 +163,7 @@ const RegisterView = () => {
                         color="textPrimary"
                         variant="h2"
                     >
-                        Blacklist
+                Blacklist { params.id}
                     </Typography>
                     </Grid>
                           <Grid item xs={3}>
@@ -222,16 +236,49 @@ const RegisterView = () => {
                       <Grid container xs={2}>
                           <Grid container
                                 direction="row"
-                                justify="flex-end"
-                                alignItems="center"
+                                justify="space-between"
+                                alignItems="stretch"
+
                                 xs={2}>
-                                <Grid item>
-                                <DropzoneDialog
-                                    className={classes.media}
-                                />
-                                </Grid>
+              <Grid item className={ classes.media}>
+                                <DropzoneDialog/>
                             </Grid>
-                      </Grid>    
+
+                            </Grid>
+                    </Grid> 
+                    <Grid container
+                      direction="row"
+                      justify="flex-end"
+                      alignItems="flex-start"
+                      spacing={1}
+                    >
+                        <Grid item>
+                    <Button
+                      className={classes.Cancel}
+                      //disabled={isSubmitting}
+                      // fullWidth
+                      size="large"
+                      //type="submit"
+                      variant="contained"
+                      onClick={() => {  navigate('/app/blacklist', { replace: true }); }}
+                    >
+                      Cancle
+                    </Button>
+                  </Grid>
+                  <Grid item>
+                  <Button
+                    color="primary"
+                    // disabled={isSubmitting}
+                    fullWidth
+                    size="large"
+                    //type="submit"
+                    variant="contained"
+                    onClick={() => {  navigate('/app/blacklist', { replace: true }); }}
+                  >
+                    Edit
+                  </Button>
+          </Grid>
+          </Grid>
                 </Grid>
             
                
