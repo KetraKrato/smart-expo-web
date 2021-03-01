@@ -1,5 +1,5 @@
 import React, { useState} from 'react';
-import { Link as RouterLink} from 'react-router-dom';
+import { Link as RouterLink,useParams} from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import {
@@ -25,6 +25,7 @@ import DropzoneDialog from './DropzoneDialog';
 import CardMedia from '@material-ui/core/CardMedia';
 import Klee from './Klee.jpg'
 import { red } from '@material-ui/core/colors';
+import { userService } from "../../services"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -86,6 +87,40 @@ NumberFormatCustom.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
+
+function createData(nametitle,
+              name,
+              surname,
+              IdCardNumber,
+              PassportNumber,
+              sex,
+              race,
+              nationality,
+              birthday,
+              age,
+              height,
+              weight,
+              address,
+              phone_number) { 
+  return {
+    nametitle,
+              name,
+              surname,
+              IdCardNumber,
+              PassportNumber,
+              sex,
+              race,
+              nationality,
+              birthday,
+              age,
+              height,
+              weight,
+              address,
+              phone_number
+  };
+}
+
+
 const date = '2021-06-26' // or Date or Moment.js
 
 
@@ -94,6 +129,8 @@ const RegisterView = () => {
   const classes = useStyles();
   const [data,setData] = useState({})
   // const navigate = useNavigate();na
+  const params = useParams(); 
+  const [datauser, setDatauser] = useState()
 
 //call data form backend
   // React.useEffect(async ()=>{
@@ -108,6 +145,18 @@ const RegisterView = () => {
 
   // },[])
 
+
+  //call data form backend
+  React.useEffect(async ()=>{
+    let getDataUser = await userService.getDetailaUser(params.id).then((data)=>{
+      return data
+  
+    }).catch((e)=>{
+      throw e
+    })
+    console.log(getDataUser.data.history)
+    setDatauser(getDataUser.data.history)
+  },[])
 
   const onChange = (jsDate, dateString) => {
 

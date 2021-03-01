@@ -121,16 +121,16 @@ const RegisterView = () => {
   // const navigate = useNavigate();na
 
 //call data form backend
-  // React.useEffect(async ()=>{
-  //   let getDataUser = await userService.getDetailaUser(params.id).then((data)=>{
-  //     return data
+  React.useEffect(async ()=>{
+    let getDataUser = await userService.getDetailaUser(params.id).then((data)=>{
+      return data
   
-  //   }).catch((e)=>{
-  //     throw e
-  //   })
-  //   console.log(getDataUser.data.history)
-    
-  // },[])
+    }).catch((e)=>{
+      throw e
+    })
+    console.log(getDataUser.data.history)
+    DataTemp = getDataUser.data.history
+  },[])
 
 
   const onChange = (jsDate, dateString) => {
@@ -273,7 +273,7 @@ const RegisterView = () => {
                     size="large"
                     //type="submit"
                     variant="contained"
-                    onClick={() => {  navigate('/app/blacklist', { replace: true }); }}
+                    onClick={() => {  navigate('/app/blacklist/editblacklist/'+ params.id, { replace: true }); }}
                   >
                     Edit
                   </Button>

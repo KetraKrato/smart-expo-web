@@ -567,7 +567,7 @@ const RegisterView = () => {
                       size="large"
                       //type="submit"
                       variant="contained"
-                      onClick={() => {  navigate('/app/blacklist/', { replace: true }); }}
+                      onClick={() => {  navigate('/app/account/', { replace: true }); }}
                     >
                       Cancle
                     </Button>

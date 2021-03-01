@@ -488,7 +488,7 @@ export default function EnhancedTable() {
                                           src={apiConstants.uri+row.face_path?.substring(6,row.face_path.length)}
                                         />
                                         </TableCell>
-                                      <TableCell align="left" style={{ cursor: 'pointer' }} onClick={() => { navigate('/app/blacklist/detailblacklist/' + row.id +'/' , { replace: true }); }}>
+                                      <TableCell align="left" style={{ cursor: 'pointer' }} onClick={() => { navigate('/app/blacklist/detailblacklist/' + row.id , { replace: true }); }}>
                                         {row.name}
                                         </TableCell>
                                       </div>
