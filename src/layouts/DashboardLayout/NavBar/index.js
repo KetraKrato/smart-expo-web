@@ -43,9 +43,9 @@ const items = [
     title: 'Event Management'
   },
   {
-    href: '/app/vistorManage',
+    href: '/app/staff',
     icon: PeopleAltIcon,
-    title: 'Vistor Management'
+    title: 'Staff Management'
   },
   {
     href: '/app/video-moniter',

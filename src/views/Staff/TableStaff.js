@@ -31,10 +31,10 @@ import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import Popover from '@material-ui/core/Popover';
 import { useNavigate } from 'react-router-dom';
-import Klee from './Klee.jpg'
-function createData(id,  name, sex, age, height,weight, detail) {
+
+function createData(id,  name, sex, age, company,position, detail) {
   return {
-    id,  name, sex, age, height, weight, detail
+    id,  name, sex, age, company, position, detail
   };
 }
 
@@ -82,10 +82,10 @@ const headCells = [
     id: 'age', numeric: true, disablePadding: false, label: 'Age '
   },
   {
-    id: 'height', numeric: true, disablePadding: false, label: 'Height'
+    id: 'company', numeric: true, disablePadding: false, label: 'Company'
   },
   {
-    id: 'weight', numeric: true, disablePadding: true, label: 'Weight'
+    id: 'position', numeric: true, disablePadding: false, label: 'Position'
   },
   //   {
   //   id: ' ', numeric: false , disablePadding: false, label: ' '
@@ -247,8 +247,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: colors.lightBlue[600],
     height:48,
     width: 48,
-    color: colors.grey[100],
-    marginRight: '0px',
+    color:colors.grey[100]
   },
   avatarVerify: {
     '& svg': {
@@ -307,13 +306,13 @@ export default function EnhancedTable() {
 
   
   const [rows,setRows] = React.useState([
-    createData(1,'Nattatam Watanakajonchaikul','Male', 22, 170, 65.6),
-    createData(2,'Watanaka Tinkuran','Female', 10, 180, 46),
-    createData(3,'LLLLLLLL dfsdfsdfsdfdsf', 'Female', 25, 175, 44),
-    createData(4,'Watanakas Tinkuran', 'Female', 10, 165, 53.5),
-    createData(5, 'Watanakaa Tinkuran', 'Female', 10, 155, 48.9),
-    createData(6, 'Watanakad Tinkuran', 'Female', 10, 150, 65),
-    createData(7,'Watanakaf Tinkuran','Female', 10, 140, 78),
+    createData(1,'Nattatam Watanakajonchaikul','Male', 22, 'DataCenter .co th', 'CEO'),
+    createData(2,'Watanaka Tinkuran','Female', 10, 'DataCheck .co th', 'Staff'),
+    createData(3,'LLLLLLLL dfsdfsdfsdfdsf', 'Female', 25, 'TechSmart', 'Staff'),
+    createData(4,'Watanaka Tinkuran', 'Female', 10, 'DataCheck .co th', 'Staff'),
+    createData(5, 'Watanaka Tinkuran', 'Female', 10, 'DataCheck .co th', 'Staff'),
+    createData(6, 'Watanaka Tinkuran', 'Female', 10, 'DataCheck .co th', 'Staff'),
+    createData(7,'Watanaka Tinkuran','Female', 10, 'DataCheck .co th', 'Staff'),
   ])
 
   //call data form backend
@@ -481,8 +480,7 @@ export default function EnhancedTable() {
                                   </TableCell>
                                 ) : (
                                     // demo data
-                                   
-                                      <TableCell component="th" id={labelId} scope="row"align="center" style={{ cursor: 'pointer' }} onClick={() => { navigate('/app/blacklist/detailblacklist/' + row.id , { replace: true }); }} >
+                                    <TableCell component="th" id={labelId} scope="row"align="center" style={{ cursor: 'pointer' }} onClick={() => { navigate('/app/blacklist/detailblacklist/' + row.id , { replace: true }); }} >
                                       <Grid container
                                         direction="row"
                                         justify="flex-start"
@@ -493,7 +491,7 @@ export default function EnhancedTable() {
                                         alt="image_detection"
                                         className={classes.avatar}
                                         //src={apiConstants.uri+row.face_path?.substring(6,row.face_path.length)}
-                                        src={Klee}
+                                        //src={Klee}
                                         />
                                         </Grid>
                                         <Grid item>
@@ -508,8 +506,6 @@ export default function EnhancedTable() {
                                         /> */}
                                       
                                         </TableCell>
-                                      
-                                     
                                   )   
                                 }
                                 { row.sex?.member_picture ? (
@@ -556,7 +552,7 @@ export default function EnhancedTable() {
                                   </TableCell>
                                 ) : (
                                     <TableCell>
-                                      {row.height}
+                                      {row.company}
                                     </TableCell>
                                 )
 
@@ -572,7 +568,7 @@ export default function EnhancedTable() {
                                   </TableCell>
                                 ) : (
                                     <TableCell>
-                                      {row.weight}
+                                      {row.position}
                                     </TableCell>
                                 )
 
