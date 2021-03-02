@@ -480,7 +480,7 @@ export default function EnhancedTable() {
                                   </TableCell>
                                 ) : (
                                     // demo data
-                                    <TableCell component="th" id={labelId} scope="row"align="center" style={{ cursor: 'pointer' }} onClick={() => { navigate('/app/blacklist/detailblacklist/' + row.id , { replace: true }); }} >
+                                    <TableCell component="th" id={labelId} scope="row"align="center" style={{ cursor: 'pointer' }} onClick={() => { navigate('/app/staff/detailstaff/' + row.id , { replace: true }); }} >
                                       <Grid container
                                         direction="row"
                                         justify="flex-start"

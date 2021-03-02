@@ -139,7 +139,7 @@ const RegisterView = () => {
   return (
     <Page
       className={classes.root}
-      title="Add Blacklist"
+      title="Detail Staff"
     >
       <Box  
         display="flex"
@@ -163,7 +163,7 @@ const RegisterView = () => {
                         color="textPrimary"
                         variant="h2"
                     >
-                Blacklist { params.id}
+                Staff { params.id}
                     </Typography>
                     </Grid>
                           <Grid item xs={3}>
@@ -254,7 +254,7 @@ const RegisterView = () => {
                     >
                         <Grid item>
                     <Button
-                      className={classes.Cancel}
+                      //className={classes.Cancel}
                       //disabled={isSubmitting}
                       // fullWidth
                       size="large"
@@ -263,6 +263,19 @@ const RegisterView = () => {
                       onClick={() => {  navigate('/app/blacklist', { replace: true }); }}
                     >
                       Cancle
+                    </Button>
+                  </Grid>
+                                          <Grid item>
+                    <Button
+                      className={classes.Cancel}
+                      //disabled={isSubmitting}
+                      // fullWidth
+                      size="large"
+                      //type="submit"
+                      variant="contained"
+                      onClick={() => {  navigate('/app/blacklist', { replace: true }); }}
+                    >
+                      Delete
                     </Button>
                   </Grid>
                   <Grid item>
