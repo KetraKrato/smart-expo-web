@@ -47,42 +47,42 @@ const items = [
     icon: PeopleAltIcon,
     title: 'Staff Management'
   },
-  {
-    href: '/app/video-moniter',
-    icon: VideoLibraryIcon,
-    title: 'Video Moniter'
-  },
-  {
-    href: '/app/map',
-    icon: RoomIcon,
-    title: 'Locations'
-  },
+  // {
+  //   href: '/app/video-moniter',
+  //   icon: VideoLibraryIcon,
+  //   title: 'Video Moniter'
+  // },
+  // {
+  //   href: '/app/map',
+  //   icon: RoomIcon,
+  //   title: 'Locations'
+  // },
 
-  {
-    href: '/app/device',
-    icon: DevicesIcon,
-    title: 'Decives Manager'
-  },
-  {
-    href: '/app/video-record',
-    icon: VideoCallIcon,
-    title: 'Video Record'
-  },
-  {
-    href: '/app/massager',
-    icon: TelegramIcon,
-    title: 'Massager'
-  },
+  // {
+  //   href: '/app/device',
+  //   icon: DevicesIcon,
+  //   title: 'Decives Manager'
+  // },
+  // {
+  //   href: '/app/video-record',
+  //   icon: VideoCallIcon,
+  //   title: 'Video Record'
+  // },
+  // {
+  //   href: '/app/massager',
+  //   icon: TelegramIcon,
+  //   title: 'Massager'
+  // },
   {
     href: '/app/account',
     icon: UserIcon,
     title: 'Account Manager'
   },
-  {
-    href: '/app/settings',
-    icon: SettingsIcon,
-    title: 'Settings'
-  },
+  // {
+  //   href: '/app/settings',
+  //   icon: SettingsIcon,
+  //   title: 'Settings'
+  // },
   {
     href: '/app/blacklist',
     icon: HighlightOffIcon,

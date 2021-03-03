@@ -260,7 +260,7 @@ const RegisterView = () => {
                       size="large"
                       //type="submit"
                       variant="contained"
-                      onClick={() => {  navigate('/app/blacklist', { replace: true }); }}
+                      onClick={() => {  navigate('/app/staff', { replace: true }); }}
                     >
                       Cancle
                     </Button>
@@ -273,7 +273,7 @@ const RegisterView = () => {
                       size="large"
                       //type="submit"
                       variant="contained"
-                      onClick={() => {  navigate('/app/blacklist', { replace: true }); }}
+                      onClick={() => {  navigate('/app/staff', { replace: true }); }}
                     >
                       Delete
                     </Button>
@@ -286,7 +286,7 @@ const RegisterView = () => {
                     size="large"
                     //type="submit"
                     variant="contained"
-                    onClick={() => {  navigate('/app/blacklist/editblacklist/'+ params.id, { replace: true }); }}
+                    onClick={() => {  navigate('/app/staff/editstaff/'+ params.id, { replace: true }); }}
                   >
                     Edit
                   </Button>
