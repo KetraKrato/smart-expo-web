@@ -25,6 +25,7 @@ import DevicesIcon from '@material-ui/icons/Devices';
 import ListItem from '@material-ui/core/ListItem';
 import EventIcon from '@material-ui/icons/Event';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 // import Collapse from '@material-ui/core/Collapse';
 // import ListItemIcon from '@material-ui/core/ListItemIcon';
 // import StarBorder from '@material-ui/icons/StarBorder';
@@ -42,45 +43,50 @@ const items = [
     title: 'Event Management'
   },
   {
-    href: '/app/vistorManage',
+    href: '/app/staff',
     icon: PeopleAltIcon,
-    title: 'Vistor Management'
+    title: 'Staff Management'
   },
-  {
-    href: '/app/video-moniter',
-    icon: VideoLibraryIcon,
-    title: 'Video Moniter'
-  },
-  {
-    href: '/app/map',
-    icon: RoomIcon,
-    title: 'Locations'
-  },
+  // {
+  //   href: '/app/video-moniter',
+  //   icon: VideoLibraryIcon,
+  //   title: 'Video Moniter'
+  // },
+  // {
+  //   href: '/app/map',
+  //   icon: RoomIcon,
+  //   title: 'Locations'
+  // },
 
-  {
-    href: '/app/device',
-    icon: DevicesIcon,
-    title: 'Decives Manager'
-  },
-  {
-    href: '/app/video-record',
-    icon: VideoCallIcon,
-    title: 'Video Record'
-  },
-  {
-    href: '/app/massager',
-    icon: TelegramIcon,
-    title: 'Massager'
-  },
+  // {
+  //   href: '/app/device',
+  //   icon: DevicesIcon,
+  //   title: 'Decives Manager'
+  // },
+  // {
+  //   href: '/app/video-record',
+  //   icon: VideoCallIcon,
+  //   title: 'Video Record'
+  // },
+  // {
+  //   href: '/app/massager',
+  //   icon: TelegramIcon,
+  //   title: 'Massager'
+  // },
   {
     href: '/app/account',
     icon: UserIcon,
     title: 'Account Manager'
   },
+  // {
+  //   href: '/app/settings',
+  //   icon: SettingsIcon,
+  //   title: 'Settings'
+  // },
   {
-    href: '/app/settings',
-    icon: SettingsIcon,
-    title: 'Settings'
+    href: '/app/blacklist',
+    icon: HighlightOffIcon,
+    title: 'Blacklist'
   },
   {
     href: '/404',

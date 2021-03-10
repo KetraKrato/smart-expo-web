@@ -11,7 +11,12 @@ import {
   Link,
   TextField,
   Typography,
-  makeStyles
+  makeStyles,
+  Grid,
+  InputLabel,
+  Select,
+  MenuItem,
+  FormControl
 } from '@material-ui/core';
 import Page from '../../components/Page';
 
@@ -33,17 +38,21 @@ const RegisterView = () => {
       className={classes.root}
       title="Register"
     >
-      <Box
+      <Box  
         display="flex"
         flexDirection="column"
         height="100%"
         justifyContent="center"
       >
-        <Container maxWidth="sm">
+        <Container>
+
           <Formik
             initialValues={{
+            nametitle:'',
+            name: '',
               email: '',
               password: '',
+              confirmpassword: '',
               policy: false
             }}
             validationSchema={
@@ -67,7 +76,8 @@ const RegisterView = () => {
               values
             }) => (
               <form onSubmit={handleSubmit}>
-                <Box mb={3}>
+                <Grid container>
+                <Box sm={12}>
                   <Typography
                     color="textPrimary"
                     variant="h2"
@@ -82,9 +92,9 @@ const RegisterView = () => {
                     Use your email to create new account
                   </Typography>
                 </Box>
-              
-                
-                <TextField
+                </Grid>
+                <Grid container>
+                  <Grid item xs={12}>  <TextField
                   error={Boolean(touched.email && errors.email)}
                   fullWidth
                   helperText={touched.email && errors.email}
@@ -96,7 +106,9 @@ const RegisterView = () => {
                   type="email"
                   value={values.email}
                   variant="outlined"
-                />
+                  />
+                    </Grid>
+                <Grid item xs={12}>
                 <TextField
                   error={Boolean(touched.password && errors.password)}
                   fullWidth
@@ -109,7 +121,25 @@ const RegisterView = () => {
                   type="password"
                   value={values.password}
                   variant="outlined"
-                />
+                    />
+                    </Grid>
+                   <Grid item xs={12}>
+                <TextField
+                  error={Boolean(touched.confirmpassword && errors.confirmpassword && touched.password)}
+                  fullWidth
+                  helperText={touched.confirmpassword && errors.confirmpassword && touched.password}
+                  label="ConfirmPassword"
+                  margin="normal"
+                  name="password"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  type="password"
+                  value={values.confirmpassword}
+                  variant="outlined"
+                    />
+                    </Grid>
+                </Grid>
+
                 <Box
                   alignItems="center"
                   display="flex"

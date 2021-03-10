@@ -6,6 +6,7 @@ import TotalDeviceOnline from "./TotalDeviceOnline"
 import TotalDeviceOffline from "./TotalDeviceOffline"
 import TotalDeviceUpload from "./AllVideoUpload"
 import MapView from "./Map/MapView"
+import GraphDashboard from './GraphDashboard'
 
 
 const useStyles = makeStyles(theme => ({
@@ -51,7 +52,10 @@ const Dashboard = () => {
             {/* <MainVideo /> */}
             <MapView></MapView>
           </Grid>
-
+           <Grid item lg={12} md={12} xl={12} xs={12}>
+            {/* <MainVideo /> */}
+            <GraphDashboard></GraphDashboard>
+          </Grid>
         </Grid>
       </Container>
     </Page>
