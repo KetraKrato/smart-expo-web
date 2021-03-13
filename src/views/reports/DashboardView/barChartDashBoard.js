@@ -11,19 +11,7 @@ import {
     makeStyles
   } from '@material-ui/core';
 
-const data = [
-  { 
-    time: "pon",
-    users: 1,
-  },
-  {
-    time: "wt",
-    users: 3,
-  },{
-    time: "śr",
-    users: 7,
-  }
-]
+
 const useStyles = makeStyles(() => ({
     root: {
           height:"560px"
@@ -37,17 +25,45 @@ const useStyles = makeStyles(() => ({
   
 
 
-
 const BarChartComponents  = ({ className, ...rest }) => {
     const classes = useStyles();
-    useEffect( ()=>{
-        let  data = []           //0-4        5-12     13-18 19-24   25-59      60  >  
-        let rangeAgeSteing =  ["small child","Child","Teens","Young","adult","older"]
+    const [age,setAge] =useState([
+      { 
+        age: "-",
+        value: 0,
+      },
+      {
+        age: "small child",
+        value: 0,
+      },{
+        age: "Child",
+        value: 0,
+      }, { 
+        age: "Teens",
+        value: 0,
+      },
+      {
+        age: "Young",
+        value: 0,
+      },{
+        age: "adult",
+        value: 0,
+      },{
+        age: "older",
+        value: 0,
+      }
 
-        rest.data.map((i)=>{
+    ])
+    useEffect( ()=>{
+               //1-4        5-12     13-18 19-24   25-59      60  >  
+            let DataAge = age
+            rest.data.map((i)=>{
             for (const [key, value] of Object.entries(i)) {
-                if(key =="small child"  ) console.log(`${key}: ${value}`);
-                else if (key =="small child") 
+                 let  keyData = parseInt(key)
+                 let  valueData = parseInt(value)
+
+                 if(keyData ==0) DataAge[0].value = valueData
+                
                 console.log(`${key}: ${value}`);
               }        
         })
@@ -67,11 +83,11 @@ const BarChartComponents  = ({ className, ...rest }) => {
     <CardHeader title="Bar Chart Age" />
    <Divider />
   <div style={{width: '100vw', height: '100vh'}}>
-    <BarChart width={500} height={500} data={data}>
+    <BarChart width={500} height={500} data={age}>
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="time" />
+      <XAxis dataKey="age" />
       <YAxis />
-      <Bar label={true} dataKey="users" fill="#8884d8" />
+      <Bar label={true} dataKey="value" fill="#8884d8" />
     </BarChart>
   </div>
   </Card> )

@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import {DropzoneDialog} from 'material-ui-dropzone'
 import Button from '@material-ui/core/Button';
 import { string } from 'yup';
-
-
 import NoImage from './NoImage.png'
 
 export default class DropzoneDialogExample extends Component {
@@ -17,11 +15,17 @@ export default class DropzoneDialogExample extends Component {
     }
     
     handleClose() {
-        this.setState({
-                open: false
-        });
-        console.log("handleclose")
-
+        try {
+        this.setState(prevState => {
+            return {
+              ...prevState,
+              open: false,
+            };
+          });
+        }catch (e) {
+            console.log(e)
+        }
+        console.log(this.state)
     }
     setFile(files){ 
         var file = files.target.file[0]
@@ -87,9 +91,11 @@ export default class DropzoneDialogExample extends Component {
 
 
     handleOpen() {
+        if(this.state.open == false)  {
         this.setState({
             open: true,
         });
+     }
     }
 
     render() {
@@ -113,7 +119,7 @@ export default class DropzoneDialogExample extends Component {
                 
 
                 <DropzoneDialog
-                    open={this.state.open}
+                    open={this.state.open }
                     onSave={this.handleSave.bind(this)}
                     acceptedFiles={['image/jpeg', 'image/png', 'image/bmp']}
                     showPreviews={true}
