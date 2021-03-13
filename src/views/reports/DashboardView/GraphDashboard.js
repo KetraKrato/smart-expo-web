@@ -1,5 +1,15 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import clsx from 'clsx';
+
+import {
+    Box,
+    Button,
+    Card,
+    CardHeader,
+    Divider,
+    makeStyles
+  } from '@material-ui/core';
 
 const data = [
   {
@@ -46,14 +56,25 @@ const data = [
   },
 ];
 
-export default class Example extends PureComponent {
-  static jsfiddleUrl = 'https://jsfiddle.net/alidingling/xqjtetw0/';
+const useStyles = makeStyles(() => ({
+    root: {
+          height:"560px"
+    },
+    actions: {
+      justifyContent: 'flex-end'
+    }
+  }));
 
-  render() {
+
+ const PureComponent = ({ className, ...rest }) => {
+    const classes = useStyles();
+
     return (
+    <Card className={clsx(classes.root, className)} {...rest}>
+        <CardHeader title="Pie Chart Emotions" />
       <LineChart
         width={2000}
-        height={700}
+        height={800}
         data={data}
         margin={{
           top: 5,
@@ -70,6 +91,8 @@ export default class Example extends PureComponent {
         <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
         <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
       </LineChart>
+      </Card> 
     );
-  }
 }
+
+export default PureComponent

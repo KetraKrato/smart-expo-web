@@ -10,21 +10,23 @@ import {
   makeStyles,
   colors
 } from '@material-ui/core';
-import PhonelinkIcon from '@material-ui/icons/Phonelink';
+import WcIcon from '@material-ui/icons/Wc';
 const useStyles = makeStyles(() => ({
   root: {
     height: '100%'
   },
   avatar: {
-    backgroundColor: colors.indigo[600],
-    height: 76,
-    width: 76,
+    '& svg': {
+        fontSize: 56
+      },
+    backgroundColor: colors.pink[300],
+    height:96,
+    width: 96,
     color:colors.grey[100]
-
   }
 }));
 
-const AllDevice = ({ className, ...rest }) => {
+const Stanger = ({ className, ...rest }) => {
   const classes = useStyles();
 
   return (
@@ -42,20 +44,20 @@ const AllDevice = ({ className, ...rest }) => {
             <Typography
               color="textSecondary"
               gutterBottom
-              variant="h6"
+              variant="h4"
             >
-              ALL DEVICES
+            Total Gender Woman
             </Typography>
             <Typography
               color="textPrimary"
               variant="h3"
             >
-              0
+              {rest.data}
             </Typography>
           </Grid>
           <Grid item>
             <Avatar className={classes.avatar}>
-            <PhonelinkIcon></PhonelinkIcon>
+                <WcIcon></WcIcon>
             </Avatar>
           </Grid>
         </Grid>
@@ -64,8 +66,8 @@ const AllDevice = ({ className, ...rest }) => {
   );
 };
 
-AllDevice.propTypes = {
+Stanger.propTypes = {
   className: PropTypes.string
 };
 
-export default AllDevice;
+export default Stanger;
