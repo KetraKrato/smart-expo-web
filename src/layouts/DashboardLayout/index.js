@@ -69,7 +69,7 @@ const DashboardLayout = () => {
         </div>
       </div>
     </div>)
-    //(<Navigate to={"/login"} replace={true} />)
+    (<Navigate to={"/login"} replace={true} />)
 };
 
 export default DashboardLayout;

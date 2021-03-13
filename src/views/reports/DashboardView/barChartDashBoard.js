@@ -46,6 +46,8 @@ const BarChartComponents  = ({ className, ...rest }) => {
 
         rest.data.map((i)=>{
             for (const [key, value] of Object.entries(i)) {
+                if(key =="small child"  ) console.log(`${key}: ${value}`);
+                else if (key =="small child") 
                 console.log(`${key}: ${value}`);
               }        
         })
