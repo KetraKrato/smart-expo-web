@@ -76,7 +76,7 @@ const Stanger = ({ className, ...rest }) => {
        container
        justify="space-evenly"
        alignItems="center"
-       spacing={3}
+       spacing={2}
      >
      
       
@@ -131,6 +131,7 @@ const Stanger = ({ className, ...rest }) => {
          >
          Device : {rest.product.device.device_name}              
          </Typography>
+        
          <Typography
            color="textPrimary"
            variant="h6"
@@ -148,6 +149,7 @@ const Stanger = ({ className, ...rest }) => {
             {rest.product.device.location.event.eventName}
              
          </Typography>
+      
             </Grid>
         </Grid>
 
@@ -190,6 +192,51 @@ const Stanger = ({ className, ...rest }) => {
 
          </Typography>
         </Grid>
+        <Grid item>
+
+    <Typography
+    color="success.main"
+      variant="h6"
+      align="center"
+
+    >   <Box  >
+        gender :  {rest.product.gender}
+        </Box>
+
+    </Typography>
+
+    <Typography
+    color="success.main"
+      variant="h6"
+      align="center"
+
+    >   <Box  >
+       age :  {rest.product.age}
+        </Box>
+
+    </Typography>
+    <Typography
+    color="success.main"
+      variant="h6"
+      align="center"
+
+    >   <Box  >
+       emotion :   {rest.product.emotions}
+        </Box>
+
+
+    </Typography>
+    <Typography
+          color="success.main"
+          variant="h6"
+          align="center"
+
+          >  <Box  >
+            race:  {rest.product.race}
+              </Box>
+      </Typography>
+
+</Grid>
 
             </Grid>
 

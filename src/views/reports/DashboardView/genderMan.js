@@ -10,20 +10,25 @@ import {
   makeStyles,
   colors
 } from '@material-ui/core';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+
+import FaceTwoToneIcon from '@material-ui/icons/FaceTwoTone';
 const useStyles = makeStyles(() => ({
   root: {
     height: '100%'
   },
   avatar: {
-    backgroundColor: colors.yellow[600],
-    height:76,
-    width: 76,
+    '& svg': {
+        fontSize: 56
+      },
+    backgroundColor: colors.orange[900],
+    height:96,
+    width: 96,
     color:colors.grey[100]
   }
+  
 }));
 
-const AllDevice = ({ className, ...rest }) => {
+const Stanger = ({ className, ...rest }) => {
   const classes = useStyles();
 
   return (
@@ -41,20 +46,20 @@ const AllDevice = ({ className, ...rest }) => {
             <Typography
               color="textSecondary"
               gutterBottom
-              variant="h6"
+              variant="h4"
             >
-              ALL UPLOAD
+            Total Gender Man
             </Typography>
             <Typography
               color="textPrimary"
               variant="h3"
             >
-              0
+              {rest.data}
             </Typography>
           </Grid>
           <Grid item>
             <Avatar className={classes.avatar}>
-                <CloudUploadIcon></CloudUploadIcon>
+                <FaceTwoToneIcon></FaceTwoToneIcon>
             </Avatar>
           </Grid>
         </Grid>
@@ -63,8 +68,8 @@ const AllDevice = ({ className, ...rest }) => {
   );
 };
 
-AllDevice.propTypes = {
+Stanger.propTypes = {
   className: PropTypes.string
 };
 
-export default AllDevice;
+export default Stanger;

@@ -16,7 +16,7 @@ import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 
 const useStyles = makeStyles(() => ({
   root: {
-        height:"560px"
+        height:"550px"
   },
   actions: {
     justifyContent: 'flex-end'
@@ -28,8 +28,9 @@ const Location = ({ className, ...rest }) => {
 
   return (
     <Card className={clsx(classes.root, className)} {...rest}>
-      <CardHeader title="Device Locations" />
+      <CardHeader title="Map Locations" />
       <Divider />
+      <br></br>
       <PerfectScrollbar>
             <Map></Map>
       </PerfectScrollbar>

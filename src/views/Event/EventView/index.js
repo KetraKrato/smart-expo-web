@@ -69,6 +69,7 @@ const Dashboard = () => {
                     list = noti
                     res.data.history.map((i)=>{
                         list.push(i)
+                        
                     })
                     list.sort(function(a, b){return b.id - a.id});
                     setNoti(list)
