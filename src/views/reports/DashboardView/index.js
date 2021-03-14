@@ -12,6 +12,9 @@ import {historyService} from "../../../services"
 import TotalGenderMan from "./genderMan"
 import TotalGenderWoman from "./genderWoman"
 import BarChart from "./barChartDashBoard"
+import SerachDashBoard from "./serachDashboard"
+import Divider from '@material-ui/core/Divider';
+import BarChartHorizontal from "./barChartHorizontal" 
 const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor: theme.palette.background.dark,
@@ -56,7 +59,11 @@ const Dashboard = () => {
     <Page className={classes.root} title="Dashboard">
       <Container maxWidth={false}>
         <Grid container spacing={3}>
+        <Grid item lg={12} sm={12} xl={12} xs={12}>
+            <SerachDashBoard> </SerachDashBoard>
+          </Grid>
         <Grid item lg={3} sm={6} xl={3} xs={12}>
+          
             <TotalVistor  data= {conclude?.allHistory}/>
           </Grid>
            <Grid item lg={3} sm={6} xl={3} xs={12}>
@@ -76,30 +83,37 @@ const Dashboard = () => {
             {/* <MainVideo /> */}
           </Grid>
           <Grid item lg={3} md={6} xl={3} xs={12}>
+         
            {/* < TotalGenderMan data= {conclude?.genderMan} /> */}
           </Grid>
+          <Grid item xs={12}>
+               <Divider variant="middle" />
+          </Grid>
+          <Grid item lg={8} md={8} xl={8} xs={8}>
+            {/* <MainVideo /> */}
+            <GraphDashboard data = {conclude?.time_report}></GraphDashboard>
+          </Grid>
          
-         
-          
-
           <Grid item lg={4} md={6} xl={4} xs={12}>
-            <BarChart data=  {conclude?.age} ></BarChart>
+            <BarChart data= {conclude?.emotions} ></BarChart>
           </Grid>
 
            <Grid item lg={4} md={6} xl={4} xs={12}>
             {/* <MainVideo /> */}
-            <PieChart data=  {conclude?.emotions} ></PieChart>
+            <PieChart data= {conclude?.age}   ></PieChart>
 
           </Grid>
           <Grid item lg={4} md={6} xl={4} xs={12}>
+            {/* <MainVideo /> */}
+            <BarChartHorizontal  data =  {conclude?.race}  ></BarChartHorizontal>
+          </Grid>
+      
+          <Grid item lg={4} md={6} xl={4} xs={4}>
           {/* <GraphDashboard></GraphDashboard> */}
           <MapView></MapView>
       
           </Grid>
-           <Grid item lg={12} md={12} xl={12} xs={12}>
-            {/* <MainVideo /> */}
-            <GraphDashboard></GraphDashboard>
-          </Grid>
+         
         </Grid>
       </Container>
     </Page>

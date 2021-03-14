@@ -10,12 +10,12 @@ import {
     Divider,
     makeStyles
   } from '@material-ui/core';
-import './rechart.css' ;
+import { useField } from 'formik';
 
  
 const useStyles = makeStyles(() => ({
     root: {
-          height:"640px"
+          height:"580px"
     },
     actions: {
       justifyContent: 'flex-end'
@@ -55,9 +55,9 @@ const BarChartComponents  = ({ className, ...rest }) => {
     useEffect( ()=>{
       let  data = []
        rest.data?.map((i)=>{
-        if(i.emotions != "" &&  i.emotions != "test"  ) {  
+        if(i.race != "" &&  i.race != "thai"  ) {  
         data.push({
-                name:i.emotions,
+                name:i.race,
                 value:parseInt(i.count)
             })
         }
@@ -68,14 +68,17 @@ const BarChartComponents  = ({ className, ...rest }) => {
 
     return (
     <Card className={clsx(classes.root, className)} {...rest}>
-    <CardHeader title="Bar Chart Age" />
+    <CardHeader title="Bar Chart Race" />
    <Divider />
-   <br></br>
-  <div style={{width: '100vw', height: '100vh'}}>
-    <BarChart width={500} height={500} data={pieData}>
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis  dataKey="name" />
-      <YAxis />
+    <div style={{width: '100vw', height: '100vh' ,float:'left'}}>
+    <br></br>
+    <BarChart width={500} height={500} data={pieData}
+     layout="vertical" 
+     margin={{ top: 0, right: 0, left: -35, bottom: 0 }}
+     >
+     <CartesianGrid strokeDasharray="3 3" />
+      <XAxis type="number"  />
+    <YAxis type="category" width={150} padding={{ left: 2 }} dataKey="name"/>
       <Bar label={true} dataKey="value" fill="#8884d8" >
       {
      pieData.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)

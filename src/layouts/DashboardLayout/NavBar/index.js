@@ -162,13 +162,13 @@ const NavBar = ({ onMobileClose, openMobile }) => {
           ))}
         </List>
       </Box>
-      <Box flexGrow={1} />
+      <Box flexGrow={0} />
     </Box>
   );
 
   return (
     <>
-      <Hidden lgUp>
+      {/* <Hidden lgUp> */}
         <Drawer
           anchor="left"
           classes={{ paper: classes.mobileDrawer }}
@@ -178,17 +178,17 @@ const NavBar = ({ onMobileClose, openMobile }) => {
         >
           {content}
         </Drawer>
-      </Hidden>
-      <Hidden mdDown>
-        <Drawer
+      {/* </Hidden> */}
+      {/* <Hidden mdDown> */}
+        {/* <Drawer
           anchor="left"
           classes={{ paper: classes.desktopDrawer }}
           open
           variant="persistent"
         >
           {content}
-        </Drawer>
-      </Hidden>
+        </Drawer> */}
+      {/* </Hidden> */}
     </>
   );
 };

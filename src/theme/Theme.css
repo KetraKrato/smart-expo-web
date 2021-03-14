@@ -1,0 +1,14 @@
+
+
+@import url("https://fonts.googleapis.com/css2?family=Amatic+SC&family=Quicksand&display=swap");
+
+
+.recharts-cartesian-axis-tick {    
+    font-size: 0.8rem;
+    font-family: Quicksand, sans-serif;
+}
+
+.recharts-legend-item-text {
+    font-size: 0.8rem;
+    font-family: Quicksand, sans-serif;
+}
