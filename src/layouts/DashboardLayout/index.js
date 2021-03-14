@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
     paddingTop: 64,
     [theme.breakpoints.up('lg')]: {
-      paddingLeft: 256
+      paddingLeft: 56
     }
   },
   contentContainer: {
@@ -69,7 +69,7 @@ const DashboardLayout = () => {
         </div>
       </div>
     </div>)
-    //(<Navigate to={"/login"} replace={true} />)
+    (<Navigate to={"/login"} replace={true} />)
 };
 
 export default DashboardLayout;

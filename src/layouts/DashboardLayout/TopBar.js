@@ -43,6 +43,12 @@ const TopBar = ({
         <RouterLink to="/">
           <Logo />
         </RouterLink>
+        <IconButton
+            color="inherit"
+            onClick={onMobileNavOpen}
+          >
+            <MenuIcon />
+          </IconButton>
         <Box flexGrow={1} />
         <Hidden mdDown>
           <IconButton color="inherit">
@@ -58,12 +64,7 @@ const TopBar = ({
             <InputIcon />
           </IconButton>
         </Hidden>
-          <IconButton
-            color="inherit"
-            onClick={onMobileNavOpen}
-          >
-            <MenuIcon />
-          </IconButton>
+        
       </Toolbar>
     </AppBar>
   );

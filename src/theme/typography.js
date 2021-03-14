@@ -1,4 +1,11 @@
+
+import './Theme.css'
+
+const font =  "'Quicksand', sans-serif";
+
 export default {
+
+  fontFamily: font,
   h1: {
     fontWeight: 500,
     fontSize: 35,
