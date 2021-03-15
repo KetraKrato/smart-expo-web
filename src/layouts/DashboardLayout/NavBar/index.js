@@ -15,6 +15,7 @@ import {
   Settings as SettingsIcon,
   User as UserIcon,
 } from 'react-feather';
+import UpdateIcon from '@material-ui/icons/Update';
 import NavItem from './NavItem';
 import RoomIcon from '@material-ui/icons/Room';
 import AirplayIcon from '@material-ui/icons/Airplay';
@@ -26,6 +27,7 @@ import ListItem from '@material-ui/core/ListItem';
 import EventIcon from '@material-ui/icons/Event';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import PersonPinIcon from '@material-ui/icons/PersonPin';
 // import Collapse from '@material-ui/core/Collapse';
 // import ListItemIcon from '@material-ui/core/ListItemIcon';
 // import StarBorder from '@material-ui/icons/StarBorder';
@@ -43,15 +45,21 @@ const items = [
     title: 'Event Management'
   },
   {
+    href: '/app/locations',
+    icon: PersonPinIcon,
+    title: 'Lcation Report'
+  },
+  {
+    href: '/app/history',
+    icon: UpdateIcon,
+    title: 'History'
+  },
+  {
     href: '/app/staff',
     icon: PeopleAltIcon,
     title: 'Staff Management'
   },
-  // {
-  //   href: '/app/video-moniter',
-  //   icon: VideoLibraryIcon,
-  //   title: 'Video Moniter'
-  // },
+ 
   // {
   //   href: '/app/map',
   //   icon: RoomIcon,
