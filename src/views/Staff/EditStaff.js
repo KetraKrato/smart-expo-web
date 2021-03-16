@@ -567,7 +567,7 @@ const RegisterView = () => {
                       size="large"
                       //type="submit"
                       variant="contained"
-                      onClick={() => {  navigate('/app/staff', { replace: true }); }}
+                      onClick={() => {  navigate('/app/staff', { push: true }); }}
                     >
                       Cancle
                     </Button>

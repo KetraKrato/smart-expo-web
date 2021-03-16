@@ -482,7 +482,7 @@ export default function EnhancedTable() {
                                 ) : (
                                     // demo data
                                    
-                                      <TableCell component="th" id={labelId} scope="row"align="center" style={{ cursor: 'pointer' }} onClick={() => { navigate('/app/blacklist/detailblacklist/' + row.id , { replace: true }); }} >
+                                      <TableCell component="th" id={labelId} scope="row"align="center" style={{ cursor: 'pointer' }} onClick={() => { navigate('/app/blacklist/detailblacklist/' + row.id , { push: true }); }} >
                                       <Grid container
                                         direction="row"
                                         justify="flex-start"
