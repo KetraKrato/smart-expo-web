@@ -7,6 +7,8 @@ import {
   Button,
   Checkbox,
   Container,
+  Card,
+  CardContent,
   FormHelperText,
   Link,
   TextField,
@@ -58,6 +60,9 @@ const useStyles = makeStyles((theme) => ({
   Name: {
     marginLeft: '8px',
     paddingRight : '8px'
+  },
+  fixTextbox: {
+    paddingRight: '8px',
   },
   
 }));
@@ -132,6 +137,8 @@ const RegisterView = () => {
         justifyContent="center"
       >
         <Container>
+          <Card>
+          <CardContent>
           <Formik
             initialValues={{
               nametitle: '',
@@ -493,6 +500,7 @@ const RegisterView = () => {
                     <Grid container xs={12}>
                       <Grid item xs={12}>
                         <TextField
+                          className = {classes.fixTextbox}
                           id="outlined-multiline-static"
                           //error={Boolean(touched.address && errors.address)}
                           fullWidth
@@ -509,7 +517,7 @@ const RegisterView = () => {
                           variant="outlined"
                         />
                       <TextField
-                      //className={classes.Name}
+                      className = {classes.fixTextbox}
                       // error={Boolean(touched.name && errors.name)}
                       fullWidth
                       //helperText={touched.name && errors.name}
@@ -527,6 +535,7 @@ const RegisterView = () => {
                       //className={classes.Name}
                       error={Boolean(touched.name && errors.name)}
                       fullWidth
+                      className = {classes.fixTextbox}
                       helperText={touched.email && errors.email}
                       label="Email"
                       margin="normal"
@@ -567,7 +576,7 @@ const RegisterView = () => {
                       size="large"
                       //type="submit"
                       variant="contained"
-                      onClick={() => {  navigate('/app/staff', { replace: true }); }}
+                      onClick={() => {  navigate('/app/staff', { push: true }); }}
                     >
                       Cancle
                     </Button>
@@ -592,6 +601,8 @@ const RegisterView = () => {
               </form>
             )}
           </Formik>
+         </CardContent>
+          </Card>
         </Container>
       </Box>
     </Page>
