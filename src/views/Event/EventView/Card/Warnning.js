@@ -28,7 +28,7 @@ import {apiConstants} from "../../../../_constants"
 const useStyles = makeStyles(({
   
     card:{
-        backgroundColor:"#ff8a65",
+        backgroundColor:"#ffa199",
         borderRadius:20
 
     },
@@ -36,7 +36,7 @@ const useStyles = makeStyles(({
          '& svg': {
           fontSize: 56
         },
-        backgroundColor: colors.yellow[900],
+        backgroundColor:  colors.red[600],
         
         height:78,
         width:78,
@@ -86,18 +86,7 @@ const Member = ({ className, ...rest }) => {
             justify="center"
             alignItems="center"
             >
-                <Grid item>
-       <Typography
-          color="textPrimary"
-           variant="h4"
-           align="center"
-        
-         >
-           {rest.product.face.member_picture.member.group.name}
-           
-         </Typography>
-         </Grid>
-
+       
          <Grid item>
 
              <ListItemAvatar>
@@ -167,6 +156,25 @@ const Member = ({ className, ...rest }) => {
             Warning             
          </Typography>
         </Grid>
+      
+         <Grid item>
+
+      <Avatar className={classes.avatar} >
+          <PersonAddDisabledIcon></PersonAddDisabledIcon>
+      </Avatar> <br></br>
+      </Grid>
+      <Grid item>
+       <Typography
+          color="textPrimary"
+           variant="h4"
+           align="center"
+        
+         >
+           {rest.product.face.member_picture.member.group.name}
+           
+         </Typography>
+         </Grid>
+
          <Typography
           color="textSecondary"
            variant="h5"
@@ -176,12 +184,7 @@ const Member = ({ className, ...rest }) => {
             Score 
             Matching 
          </Typography>
-        <Grid item>
-
-         <Avatar className={classes.avatar} >
-             <PersonAddDisabledIcon></PersonAddDisabledIcon>
-         </Avatar> <br></br>
-        </Grid>
+       
 
         <Grid item>
 

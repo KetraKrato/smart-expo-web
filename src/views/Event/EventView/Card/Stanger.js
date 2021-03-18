@@ -26,11 +26,13 @@ import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import FaceIcon from '@material-ui/icons/Face';
 
 import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
+import { red } from '@material-ui/core/colors';
 const useStyles = makeStyles(({
   
     card:{
         backgroundColor:"#bbdefb",
-        borderRadius:20
+        borderRadius:20,
+        // height:300
 
     },
       avatar: {
@@ -88,7 +90,7 @@ const Stanger = ({ className, ...rest }) => {
             alignItems="center"
             >
                 <Grid item>
-       <Typography
+       {/* <Typography
           color="textSecondary"
            variant="h4"
            align="center"
@@ -96,18 +98,18 @@ const Stanger = ({ className, ...rest }) => {
          >
            Stanger
            
-         </Typography>
+         </Typography> */}
          </Grid>
 
          <Grid item>
-
+{/* 
              <ListItemAvatar>
               <Avatar
                 alt="image_detection"
                 className={classes.avatar}
                 src={apiConstants.uri+rest.product.face_path.substring(6,rest.product.face_path.length)}
               />
-            </ListItemAvatar>
+            </ListItemAvatar> */}
          </Grid>
 
          <Typography
@@ -117,13 +119,7 @@ const Stanger = ({ className, ...rest }) => {
          >
            History Id :  {rest.product.id}             
          </Typography>
-         <Typography 
-          color="textSecondary"
-           gutterBottom
-           variant="h6"
-         >
-         Time : {moment(rest.product.created).format('HH:mm:ss')}              
-         </Typography>
+   
          <Typography 
           color="textSecondary"
            gutterBottom
@@ -149,6 +145,13 @@ const Stanger = ({ className, ...rest }) => {
             {rest.product.device.location.event.eventName}
              
          </Typography>
+         <Typography 
+          color="textSecondary"
+           gutterBottom
+           variant="body2"
+         >
+         Time : {moment(rest.product.created).format('HH:mm:ss')}              
+         </Typography>
       
             </Grid>
         </Grid>
@@ -168,30 +171,17 @@ const Stanger = ({ className, ...rest }) => {
            align="center"
         
          >
-            Score 
-            Matching 
+           Stanger
          </Typography>
         </Grid>
         <Grid item>
-
+            <br></br>
          <Avatar className={classes.avatar} >
             <FaceIcon></FaceIcon>
-         </Avatar> <br></br>
+         </Avatar> 
         </Grid>
 
-        <Grid item>
 
-         <Typography
-          color="success.main"
-           variant="h4"
-           align="center"
-        
-         >   <Box  color="success.main" >
-               {rest.product.score_match.toFixed(2)}
-             </Box>
-
-         </Typography>
-        </Grid>
         <Grid item>
 
     <Typography
@@ -211,7 +201,18 @@ const Stanger = ({ className, ...rest }) => {
       align="center"
 
     >   <Box  >
-       age :  {rest.product.age}
+       age :{(() => {
+         let ageNumber = parseInt(rest.product.age)
+        switch (true) {
+          case ageNumber >0 && ageNumber < 5:  return "small child";
+          case ageNumber >4 && ageNumber < 13: return "Child";
+          case ageNumber >12 && ageNumber < 19: return "Teens";
+          case ageNumber >18 && ageNumber < 25:  return "Young";
+          case ageNumber >24 && ageNumber < 60 :  return "adult";
+          case ageNumber >24 && ageNumber < 60 :  return "older";
+          default:    return "None";
+        }
+      })()}
         </Box>
 
     </Typography>
@@ -249,23 +250,14 @@ const Stanger = ({ className, ...rest }) => {
             alignItems="center"
             >
         
-            <Typography
-            color="primarySecondary"
-            variant="h4"
-            align="center"
-            
-            >
-            Face 
-            
-            </Typography>
-            <br></br>
+    
+            {/* <br></br>
             <ListItemAvatar>
-                <Avatar
-                    alt="rest.product"
-                    className={classes.avatar}
-                    src={apiConstants.uri+"/images/upload_images/"+ rest.product.face.image_name}
-                />
-                </ListItemAvatar>
+            <Avatar className={classes.avatar} >
+            <FaceIcon></FaceIcon>
+            </Avatar> <br></br>
+              
+                </ListItemAvatar> */}
              <Typography
            color="textSecondary"
            gutterBottom
