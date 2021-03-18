@@ -51,9 +51,6 @@ const Dashboard = () => {
 
 
   useEffect(async ()=>{
-    
-    console.log("start")
-
     let concludes = await historyService.getConcludeHistory().then((data)=>{
       return data
   
@@ -61,23 +58,21 @@ const Dashboard = () => {
       throw e
     })
     setConClude(concludes.data.history)
-   
+    console.log("start")
+
     socket.on('new-message', async  (messageNew) => {
-              return await axios.get(`${apiConstants.uri}/api/findHistory?id=${messageNew.history}`)
-                .then((res)=>{
-                    let list = []
-                    list = noti
-                    res.data.history.map((i)=>{
-                        list.push(i)
-                        
-                    })
-                    list.sort(function(a, b){return b.id - a.id});
-                    setNoti(list)
-                    setFound(!found)
-                }).catch((e)=>{
 
-                }) 
+        console.log(messageNew)
 
+        let list = []
+        list = noti
+            list.push(messageNew.history)
+            
+        list.sort(function(a, b){return b.id - a.id});
+        setNoti(list)
+        setFound(!found)
+
+console.warn(list)
   })
     
   },[])

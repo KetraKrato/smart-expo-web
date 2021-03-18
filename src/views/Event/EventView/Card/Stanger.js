@@ -57,6 +57,8 @@ const Stanger = ({ className, ...rest }) => {
 //   const [rest.products] = useState([]);
   React.useEffect(()=>{
     let value = {...rest}
+
+    console.log(value)
     // setUser(value)
   },[rest])
 
@@ -132,7 +134,7 @@ const Stanger = ({ className, ...rest }) => {
            color="textPrimary"
            variant="h6"
          >
-         Location : {rest.product.device.location.LocationName }
+         Location : {rest?.product?.device?.location?.LocationName }
          </Typography>
 
         
@@ -142,7 +144,7 @@ const Stanger = ({ className, ...rest }) => {
          >
             Event
             :
-            {rest.product.device.location.event.eventName}
+            {rest.product?.device?.location?.event.eventName}
              
          </Typography>
          <Typography 

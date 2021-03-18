@@ -103,7 +103,7 @@ const Member = ({ className, ...rest }) => {
               <Avatar
                 alt="image_detection"
                 className={classes.avatar}
-                src={apiConstants.uri+rest.product.face_path.substring(6,rest.product.face_path.length)}
+                src={rest.product.faceImage}
               />
             </ListItemAvatar>
          </Grid>
