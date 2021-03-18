@@ -71,9 +71,7 @@ const headCells = [
   {
     id: 'created', numeric: false, disablePadding: false, label: 'เวลาที่พบ'
   },
-  {
-    id: 'photo', numeric: false, disablePadding: false, label: 'รูปภาพที่พบ'
-  },
+ 
   {
     id: 'group', numeric: true, disablePadding: false, label: 'กลุ่ม'
   },
@@ -263,6 +261,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: colors.red[600],
     height:48,
     width: 48,
+    // paddingRight:theme.spacing(2),
     color:colors.grey[100]
   }
 
@@ -431,27 +430,21 @@ export default function EnhancedTable() {
                                   {moment(row.created).format("HH:mm:ss")}
 
                                 </TableCell>
-                                <TableCell component="th" id={labelId} scope="row"align="center" >
-                                    <Avatar
-                                    alt="image_detection"
-                                    className={classes.avatar}
-                                    src={apiConstants.uri+row.face_path?.substring(6,row.face_path.length)}
-                                   />
-                                </TableCell>
+                               
 
 
                                  { row.face?.member_picture ? (
-                                 <TableCell align="left">
+                                 <TableCell align="center">
                                   
                                   {row.face?.member_picture.member.group.name}
                                   </TableCell>
                                  ): (
-                                  <TableCell align="left">
+                                  <TableCell align="center">
                                     Stanger</TableCell>
                                   )   
                                 }
                                  { row.face?.member_picture ? (
-                                 <TableCell align="left">
+                                 <TableCell align="right">
                                   
                                   <Avatar
                                     alt="image_detection"
@@ -460,22 +453,22 @@ export default function EnhancedTable() {
                                    />
                                   </TableCell>
                                  ): (
-                                  <TableCell align="center">
+                                  <TableCell align="right">
                                   <Avatar
                                     alt="image_detection"
                                     className={classes.avatar}
-                                    src={apiConstants.uri+"/images/upload_images/"+ row.face?.image_name}
+                                    // src={apiConstants.uri+"/images/upload_images/"+ row.face?.image_name}
                                    />
                                   </TableCell>
                                  )   
                                 }
                                  { row.face?.member_picture ? (
-                                 <TableCell align="left">
+                                 <TableCell align="center">
                                   
                                   {row.face?.member_picture.member.firstName}
                                   </TableCell>
                                  ): (
-                                  <TableCell align="left">
+                                  <TableCell align="center">
                                   ไม่พบในฐานข้อมูล
                                   </TableCell>
                                  )   
