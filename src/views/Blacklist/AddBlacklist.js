@@ -7,6 +7,9 @@ import {
   Button,
   Checkbox,
   Container,
+  Card,
+  CardContent,
+  CardActions,
   FormHelperText,
   Link,
   TextField,
@@ -58,6 +61,9 @@ const useStyles = makeStyles((theme) => ({
   Name: {
     marginLeft: '8px',
     paddingRight : '8px'
+  },
+  fixTextbox:{
+    paddingRight : '8px',
   },
   
 }));
@@ -132,6 +138,8 @@ const RegisterView = () => {
         justifyContent="center"
       >
         <Container>
+        <Card>
+          <CardContent>
           <Formik
             initialValues={{
               nametitle: '',
@@ -194,6 +202,8 @@ const RegisterView = () => {
                   </Typography> */}
                 </Box>
                 </Grid>
+                
+                {/* <CardContent> */}
                 <Grid 
                   container
                   direction="row"
@@ -202,6 +212,8 @@ const RegisterView = () => {
                   spacing={0}
                   xs={12}           
                 >
+                  
+            
                    <Grid item xs={2}>
                           <FormControl variant="outlined" className={classes.formControl}>
                               <InputLabel className={classes.formControl} htmlFor="outlined-age-native-simple">NameTitle</InputLabel>
@@ -435,6 +447,7 @@ const RegisterView = () => {
                     <Grid container xs={12}>
                       <Grid item xs={12}>
                         <TextField
+                          className={classes.fixTextbox}
                           id="outlined-multiline-static"
                           error={Boolean(touched.address && errors.address)}
                           fullWidth
@@ -466,6 +479,7 @@ const RegisterView = () => {
                     </Grid>
                   </Grid>
                 </Grid>
+          
                 <Grid container
                   direction="row"
                   justify="flex-end"
@@ -497,14 +511,17 @@ const RegisterView = () => {
                     Add
                   </Button>
                   </Grid>
-              
+                 
        
-                </Grid>                     
-               
+                </Grid> 
+              
+                
               
               </form>
             )}
           </Formik>
+          </CardContent>
+          </Card>
         </Container>
       </Box>
     </Page>
