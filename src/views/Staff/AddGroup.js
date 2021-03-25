@@ -21,6 +21,7 @@ import {
 import Page from "../../components/Page";
 import { useNavigate } from "react-router-dom";
 import { SketchPicker, ChromePicker } from "react-color";
+import { userService } from "../../services";
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.dark,
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#ffffff",
   },
   swatch: {
-    margin: theme.spacing(3,0,0,1),
+    margin: theme.spacing(3, 0, 0, 1),
     padding: "5px",
     background: "#fff",
     borderRadius: "1px",
@@ -64,6 +65,7 @@ const RegisterView = () => {
   const classes = useStyles();
   const navigate = useNavigate();
   const [displayColorPicker, setDisplayColorPicker] = useState(false);
+  const [colorHex, setColorHex] = useState("#FFFFFF");
   const [color, setColor] = useState({ r: "241", g: "112", b: "19", a: "1" });
   function handleClick() {
     setDisplayColorPicker(!displayColorPicker);
@@ -74,12 +76,14 @@ const RegisterView = () => {
     setDisplayColorPicker(!displayColorPicker);
   }
 
-  function handleChange(color) {
+  function handleChangeColor(color) {
     console.log(color);
     setColor(color.rgb);
+    setColorHex(color.hex);
   }
   // useEffect(() => {
   //   console.log(color);
+
   // }, [color]);
   return (
     <Page className={classes.root} title="Register">
@@ -95,21 +99,34 @@ const RegisterView = () => {
             initialValues={{
               name: "",
               type: true,
-              color: "",
+              colors: "",
             }}
             validationSchema={Yup.object().shape({
               // email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
               // password: Yup.string().max(255).required('password is required'),
               // policy: Yup.boolean().oneOf([true], 'This field must be checked')
             })}
-            onSubmit={() => {
+            onSubmit={(data) => {
               // navigate('/app/dashboard', { replace: true });
+              //console.log(data)
+              data.colors = colorHex;
+              console.log(data);
+              let a = userService
+                .addGroup(data.name, data.type, data.colors).then(
+                () => {
+                  alert("Add Success")
+                  navigate("/app/staff", { push: true });
+                }
+                )
+                .catch(() => {
+                  alert("fail");
+                });
             }}
           >
             {({
               errors,
               handleBlur,
-              handleChangeText,
+              handleChange,
               handleSubmit,
               isSubmitting,
               touched,
@@ -132,11 +149,11 @@ const RegisterView = () => {
                       // helperText={touched.email && errors.email}
                       label="Name Position"
                       margin="normal"
-                      name="nameposition"
+                      name="name"
                       onBlur={handleBlur}
-                      onChange={handleChangeText}
+                      onChange={handleChange}
                       type="text"
-                      value={values.email}
+                      value={values.name}
                       variant="outlined"
                     />
                   </Grid>
@@ -162,7 +179,10 @@ const RegisterView = () => {
                             className={classes.cover}
                             onClick={handleClose}
                           />
-                          <ChromePicker color={color} onChange={handleChange} />
+                          <ChromePicker
+                            color={color}
+                            onChange={handleChangeColor}
+                          />
                         </div>
                       ) : null}
                     </div>
@@ -185,7 +205,7 @@ const RegisterView = () => {
                   </Button>
                   <Button
                     color="primary"
-                    disabled={isSubmitting}
+                    //disabled={isSubmitting}
                     // fullWidth
                     size="large"
                     type="submit"
