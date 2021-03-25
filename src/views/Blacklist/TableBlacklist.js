@@ -32,6 +32,7 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import Popover from '@material-ui/core/Popover';
 import { useNavigate } from 'react-router-dom';
 import Klee from './Klee.jpg'
+import {userService} from "../../services"
 function createData(id,  name, sex, age, height,weight, detail) {
   return {
     id,  name, sex, age, height, weight, detail
@@ -176,6 +177,9 @@ const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
   const { numSelected } = props;
 
+
+
+  
   return (
     <Toolbar
       className={clsx(classes.root, {
@@ -317,17 +321,40 @@ export default function EnhancedTable() {
   ])
 
   //call data form backend
-  // React.useEffect(async ()=>{
-  //   let getHistory = await historyService.getHistory().then((data)=>{
-  //     return data
+  React.useEffect(async ()=>{
+    let getAllUser = await userService.getAllUser().then((data)=>{
+      console.log("start call data staff")
+      return data
   
-  //   }).catch((e)=>{
-  //     throw e
-  //   })
-  //   console.log(getHistory.data.history)
-  //   setRows(getHistory.data.history)
+    }).catch((e)=>{
+      throw e
+    })
+    console.log(getAllUser.data)
+    var dataUser = getAllUser.data.group.map(datas => datas.members.map( memb => datas.name == 'Dangerous' && createData(memb.id,memb.firstName +'  '+ memb.lastName,memb.sex, memb.age, 100, 50.4)  ))
+    console.log(dataUser)
+    console.log(dataUser[0][0])
+    var temp = []
+    var fommatdataUser = []
+    var lengthData = dataUser.length
+    for ( let i = 0 ; i < lengthData;i++){
+      console.log(i)
+      for( let j = 0 ; j < dataUser[i].length;j++){
+        console.log("check j")
+          temp = dataUser[i][j]; 
+          fommatdataUser.push(temp);
+      } 
+    }
+    console.log(fommatdataUser)
+    var NumUser = fommatdataUser.length
+    for (let f = 0; f < NumUser;f++){
+      const index = fommatdataUser.indexOf(false);
+      if (index > -1) {
+        fommatdataUser.splice(index, 1);
+      }
+    }
 
-  // },[])
+    setRows(fommatdataUser)
+  },[])
 
 
   const handleRequestSort = (event, property) => {

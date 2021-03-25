@@ -31,7 +31,8 @@ import { useNavigate } from 'react-router-dom';
 import {deviceService} from "../../services"
 import { useDispatch, useSelector, } from 'react-redux';
 import {alertDialogActions} from '../../_actions';
-import Alert from "../../components/Alert"
+import Alert from "../../components/Alert";
+import { userService } from "../../services";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -107,9 +108,16 @@ const RegisterView = () => {
   const alertDialog = useSelector(state => state.alertDialog);
   const [alert, setAlert] = useState(false)
   const [data, setData] = useState({})
+  const  numbers = [{id : 1},{id:2},{id:3}]
+  //const listgroup = numbers.map((group)=> <option>{group.id}</option>)
+  const [listgroup,setListgroup] = React.useState()
+  const [image,setImage] = React.useState()
+  
+  console.log(image)
+
   useEffect(()=>{
   if ( alertDialog.type === 'success' && data != {}) {
-    deviceService.addDevice(data).then((data) => {
+    userService.postAddmember(data).then((data) => {
       console.log(data)
       if (data.status === 200) {
         setAlert(true)
@@ -120,6 +128,24 @@ const RegisterView = () => {
         
   }
 }, [alertDialog])
+
+useEffect(async ()=>{
+  console.log("Datagroup")
+  let dataGroup = await userService.allGroup(data).then((data) => {
+    console.log(data)
+    // if (data.status === 200) {
+    //   setAlert(true)
+    // }
+    
+    return data
+    
+  }).catch((e) => {
+    //alert(e)
+  })
+  console.log(dataGroup.data.group)
+  setListgroup(dataGroup.data.group.map(group => group.name != 'Dangerous' ?  <option value={group.id}>{group.name}</option> : <div></div>))
+}, [])
+
 
 
   return (
@@ -140,30 +166,37 @@ const RegisterView = () => {
           <Card>
           <CardContent>
           <Formik
-            initialValues={{
-              nametitle: '',
-              name: '',
-              surname: '',
-              nameeng: '',
-              surnameeng: '',
-              IdCardNumber: '',
-              sex: '',
-              birthday:'',
-              age: '',
-              height: '',
-              weight: '',
-              address: '',
-              home_phone:'',
-              phone_number: '',
-              position: '',
-              company: '',
-              email:'',
+            // initialValues={{
+            //   nametitle: '',
+            //   name: '',
+            //   surname: '',
+            //   nameeng: '',
+            //   surnameeng: '',
+            //   IdCardNumber: '',
+            //   sex: '',
+            //   birthday:'',
+            //   age: '',
+            //   height: '',
+            //   weight: '',
+            //   address: '',
+            //   home_phone:'',
+            //   phone_number: '',
+            //   position: '',
+            //   company: '',
+            //   email:'',
     
+            // }}
+            initialValues={{
+                groupId:0,
+                avatar :[],
+                firstName:'',
+                lastName:'',
+                type:1,
             }}
             validationSchema={
               Yup.object().shape({
-                email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                name: Yup.string().max(255).required('name is required'),
+                // email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
+                // name: Yup.string().max(255).required('name is required'),
                 // policy: Yup.boolean().oneOf([true], 'This field must be checked')
               })
             }
@@ -238,12 +271,12 @@ const RegisterView = () => {
                       helperText={touched.name && errors.name}
                       label="Name"
                       margin="normal"
-                      name="name"
+                      name="firstname"
                       autoComplete="given-name"
                       onBlur={handleBlur}
                       onChange={handleChange}
                       type="text"
-                      value={values.name}
+                      value={values.firstname}
                       variant="outlined"
                     />
                   </Grid>
@@ -255,12 +288,12 @@ const RegisterView = () => {
                       helperText={touched.surname && errors.surname}
                       label="Surname"
                           margin="normal"
-                          name="surname"
+                          name="lastname"
                       autoComplete="family-name"
                       onBlur={handleBlur}
                       onChange={handleChange}
                       type="text"
-                      value={values.surname}
+                      value={values.lastname}
                       variant="outlined"
                     />
                     </Grid>
@@ -310,6 +343,7 @@ const RegisterView = () => {
                                   <option value={"male"}>Male</option>
                                   <option value={"female"}>Female</option>
                                   <option value={"other"}>Other</option>
+
                                   </Select>
                         </FormControl>
                       </Grid>
@@ -465,18 +499,19 @@ const RegisterView = () => {
                               <InputLabel className={classes.formControl} htmlFor="outlined-age-native-simple">Position</InputLabel>
                                   <Select
                                     native
-                                    value={values.position}
+                                    value={values.groupId}
                                     onChange={handleChange}
                                     label="position"
                                     inputProps={{
-                                    name: 'position',
+                                    name: 'groupId',
                                     id: 'outlined-age-native-simple',
                                     }}
                                   >
                                   <option aria-label="None" value="" />
-                                  <option value={"male"}>Staff</option>
+                                  {/* <option value={"male"}>Staff</option>
                                   <option value={"female"}>Sale</option>
-                                  <option value={"other"}>Other</option>
+                                  <option value={"other"}>Other</option> */}
+                                  {listgroup}
                                   </Select>
                         </FormControl>
                       </Grid>
@@ -558,6 +593,10 @@ const RegisterView = () => {
                     <Grid item>
                       <DropzoneDialog
                         className={classes.media}
+                        value={values.avatar = setImage[image]}
+                        //check={setImage(image)}
+                        //setImage ={setImage}
+                        
                     />
                     </Grid>
                   </Grid>

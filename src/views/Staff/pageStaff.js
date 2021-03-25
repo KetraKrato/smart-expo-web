@@ -123,13 +123,14 @@ const navigate = useNavigate();
                       justify="space-between"
                       alignItems="center"
                       xs={12} spacing={1} className={classes.topbar} >
-              <Grid item xs={9}> <Typography variant="h1">Staff</Typography></Grid>
-              <Grid item xs={3}>
+              <Grid item xs={6}> <Typography variant="h1">Staff</Typography></Grid>
+              <Grid item xs={6}>
                 <Grid container
                   direction="row"
                   justify="flex-end"
                   alignItems="center"
                   xs={12}
+                  spacing={1}
                 >
                   <Grid item xs={2}>
                     <Button variant="contained" color="primary" size="large" className={classes.margin}
@@ -137,10 +138,19 @@ const navigate = useNavigate();
                             navigate('/app/add_staff', { replace: true });
                       }}
                       >
-                                Add
+                                Add Staff
                       </Button>
               </Grid>
-                    <Grid item xs={10}> <div className={classes.search}>
+              <Grid item xs={2}>
+                    <Button variant="contained" color="primary" size="large" className={classes.margin}
+                      onClick= {()=>{
+                            navigate('/app/staff/add_group', { replace: true });
+                      }}
+                      >
+                                Add Position
+                      </Button>
+              </Grid>
+                    <Grid item xs={6}> <div className={classes.search}>
                         <div className={classes.searchIcon}>
                             <SearchIcon />
                           </div>

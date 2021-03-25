@@ -30,6 +30,7 @@ import {deviceService} from "../../services"
 import { useDispatch, useSelector, } from 'react-redux';
 import {alertDialogActions} from '../../_actions';
 import Alert from "../../components/Alert"
+import {userService} from '../../services';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -115,6 +116,7 @@ const RegisterView = () => {
         
   }
 }, [alertDialog])
+
 
 
   return (

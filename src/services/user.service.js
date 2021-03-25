@@ -7,7 +7,9 @@ export const userService = {
     register,
     verify,
     getAllUser,
-    getDetailaUser
+    getDetailaUser,
+    postAddmember,
+    allGroup,
 };
 
  
@@ -76,7 +78,7 @@ function verify() {
 }
 
 function getAllUser() {
-     return axios.get( `${apiConstants.uri}/api/allUser`,
+     return axios.get( `${apiConstants.uri}/api/manyMember`,
     { headers: { 'Content-Type': 'application/json', crossDomain: true, } },
     { withCredentials: true }
     )
@@ -115,4 +117,47 @@ function getDetailaUser(id) {
             }
             // window.location.reload(true)
         })
+}
+
+function postAddmember(id) {
+    return axios.post( `${apiConstants.uri}/api/member`, // edit API
+   { headers: { 'Content-Type': 'application/json', crossDomain: true, } },
+   { withCredentials: true }
+   )
+       .then(user => {
+           // store user details and jwt token in local storage to keep user logged in between page refreshes
+           return user;
+       })
+       .catch((e)=>{
+           if(e.response.status === 400) {
+               e.message = e.response.data
+               return Promise.reject(e);
+           }
+           if(e.response.status === 401) {
+               window.location.reload(true)
+           }
+           // window.location.reload(true)
+       })
+}
+
+function allGroup() {
+    return axios.get( `${apiConstants.uri}/api/group`, // edit API
+   { headers: { 'Content-Type': 'application/json', crossDomain: true, } },
+   { withCredentials: true }
+   )
+       .then(group => {
+           // store user details and jwt token in local storage to keep user logged in between page refreshes
+           console.log("check allGroup")
+           return group;
+       })
+       .catch((e)=>{
+           if(e.response.status === 400) {
+               e.message = e.response.data
+               return Promise.reject(e);
+           }
+           if(e.response.status === 401) {
+               window.location.reload(true)
+           }
+           // window.location.reload(true)
+       })
 }

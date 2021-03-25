@@ -19,7 +19,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { Grid, Container, Button } from '@material-ui/core';
-import {historyService} from "../../services"
+import {userService} from "../../services"
 import Page from '../../components/Page';
 import moment from "moment"
 import Avatar from "@material-ui/core/Avatar"
@@ -316,17 +316,40 @@ export default function EnhancedTable() {
   ])
 
   //call data form backend
-  // React.useEffect(async ()=>{
-  //   let getHistory = await historyService.getHistory().then((data)=>{
-  //     return data
+  React.useEffect(async ()=>{
+    let getAllUser = await userService.getAllUser().then((data)=>{
+      console.log("start call data staff")
+      return data
   
-  //   }).catch((e)=>{
-  //     throw e
-  //   })
-  //   console.log(getHistory.data.history)
-  //   setRows(getHistory.data.history)
+    }).catch((e)=>{
+      throw e
+    })
+    console.log(getAllUser.data)
+    var dataUser = getAllUser.data.group.map(datas => datas.members.map( memb => datas.name != 'Dangerous' && createData(memb.id,memb.firstName +'  '+ memb.lastName,memb.sex, memb.age, 'DataCheck .co th', datas.name)  ))
+    console.log(dataUser)
+    console.log(dataUser[0][0])
+    var temp = []
+    var fommatdataUser = []
+    var lengthData = dataUser.length
+    for ( let i = 0 ; i < lengthData;i++){
+      console.log(i)
+      for( let j = 0 ; j < dataUser[i].length;j++){
+        console.log("check j")
+          temp = dataUser[i][j]; 
+          fommatdataUser.push(temp);
+      } 
+    }
+    console.log(fommatdataUser)
+    var NumUser = fommatdataUser.length
+    for (let f = 0; f< NumUser;f++){
+      const index = fommatdataUser.indexOf(false);
+      if (index > -1) {
+        fommatdataUser.splice(index, 1);
+      }
+    }
 
-  // },[])
+    setRows(fommatdataUser)
+  },[])
 
 
   const handleRequestSort = (event, property) => {

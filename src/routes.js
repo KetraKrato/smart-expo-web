@@ -20,6 +20,7 @@ import ShowDetailStaff from './views/Staff/ShowDetailStaff'
 import EditStaff from './views/Staff/EditStaff'
 import History from "./views/Event/History"
 import  Locations from "./views/locations"
+import AddGroup from "./views/Staff/AddGroup"
 // import RemoteControl from "./views/remoteControl"
 // import AppManager from "./views/adb/index"
 const routes = [
@@ -42,6 +43,7 @@ const routes = [
       { path: 'staff/editstaff/:id', element: <EditStaff /> },
       { path: 'history', element: <History /> },
       { path: 'locations', element: <Locations /> },
+      { path: 'staff/add_group',element:<AddGroup />},
       ,
         // { path: '*', element: <Navigate to="/404" /> }
     ]
