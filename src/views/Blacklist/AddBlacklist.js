@@ -33,7 +33,7 @@ import {deviceService} from "../../services"
 import { useDispatch, useSelector, } from 'react-redux';
 import {alertDialogActions} from '../../_actions';
 import Alert from "../../components/Alert"
-
+import { userService } from "../../services";
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.dark,
@@ -108,6 +108,7 @@ const RegisterView = () => {
   const alertDialog = useSelector(state => state.alertDialog);
   const [alert, setAlert] = useState(false)
   const [data, setData] = useState({})
+  const [avatar, setAvatar] = useState([]);
   useEffect(()=>{
   if ( alertDialog.type === 'success' && data != {}) {
     deviceService.addDevice(data).then((data) => {
@@ -142,35 +143,47 @@ const RegisterView = () => {
           <CardContent>
           <Formik
             initialValues={{
-              nametitle: '',
-              name: '',
-              surname: '',
-              nameeng: '',
-              surnameeng: '',
-              IdCardNumber: '',
-              PassportNumber: '',
-              sex: '',
-              race: '',
+              groupId:2,
+              titleName: '',
+              firstName: '',
+              lastName: '',
+              idCard: '',
+              // PassportNumber: '',
+              gender: '',
               nationality: '',
-              birthday:'',
+              birthday:'00-00-2020',
               age: '',
-              height: '',
-              weight: '',
+             // height: '',
+             // weight: '',
               address: '',
-              phone_number:'',
-    
+              company:'None',
+              email:'None',
+             // phone_number:'',
+              type: 0,
             }}
             validationSchema={
               Yup.object().shape({
                 // email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                name: Yup.string().max(255).required('name is required'),
+                // name: Yup.string().max(255).required('name is required'),
                 // policy: Yup.boolean().oneOf([true], 'This field must be checked')
               })
             }
             onSubmit={(data) => {
-              dispatch(alertDialogActions.pending("Do you want to Confirm add Blacklist ?"));
-              setData(data)
-              console.log(data)
+              // dispatch(alertDialogActions.pending("Do you want to Confirm add Blacklist ?"));
+              // setData(data)
+              // console.log(data)
+
+              let formdata = new FormData();
+
+                  for (const key in data) {
+                    formdata.append(key, data[key]);
+                  }
+                  formdata.append("avatar", avatar[0]);
+
+                  // data.avatar = avatar[0];
+                  console.log(formdata);
+
+              userService.postAddmember(formdata);
                // navigate('/app/dashboard', { replace: true });
             }}
           >
@@ -219,11 +232,11 @@ const RegisterView = () => {
                               <InputLabel className={classes.formControl} htmlFor="outlined-age-native-simple">NameTitle</InputLabel>
                                   <Select
                                     native
-                                    value={values.nametitle}
+                                    value={values.titleName}
                                     onChange={handleChange}
                                     label="NameTitle"
                                     inputProps={{
-                                    name: 'nametitle',
+                                    name: 'titleName',
                                     id: 'outlined-age-native-simple',
                                     }}
                                   >
@@ -242,12 +255,12 @@ const RegisterView = () => {
                       helperText={touched.name && errors.name}
                       label="Name"
                       margin="normal"
-                      name="name"
+                      name="firstName"
                       autoComplete="given-name"
                       onBlur={handleBlur}
                       onChange={handleChange}
                       type="text"
-                      value={values.name}
+                      value={values.firstName}
                       variant="outlined"
                     />
                   </Grid>
@@ -259,12 +272,12 @@ const RegisterView = () => {
                       helperText={touched.surname && errors.surname}
                       label="Surname"
                           margin="normal"
-                          name="surname"
+                          name="lastName"
                       autoComplete="family-name"
                       onBlur={handleBlur}
                       onChange={handleChange}
                       type="text"
-                      value={values.surname}
+                      value={values.lastName}
                       variant="outlined"
                     />
                     </Grid>
@@ -277,11 +290,11 @@ const RegisterView = () => {
                   helperText={touched.IdCardNumber && errors.IdCardNumber}
                   label="ID CardNumber"
                   margin="normal"
-                  name="IdCardNumber"
+                  name="idCard"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   type="text"
-                  value={values.IdCardNumber}
+                  value={values.idCard}
                     variant="outlined"
                   InputProps={{
                       inputComponent: NumberFormatCustom,
@@ -320,11 +333,11 @@ const RegisterView = () => {
                               <InputLabel className={classes.formControl} htmlFor="outlined-age-native-simple">Sex</InputLabel>
                                   <Select
                                     native
-                                    value={values.sex}
+                                    value={values.gender}
                                     onChange={handleChange}
                                     label="sex"
                                     inputProps={{
-                                    name: 'sex',
+                                    name: 'gender',
                                     id: 'outlined-age-native-simple',
                                     }}
                                   >
@@ -335,7 +348,7 @@ const RegisterView = () => {
                                   </Select>
                         </FormControl>
                       </Grid>
-                      <Grid item xs={1}>
+                      {/* <Grid item xs={1}>
                         <TextField
                           error={Boolean(touched.race && errors.race)}
                           fullWidth
@@ -349,7 +362,7 @@ const RegisterView = () => {
                           value={values.race}
                           variant="outlined"
                         />
-                      </Grid>
+                      </Grid> */}
                       <Grid item xs={2}>
                         <TextField
                           error={Boolean(touched.nationality && errors.nationality)}
@@ -475,6 +488,13 @@ const RegisterView = () => {
                     <Grid item>
                       <DropzoneDialog
                         className={classes.media}
+                        onValueChange={(value) => {
+                          setAvatar(value);
+                          console.log(`Value Updated: ${value}
+                        `);
+                          console.log(value[0]);
+                          // console.log(value)
+                        }}
                     />
                     </Grid>
                   </Grid>
@@ -502,7 +522,7 @@ const RegisterView = () => {
                   <Grid item>
                   <Button
                     color="primary"
-                    // disabled={isSubmitting}
+                    //disabled={isSubmitting}
                     fullWidth
                     size="large"
                     type="submit"

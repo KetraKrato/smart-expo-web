@@ -109,9 +109,9 @@ const RegisterView = () => {
   const numbers = [{ id: 1 }, { id: 2 }, { id: 3 }];
   //const listgroup = numbers.map((group)=> <option>{group.id}</option>)
   const [listgroup, setListgroup] = React.useState();
-  const [image, setImage] = React.useState();
+  //const [image, setImage] = React.useState();
 
-  console.log(image);
+  //console.log(image);
 
   useEffect(() => {
     if (alertDialog.type === "success" && data != {}) {

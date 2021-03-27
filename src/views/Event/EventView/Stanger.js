@@ -22,7 +22,9 @@ const useStyles = makeStyles(() => ({
     backgroundColor: colors.lightBlue[600],
     height:96,
     width: 96,
-    color:colors.grey[100]
+    color:colors.grey[100],
+    marginLeft: 'auto',
+    marginRight: 'auto',
   }
 }));
 
@@ -37,14 +39,19 @@ const Stanger = ({ className, ...rest }) => {
       <CardContent>
         <Grid
           container
-          justify="space-between"
+          // justify="space-between"
           spacing={3}
         >
+          <Grid item xs={3}>
+            <Avatar className={classes.avatar}>
+                <GroupIcon></GroupIcon>
+            </Avatar>
+          </Grid>
           <Grid item>
             <Typography
               color="textSecondary"
               gutterBottom
-              variant="h4"
+              variant="h2"
             >
             Total Stanger visitor
             </Typography>
@@ -54,11 +61,6 @@ const Stanger = ({ className, ...rest }) => {
             >
               {rest.data}
             </Typography>
-          </Grid>
-          <Grid item>
-            <Avatar className={classes.avatar}>
-                <GroupIcon></GroupIcon>
-            </Avatar>
           </Grid>
         </Grid>
       </CardContent>

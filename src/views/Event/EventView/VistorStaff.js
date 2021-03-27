@@ -11,6 +11,7 @@ import {
   colors,
 } from "@material-ui/core";
 import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
+import PermContactCalendarIcon from "@material-ui/icons/PermContactCalendar";
 const useStyles = makeStyles(() => ({
   root: {
     height: "100%",
@@ -19,7 +20,7 @@ const useStyles = makeStyles(() => ({
     "& svg": {
       fontSize: 56,
     },
-    backgroundColor: colors.green[600],
+    backgroundColor: colors.yellow[700],
     height: 96,
     width: 96,
     color: colors.grey[100],
@@ -28,7 +29,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const VistorWhiteList = ({ className, ...rest }) => {
+const VistorStaff = ({ className, ...rest }) => {
   const classes = useStyles();
 
   return (
@@ -41,12 +42,12 @@ const VistorWhiteList = ({ className, ...rest }) => {
         >
           <Grid item xs={3}>
             <Avatar className={classes.avatar}>
-              <VerifiedUserIcon></VerifiedUserIcon>
+              <PermContactCalendarIcon></PermContactCalendarIcon>
             </Avatar>
           </Grid>
           <Grid item>
             <Typography color="textSecondary" gutterBottom variant="h2">
-              Total Member
+              Total Staff
             </Typography>
             <Typography color="textPrimary" variant="h3">
               {rest.data}
@@ -58,8 +59,8 @@ const VistorWhiteList = ({ className, ...rest }) => {
   );
 };
 
-VistorWhiteList.propTypes = {
+VistorStaff.propTypes = {
   className: PropTypes.string,
 };
 
-export default VistorWhiteList;
+export default VistorStaff;
