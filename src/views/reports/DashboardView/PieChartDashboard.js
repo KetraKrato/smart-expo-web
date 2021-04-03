@@ -87,31 +87,31 @@ const BarChart = ({ className, ...rest }) => {
     let DataAge = [
       {
         age: "-",
-        value: 2000,
+        value: 0,
       },
       {
         age: "15-18 ปี",
-        value: 5000,
+        value: 0,
       },
       {
         age: "19-22 ปี",
-        value: 10000,
+        value: 0,
       },
       {
         age: "23-28 ปี",
-        value: 6005,
+        value: 0,
       },
       {
         age: "29-35 ปี",
-        value: 3620,
+        value: 0,
       },
       {
         age: "36-45 ปี",
-        value: 600,
+        value: 0,
       },
       {
         age: "46 ปีขึ้นไป",
-        value: 800,
+        value: 0,
       },
     ];
     //1-4        5-12     13-18 19-24   25-59      60  >
@@ -128,12 +128,12 @@ const BarChart = ({ className, ...rest }) => {
       }
       // console.log(agekey ,countKey)
       if (agekey == 0) DataAge[0].value = countKey;
-      else if (agekey > 0 && agekey < 5) DataAge[1].value += countKey;
-      else if (agekey > 4 && agekey < 13) DataAge[2].value += countKey;
-      else if (agekey > 12 && agekey < 19) DataAge[3].value += countKey;
-      else if (agekey > 18 && agekey < 25) DataAge[4].value += countKey;
-      else if (agekey > 24 && agekey < 60) DataAge[5].value += countKey;
-      else if (agekey > 60) DataAge[6].value += countKey;
+      else if (agekey > 14 && agekey < 19) DataAge[1].value += countKey;
+      else if (agekey > 18 && agekey < 23) DataAge[2].value += countKey;
+      else if (agekey > 22 && agekey < 29) DataAge[3].value += countKey;
+      else if (agekey > 28 && agekey < 36) DataAge[4].value += countKey;
+      else if (agekey > 35 && agekey < 46) DataAge[5].value += countKey;
+      else if (agekey > 46) DataAge[6].value += countKey;
     });
     setAge(DataAge);
     console.log(DataAge);
