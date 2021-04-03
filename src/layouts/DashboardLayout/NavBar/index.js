@@ -81,11 +81,11 @@ const items = [
   //   icon: TelegramIcon,
   //   title: 'Massager'
   // },
-  {
-    href: '/app/account',
-    icon: UserIcon,
-    title: 'Account Manager'
-  },
+  // {
+  //   href: '/app/account',
+  //   icon: UserIcon,
+  //   title: 'Account Manager'
+  // },
   // {
   //   href: '/app/settings',
   //   icon: SettingsIcon,
