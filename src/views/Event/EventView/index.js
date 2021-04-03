@@ -40,6 +40,7 @@ const Dashboard = () => {
     stanger: 0,
     verify: 0,
     warning: 0,
+    staff:0
   });
   useEffect(() => {
     if (location.search != undefined) {
@@ -94,7 +95,7 @@ const Dashboard = () => {
             <TotalVistorWhite data={conclude?.verify} />
           </Grid>
           <Grid item lg={3} sm={6} xl={2.2} xs={12}>
-            <TotalStaff data={conclude?.stanger} />
+            <TotalStaff data={conclude?.staff} />
           </Grid>
           <Grid item lg={3} sm={6} xl={2.2} xs={12}>
             <TotalVistorBlack data={conclude?.warning} />
