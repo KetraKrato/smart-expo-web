@@ -368,8 +368,8 @@ export default function EnhancedTable() {
             memb.firstName + "  " + memb.lastName,
             memb.sex,
             memb.age,
-            100,
-            50.4
+            170,
+            65.6
           )
       )
     );

@@ -11,6 +11,7 @@ export const userService = {
   postAddmember,
   allGroup,
   addGroup,
+  DeleteDetailaUser,
 };
 
 axios.defaults.withCredentials = true;
@@ -128,6 +129,29 @@ function getDetailaUser(id) {
     });
 }
 
+function DeleteDetailaUser(id) {
+  return axios
+    .delete(
+      `${apiConstants.uri}/api/member?id=${id}`, // edit API
+      { headers: { "Content-Type": "application/json", crossDomain: true } },
+      { withCredentials: true }
+    )
+    .then((status) => {
+      // store user details and jwt token in local storage to keep user logged in between page refreshes
+      console.log(status);
+      return status;
+    })
+    .catch((e) => {
+      if (e.response.status === 400) {
+        e.message = e.response.data;
+        return Promise.reject(e);
+      }
+      if (e.response.status === 401) {
+        window.location.reload(true);
+      }
+      // window.location.reload(true)
+    });
+}
 function postAddmember(d) {
   const data = d;
   return axios
@@ -140,6 +164,7 @@ function postAddmember(d) {
     .then((user) => {
       // store user details and jwt token in local storage to keep user logged in between page refreshes
       console.log(user);
+      console.log(user.status);
       return user;
     })
     .catch((e) => {

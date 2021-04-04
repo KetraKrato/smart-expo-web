@@ -112,11 +112,13 @@ const RegisterView = () => {
         .then((data) => {
           console.log(data);
           if (data.status === 200) {
-            setAlert(true);
+            //setAlert(true);
+            dispatch(alertDialogActions.begin("begin"));
+            navigate("/app/blacklist", { push: true });
           }
         })
         .catch((e) => {
-          alert(e);
+          //alert(e);
         });
     }
   }, [alertDialog]);
@@ -155,8 +157,8 @@ const RegisterView = () => {
                 }}
                 validationSchema={Yup.object().shape({
                   titleName: Yup.string()
-                  .max(255)
-                  .required("NameTitle is required"),
+                    .max(255)
+                    .required("NameTitle is required"),
                   // email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
                   // name: Yup.string().max(255).required('name is required'),
                   // policy: Yup.boolean().oneOf([true], 'This field must be checked')
@@ -215,7 +217,7 @@ const RegisterView = () => {
                       xs={12}
                     >
                       <Grid item xs={2}>
-                      <FormControl
+                        <FormControl
                           variant="outlined"
                           className={classes.formControl}
                         >

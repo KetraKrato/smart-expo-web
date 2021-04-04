@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import * as Yup from "yup";
 import { Formik } from "formik";
@@ -28,7 +28,9 @@ import { red } from "@material-ui/core/colors";
 import { useNavigate, useParams } from "react-router-dom";
 import { PanoramaSharp } from "@material-ui/icons";
 import { userService } from "../../services";
-import {apiConstants} from "../../_constants"
+import { apiConstants } from "../../_constants";
+import { useDispatch, useSelector } from "react-redux";
+import { alertDialogActions } from "../../_actions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -80,7 +82,6 @@ const useStyles = makeStyles((theme) => ({
 // };
 function NumberFormatCustom(props) {
   const { inputRef, onChange, ...other } = props;
-
   return (
     <NumberFormat
       {...other}
@@ -111,6 +112,8 @@ const date = "2021-06-26"; // or Date or Moment.js
 
 const RegisterView = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const alertDialog = useSelector((state) => state.alertDialog);
   const [data, setData] = useState({
     id: 1,
     titleName: "นาย",
@@ -130,12 +133,12 @@ const RegisterView = () => {
     // weight: "66",
     address: "1 Chalong Krung 1 Alley, Lat Krabang, Bangkok 10520",
     company: "",
-    email:"",
+    email: "",
     // phone_number: "+66 23298000",
   });
   const navigate = useNavigate();
   const params = useParams();
-  const [image,setImage] = useState('');
+  const [image, setImage] = useState("");
   // const navigate = useNavigate();na
 
   //call data form backend
@@ -150,8 +153,8 @@ const RegisterView = () => {
         setData({
           ...res.data.member[0].member,
         });
-        setImage(img)
-        console.log(img)
+        setImage(img);
+        console.log(img);
         console.log(res);
         return res;
       })
@@ -159,6 +162,24 @@ const RegisterView = () => {
         throw e;
       });
   }, []);
+
+  useEffect(() => {
+    if (alertDialog.type === "success") {
+      userService
+        .DeleteDetailaUser(params.id)
+        .then((data) => {
+          console.log(data);
+          if (data.status === 200) {
+            //setAlert(true);
+            dispatch(alertDialogActions.begin("begin"));
+            navigate("/app/staff", { push: true });
+          }
+        })
+        .catch((e) => {
+          alert(e);
+        });
+    }
+  }, [alertDialog]);
 
   const onChange = (jsDate, dateString) => {};
   return (
@@ -268,17 +289,17 @@ const RegisterView = () => {
               xs={2}
             >
               <Grid item className={classes.media}>
-              <img
-        style={{
-          marginLeft: "6px",
-          border: "solid 1px #000",
-          borderRadius: "5px",
-          width: "200px",
-          height: "300px",
-        }}
-        src={apiConstants.uri+ image.substring(6,image.length)}
-        alt="..."
-      />
+                <img
+                  style={{
+                    marginLeft: "6px",
+                    border: "solid 1px #000",
+                    borderRadius: "5px",
+                    width: "200px",
+                    height: "300px",
+                  }}
+                  src={apiConstants.uri + image.substring(6, image.length)}
+                  alt="..."
+                />
               </Grid>
             </Grid>
           </Grid>
@@ -313,7 +334,22 @@ const RegisterView = () => {
                 //type="submit"
                 variant="contained"
                 onClick={() => {
-                  navigate("/app/staff", { push: true });
+                  dispatch(
+                    alertDialogActions.pending("Do you want to Delete ?")
+                  );
+                  userService
+                    .DeleteDetailaUser(params.id)
+                    .then((data) => {
+                      console.log(data);
+                      if (data.status === 200) {
+                        //setAlert(true);
+                        navigate("/app/staff", { push: true });
+                      }
+                    })
+                    .catch((e) => {
+                      alert(e);
+                    });
+                  console.log("Delete");
                 }}
               >
                 Delete

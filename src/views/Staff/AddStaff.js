@@ -120,13 +120,16 @@ const RegisterView = () => {
         .then((data) => {
           console.log(data);
           if (data.status === 200) {
-            setAlert(true);
+            //alert("OK");
+            dispatch(alertDialogActions.begin("begin"));
+            navigate("/app/staff", { push: true });
           }
         })
         .catch((e) => {
-          alert(e);
+          // alert(e);
         });
     }
+    // dispatch(alertDialogActions.begin("begin"));
   }, [alertDialog]);
 
   useEffect(async () => {
@@ -157,8 +160,8 @@ const RegisterView = () => {
   }, []);
 
   return (
-    <Page className={classes.root} title="Add Blacklist">
-      {alert && <Alert massage="Add Blacklist is Success"></Alert>}
+    <Page className={classes.root} title="Add Staff">
+      {/* {alert && <Alert massage="Add Blacklist is Success"></Alert>} */}
       <Box
         display="flex"
         flexDirection="column"
@@ -249,13 +252,13 @@ const RegisterView = () => {
                   console.log(formdata);
 
                   // data.avatar = props.onValueChange
-                  // dispatch(
-                  //   alertDialogActions.pending(
-                  //     "Do you want to Confirm add Staff ?"
-                  //   )
-                  // );
-                  //setData(data)
-                  userService.postAddmember(formdata);
+                  dispatch(
+                    alertDialogActions.pending(
+                      "Do you want to Confirm add Staff ?"
+                    )
+                  );
+                  setData(formdata);
+                  // userService.postAddmember(formdata);
                   // navigate('/app/dashboard', { replace: true });
                 }}
               >

@@ -66,11 +66,11 @@ const items = [
   //   title: 'Locations'
   // },
 
-  // {
-  //   href: '/app/device',
-  //   icon: DevicesIcon,
-  //   title: 'Decives Manager'
-  // },
+  {
+    href: "/app/add_device",
+    icon: DevicesIcon,
+    title: "Decives Manager",
+  },
   // {
   //   href: '/app/video-record',
   //   icon: VideoCallIcon,

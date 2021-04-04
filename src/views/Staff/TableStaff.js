@@ -466,7 +466,7 @@ export default function EnhancedTable() {
       fommatdatahaveImgGender.push(
         createData(
           fommatdataUser[f].id,
-          getImgGender.data.member[0].image_path,
+          getImgGender?.data?.member[0].image_path,
           fommatdataUser[f].name,
           getImgGender.data.member[0].member.gender,
           getImgGender.data.member[0].member.age,
