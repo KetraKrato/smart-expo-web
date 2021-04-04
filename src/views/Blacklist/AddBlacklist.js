@@ -107,8 +107,8 @@ const RegisterView = () => {
   const [avatar, setAvatar] = useState([]);
   useEffect(() => {
     if (alertDialog.type === "success" && data != {}) {
-      deviceService
-        .addDevice(data)
+      userService
+        .postAddmember(data)
         .then((data) => {
           console.log(data);
           if (data.status === 200) {
@@ -177,8 +177,13 @@ const RegisterView = () => {
 
                   // data.avatar = avatar[0];
                   console.log(formdata);
-
-                  userService.postAddmember(formdata);
+                  dispatch(
+                    alertDialogActions.pending(
+                      "Do you want to Confirm add Blacklist ?"
+                    )
+                  );
+                  setData(formdata);
+                  //userService.postAddmember(formdata);
                   // navigate('/app/dashboard', { replace: true });
                 }}
               >
