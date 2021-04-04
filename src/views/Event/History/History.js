@@ -57,7 +57,7 @@ const Video = ({ className, ...rest }) => {
     >
       <CardHeader
         variant="h4"
-        title="History"
+        title="Record Vistor"
       />
       <Divider />
       <Review></Review>

@@ -28,6 +28,7 @@ import { red } from '@material-ui/core/colors';
 import { useNavigate ,useParams} from 'react-router-dom';
 import { PanoramaSharp } from '@material-ui/icons';
 import {userService} from "../../services"
+import {apiConstants} from "../../_constants"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,27 +60,27 @@ const useStyles = makeStyles((theme) => ({
   
 }));
 
-const DataTemp = {
-    id: 1,
-    nametitle: 'นาย',
-    name: 'ณัฐธรรม',
-    surname: 'วัฒนขจรชัยกุล',
-    nametitleeng:'Mr.',
-    nameeng: 'Nattatam',
-    surnameeng: 'Watanakajonchaikul',
-    IdCardNumber: '1-1111-11111-11-1',
-    PassportNumber: '504572974',
-    sex: 'Male',
-    race: 'Thai',
-    nationality: 'Thai',
-    birthday:'03/03/1998',
-    age: '22',
-    height: '170',
-    weight: '66',
-    address: '1 Chalong Krung 1 Alley, Lat Krabang, Bangkok 10520',
-    phone_number:'+66 23298000',
+// const DataTemp = {
+//     id: 1,
+//     nametitle: 'นาย',
+//     name: 'ณัฐธรรม',
+//     surname: 'วัฒนขจรชัยกุล',
+//     nametitleeng:'Mr.',
+//     nameeng: 'Nattatam',
+//     surnameeng: 'Watanakajonchaikul',
+//     IdCardNumber: '1-1111-11111-11-1',
+//     PassportNumber: '504572974',
+//     sex: 'Male',
+//     race: 'Thai',
+//     nationality: 'Thai',
+//     birthday:'03/03/1998',
+//     age: '22',
+//     height: '170',
+//     weight: '66',
+//     address: '1 Chalong Krung 1 Alley, Lat Krabang, Bangkok 10520',
+//     phone_number:'+66 23298000',
     
-}
+// }
 function NumberFormatCustom(props) {
   const { inputRef, onChange, ...other } = props;
 
@@ -115,22 +116,50 @@ const date = '2021-06-26' // or Date or Moment.js
 
 const RegisterView = () => {
   const classes = useStyles();
-    const [data, setData] = useState({})
   const navigate = useNavigate();
-  const params = useParams(); 
+  const params = useParams();
+  const [data, setData] = useState({
+    id: 1,
+    titleName: "นาย",
+    firstName: "ณัฐธรรม",
+    lastName: "วัฒนขจรชัยกุล",
+    idCard: "1-1111-11111-11-1",
+    //PassportNumber: "504572974",
+    gender: "Male",
+    nationality: "Thai",
+    birthday: "03-03-1998",
+    age: "22",
+    // height: "170",
+    // weight: "66",
+    address: "1 Chalong Krung 1 Alley, Lat Krabang, Bangkok 10520",
+    company: "",
+    email:"",
+    // phone_number: "+66 23298000",
+  });
+  const [image,setImage] = useState('');
   // const navigate = useNavigate();na
 
 //call data form backend
-  React.useEffect(async ()=>{
-    let getDataUser = await userService.getDetailaUser(params.id).then((data)=>{
-      return data
-  
-    }).catch((e)=>{
-      throw e
+React.useEffect(() => {
+  let getDataUser = userService
+    .getDetailaUser(params.id)
+    .then((res) => {
+      var img = res.data.member[0].image_path;
+      console.log(res);
+      // data.name = temp.firstName;
+      // data.surname = temp.lastName;
+      setData({
+        ...res.data.member[0].member,
+      });
+      setImage(img)
+      console.log(img)
+      console.log(res);
+      return res;
     })
-    console.log(getDataUser.data.history)
-    DataTemp = getDataUser.data.history
-  },[])
+    .catch((e) => {
+      throw e;
+    });
+}, []);
 
 
   const onChange = (jsDate, dateString) => {
@@ -170,67 +199,62 @@ const RegisterView = () => {
                               <Typography align="right"> Name :</Typography>
                               </Grid>
                             <Grid item xs={9}>
-                                  <Typography>{DataTemp.nametitleeng} {DataTemp.nameeng} {DataTemp.surnameeng}</Typography>
+                                  <Typography>{data.titleName} {data.firstName} {data.lastName}</Typography>
                             </Grid>
                             <Grid item xs={3}>
                               <Typography align="right"> ID CardNumber :</Typography>
                               </Grid>
                             <Grid item xs={9}>
-                                  <Typography>{DataTemp.IdCardNumber} </Typography>
+                                  <Typography>{data.idCard} </Typography>
                             </Grid>
                             <Grid item xs={3}>
                               <Typography align="right"> Passport Number :</Typography>
                               </Grid>
                             <Grid item xs={9}>
-                                  <Typography>{DataTemp.PassportNumber} </Typography>
+                                  <Typography>{data.PassportNumber} </Typography>
                             </Grid>
                             <Grid item xs={3}>
                               <Typography align="right"> Sex :</Typography>
                               </Grid>
                             <Grid item xs={9}>
-                                  <Typography>{DataTemp.sex} </Typography>
+                                  <Typography>{data.gender} </Typography>
                             </Grid>
-                            <Grid item xs={3}>
-                              <Typography align="right"> Race :</Typography>
-                              </Grid>
-                            <Grid item xs={9}>
-                                  <Typography>{DataTemp.race} </Typography>
-                            </Grid>
+                
                             <Grid item xs={3}>
                               <Typography align="right"> Nationnality :</Typography>
                               </Grid>
                             <Grid item xs={9}>
-                                  <Typography>{DataTemp.nationality} </Typography>
+                                  <Typography>{data.nationality} </Typography>
                             </Grid>
                             <Grid item xs={3}>
                               <Typography align="right"> Age :</Typography>
                               </Grid>
                             <Grid item xs={9}>
-                                  <Typography>{DataTemp.age} </Typography>
+                                  <Typography>{data.age} </Typography>
                             </Grid>
                             <Grid item xs={3}>
                               <Typography align="right"> Birthday :</Typography>
                               </Grid>
                             <Grid item xs={9}>
-                                  <Typography>{DataTemp.birthday} </Typography>
+                                  <Typography>{data.birthday} </Typography>
                       </Grid>
                       <Grid item xs={3}>
                               <Typography align="right"> Height :</Typography>
                               </Grid>
                             <Grid item xs={9}>
-                                  <Typography>{DataTemp.height} </Typography>
+                                  <Typography>{data.height} </Typography>
                       </Grid>
                       <Grid item xs={3}>
                               <Typography align="right"> weight :</Typography>
                               </Grid>
                             <Grid item xs={9}>
-                                  <Typography>{DataTemp.weight} </Typography>
+                                  <Typography>{data.weight} </Typography>
                       </Grid>
                       <Grid item xs={3}>
                               <Typography align="right"> Adress :</Typography>
                               </Grid>
                             <Grid item xs={9}>
-                                  <Typography>{DataTemp.address} </Typography>
+                                  <Typography>{data.address} </Typography>
                             </Grid>
                         </Grid>
                       <Grid container xs={2}>
@@ -241,7 +265,17 @@ const RegisterView = () => {
 
                                 xs={2}>
               <Grid item className={ classes.media}>
-                                <DropzoneDialog/>
+              <img
+        style={{
+          marginLeft: "6px",
+          border: "solid 1px #000",
+          borderRadius: "5px",
+          width: "200px",
+          height: "300px",
+        }}
+        src={apiConstants.uri+ image.substring(6,image.length)}
+        alt="..."
+      />
                             </Grid>
 
                             </Grid>
@@ -260,7 +294,7 @@ const RegisterView = () => {
                       size="large"
                       //type="submit"
                       variant="contained"
-                      onClick={() => {  navigate('/app/blacklist', { replace: true }); }}
+                      onClick={() => {  navigate('/app/blacklist', { push: true }); }}
                     >
                       Cancle
                     </Button>
@@ -273,7 +307,7 @@ const RegisterView = () => {
                     size="large"
                     //type="submit"
                     variant="contained"
-                    onClick={() => {  navigate('/app/blacklist/editblacklist/'+ params.id, { replace: true }); }}
+                    onClick={() => {  navigate('/app/blacklist/editblacklist/'+ params.id, { push: true }); }}
                   >
                     Edit
                   </Button>

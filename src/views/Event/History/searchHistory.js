@@ -20,18 +20,18 @@ const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.dark,
     minHeight: '100%',
-    //paddingBottom: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
     paddingTop: theme.spacing(3)
   },
   section1: {
-    margin: theme.spacing(3, 0, 0, 0),
+    margin: theme.spacing(3, 2),
   },
   input:{
         color: theme.palette.primary.main,
         borderColor:theme.palette.primary.main,
   },
   margin: {
-    // margin: theme.spacing(1),
+    margin: theme.spacing(1),
   },
   button:{
     margin: theme.spacing(1),
@@ -92,12 +92,12 @@ const ReortFilter = () => {
 
       <Grid item xs={12} >
         <Typography color="textPrimary" gutterBottom variant="h4">
-          DASHBOARD
+          History
         </Typography>
       </Grid>
       <Grid item xs={12} >
       <Typography color="textSecondary" variant="body2">
-        Dashboard
+        Record Vistor 
         </Typography>
        <br></br>
 
@@ -107,7 +107,7 @@ const ReortFilter = () => {
        elevation={5} >
         <div className={classes.paper}>
     
-          {/* <IconButton color="primary" aria-label="upload picture" component="span">
+          <IconButton color="primary" aria-label="upload picture" component="span">
           <SearchIcon 
             color="primary" 
             variant="contained"
@@ -115,14 +115,14 @@ const ReortFilter = () => {
         </IconButton>
           <Typography component="h1" variant="h5" color="primary"  className={classes.margin}>
             FILTER
-          </Typography> */}
+          </Typography>
           <form  className={classes.form}  noValidate>
-           {/* <ButtonGroup  className={classes.groupButtom} size="large" color="primary" aria-label="large outlined primary button group">
+           <ButtonGroup  className={classes.groupButtom} size="large" color="primary" aria-label="large outlined primary button group">
             <Button>month</Button>
             <Button>week</Button>
             <Button>last day</Button>
             <Button>to day</Button>
-            </ButtonGroup> */}
+            </ButtonGroup>
          
                 <TextField
                 id="datetime-local"
@@ -137,7 +137,7 @@ const ReortFilter = () => {
                 className:classes.input
                 }}
                 />
-                {/* <TextField
+                <TextField
                 id="datetime-local"
                 label="DATE END"
                 variant="outlined"
@@ -149,7 +149,7 @@ const ReortFilter = () => {
                 shrink: true,
                 className:classes.input
                 }}
-                /> */}
+                />
             <Button  variant="contained" color="primary" 
             size="medium" className={classes.buttonSearch}
             onClick= {()=>{
@@ -178,7 +178,7 @@ const ReortFilter = () => {
     </Grid>
    
   </div>
-  {/* <Divider variant="middle" /> */}
+  <Divider variant="middle" />
      
     </Page>
   );

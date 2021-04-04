@@ -134,7 +134,7 @@ const navigate = useNavigate();
                   <Grid item xs={2}>
                     <Button variant="contained" color="primary" size="large" className={classes.margin}
                       onClick= {()=>{
-                            navigate('/app/add_blacklist', { replace: true });
+                            navigate('/app/add_blacklist', { push: true });
                       }}
                       >
                                 Add

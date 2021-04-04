@@ -11,6 +11,7 @@ import {
   colors
 } from '@material-ui/core';
 import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
+import { Block } from '@material-ui/icons';
 const useStyles = makeStyles(() => ({
   root: {
     height: '100%'
@@ -22,8 +23,10 @@ const useStyles = makeStyles(() => ({
     backgroundColor: colors.red[600],
     height: 96,
     width: 96,
-    color:colors.grey[100]
-
+    color:colors.grey[100],
+    //display:'block',
+    marginLeft: 'auto',
+    marginRight: 'auto',
   }
 }));
 
@@ -38,14 +41,20 @@ const VistorBlackList = ({ className, ...rest }) => {
       <CardContent>
         <Grid
           container
-          justify="space-between"
+          //justify="space-between"
           spacing={3}
+        
         >
-          <Grid item>
+           <Grid item xl={3}>
+            <Avatar className={classes.avatar}>
+                <PersonAddDisabledIcon></PersonAddDisabledIcon>
+            </Avatar>
+          </Grid>
+          <Grid item xl={9}>
             <Typography
               color="textSecondary"
               gutterBottom
-              variant="h4"
+              variant="h2"
             >
               Total disproved visitor
             </Typography>
@@ -56,11 +65,7 @@ const VistorBlackList = ({ className, ...rest }) => {
                    {rest.data}
             </Typography>
           </Grid>
-          <Grid item>
-            <Avatar className={classes.avatar}>
-            <PersonAddDisabledIcon></PersonAddDisabledIcon>
-            </Avatar>
-          </Grid>
+         
         </Grid>
       </CardContent>
     </Card>

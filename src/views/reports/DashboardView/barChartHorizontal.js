@@ -49,7 +49,8 @@ const BarChartComponents  = ({ className, ...rest }) => {
     {
         "name": "Others",
         "value": 10.25
-    } ])
+    } 
+  ])
 
    
     useEffect( ()=>{

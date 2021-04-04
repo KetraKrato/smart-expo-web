@@ -24,7 +24,7 @@ import {
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import FaceIcon from '@material-ui/icons/Face';
 import {apiConstants} from "../../../../_constants"
-import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
+import VerifiedUserIcon from '@material-ui/icons/PermContactCalendar';
 const useStyles = makeStyles(({
   
  
@@ -32,7 +32,7 @@ const useStyles = makeStyles(({
          '& svg': {
           fontSize: 56
         },
-        backgroundColor: colors.lightGreen[600],
+        backgroundColor: colors.yellow[800],
         
         height:78,
         width:78,
@@ -103,7 +103,7 @@ const Member = ({ className, ...rest }) => {
               <Avatar
                 alt="image_detection"
                 className={classes.avatar}
-                src={apiConstants.uri+rest.product.face_path.substring(6,rest.product.face_path.length)}
+                src={rest.product.faceImage}
               />
             </ListItemAvatar>
          </Grid>
