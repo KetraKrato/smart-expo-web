@@ -15,7 +15,7 @@ import BarChart from "./barChartDashBoard";
 import SerachDashBoard from "./serachDashboard";
 import Divider from "@material-ui/core/Divider";
 import BarChartHorizontal from "./barChartHorizontal";
-import ManWoman from './ManWoman';
+import ManWoman from "./ManWoman";
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.dark,
@@ -57,43 +57,45 @@ const Dashboard = () => {
   return (
     <Page className={classes.root} title="Dashboard">
       <Container maxWidth={false}>
-        <Grid container 
-        spacing={3}
-        >
+        <Grid container spacing={3}>
           <Grid item lg={12} sm={12} xl={12} xs={12}>
             <SerachDashBoard> </SerachDashBoard>
-          </Grid> 
+          </Grid>
           <Grid item lg={3} xs={4}>
-          <TotalVistor data={conclude?.allHistory} />
+            <TotalVistor data={conclude?.allHistory} />
           </Grid>
           <Grid item xl={4} xs={4}>
             <Grid container spacing={3}>
-               
-              <Grid item lg={3} sm={6} xl={12} xs={12}>
-            <TotalVistorStanger data={conclude?.stanger} />
-          </Grid>
-          <Grid item lg={3} sm={6} xl={12} xs={12}>
-            <TotalVistorWhite data={conclude?.verify} />
-          </Grid>
-          <Grid item lg={3} sm={6} xl={12} xs={12}>
-            <TotalVistorBlack data={conclude?.warning} />
-          </Grid>
+              <Grid item lg={12} sm={6} xl={12} xs={12}>
+                <TotalVistorStanger data={conclude?.stanger} />
+              </Grid>
+              <Grid item lg={12} sm={6} xl={12} xs={12}>
+                <TotalVistorWhite data={conclude?.verify} />
+              </Grid>
+              <Grid item lg={12} sm={6} xl={12} xs={12}>
+                <TotalVistorBlack data={conclude?.warning} />
+              </Grid>
             </Grid>
           </Grid>
           <Grid item xl={5} xs={5}>
-          <Grid item lg={4} md={6} xl={12} xs={12}>
-                <ManWoman data={{ Man : conclude?.genderMan,Woman : conclude?.genderWoman}} ></ManWoman>
-          </Grid>
+            <Grid item lg={12} md={12} xl={12} xs={12}>
+              <ManWoman
+                data={{
+                  Man: conclude?.genderMan,
+                  Woman: conclude?.genderWoman,
+                }}
+              ></ManWoman>
+            </Grid>
           </Grid>
           <Grid item xl={12}>
-          <Grid container spacing={3}>
+            <Grid container spacing={3}>
               <Grid item lg={4} md={6} xl={4} xs={12}>
                 <PieChart data={conclude?.age}></PieChart>
-          </Grid>
-          <Grid item lg={8} md={8} xl={8} xs={12}>
-                  <GraphDashboard data={conclude?.time_report}></GraphDashboard>
               </Grid>
-          {/* <Grid item lg={4} md={6} xl={4} xs={12}>
+              <Grid item lg={8} md={8} xl={8} xs={12}>
+                <GraphDashboard data={conclude?.time_report}></GraphDashboard>
+              </Grid>
+              {/* <Grid item lg={4} md={6} xl={4} xs={12}>
             <BarChartHorizontal data={conclude?.race}></BarChartHorizontal>
           </Grid> */}
             </Grid>
@@ -107,7 +109,7 @@ const Dashboard = () => {
           {/* <Grid item lg={3} md={6} xl={2} xs={12}>
             <TotalGenderMan data={conclude?.genderMan} />
           </Grid> */}
-         {/*} <Grid item lg={3} sm={6} xl={3} xs={12}>
+          {/*} <Grid item lg={3} sm={6} xl={3} xs={12}>
             <TotalVistorWhite data={conclude?.verify} />
           </Grid>
           <Grid item lg={3} sm={6} xl={3} xs={12}>

@@ -78,11 +78,11 @@ const PureComponent = ({ className, ...rest }) => {
       <Divider />
       <br></br>
       <div className={classes.top}>
-        <Grid container xl={12}>
-          <Grid item xl={3}>
+        <Grid container xl={12} xs={12} lg={12}>
+          <Grid item xl={3} lg={3}>
             <img className={classes.sizeImgMan} src={Man} />
           </Grid>
-          <Grid item xl={6}>
+          <Grid item xl={6} lg={6}>
             {data.map((item, idx) => (
               <ProgressBar
                 key={idx}
@@ -91,7 +91,7 @@ const PureComponent = ({ className, ...rest }) => {
               />
             ))}
           </Grid>
-          <Grid item xl={3}>
+          <Grid item xl={3} lg={3}>
             <img className={classes.sizeImgWoman} src={Woman} />
           </Grid>
         </Grid>
