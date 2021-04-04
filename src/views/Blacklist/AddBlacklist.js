@@ -154,6 +154,9 @@ const RegisterView = () => {
                   type: 0,
                 }}
                 validationSchema={Yup.object().shape({
+                  titleName: Yup.string()
+                  .max(255)
+                  .required("NameTitle is required"),
                   // email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
                   // name: Yup.string().max(255).required('name is required'),
                   // policy: Yup.boolean().oneOf([true], 'This field must be checked')
@@ -212,7 +215,7 @@ const RegisterView = () => {
                       xs={12}
                     >
                       <Grid item xs={2}>
-                        <FormControl
+                      <FormControl
                           variant="outlined"
                           className={classes.formControl}
                         >
@@ -224,6 +227,10 @@ const RegisterView = () => {
                           </InputLabel>
                           <Select
                             native
+                            error={Boolean(
+                              touched.titleName && errors.titleName
+                            )}
+                            helperText={touched.titleName && errors.titleName}
                             value={values.titleName}
                             onChange={handleChange}
                             label="NameTitle"
@@ -233,9 +240,9 @@ const RegisterView = () => {
                             }}
                           >
                             <option aria-label="None" value="" />
-                            <option value={"male"}>Mr.</option>
-                            <option value={"female"}>Mrs.</option>
-                            <option value={"other"}>Other</option>
+                            <option value={"Mr"}>Mr</option>
+                            <option value={"Mrs"}>Mrs</option>
+                            <option value={"Other"}>Other</option>
                           </Select>
                         </FormControl>
                       </Grid>
