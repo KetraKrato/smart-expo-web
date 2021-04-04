@@ -173,7 +173,7 @@ const Stanger = ({ className, ...rest }) => {
            align="center"
         
          >
-           Stanger
+           Stranger
          </Typography>
         </Grid>
         <Grid item>
@@ -181,6 +181,32 @@ const Stanger = ({ className, ...rest }) => {
          <Avatar className={classes.avatar} >
             <FaceIcon></FaceIcon>
          </Avatar> 
+        </Grid>
+        <Grid item>
+         <Typography
+          color="textSecondary"
+           variant="h5"
+           align="center"
+        
+         >
+            Score 
+            Matching 
+         </Typography>
+        </Grid>
+
+        <Grid item>
+          
+
+         <Typography
+          color="success.main"
+           variant="h4"
+           align="center"
+        
+         >   <Box  color="success.main" >
+               {rest.product.score_match.toFixed(2)}
+             </Box>
+
+         </Typography>
         </Grid>
 
 
@@ -216,30 +242,10 @@ const Stanger = ({ className, ...rest }) => {
         }
       })()}
         </Box>
-
     </Typography>
-    <Typography
-    color="success.main"
-      variant="h6"
-      align="center"
-
-    >   <Box  >
-       emotion :   {rest.product.emotions}
-        </Box>
-
-
-    </Typography>
-    <Typography
-          color="success.main"
-          variant="h6"
-          align="center"
-
-          >  <Box  >
-            race:  {rest.product.race}
-              </Box>
-      </Typography>
 
 </Grid>
+
 
             </Grid>
 

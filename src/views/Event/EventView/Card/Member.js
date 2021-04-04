@@ -157,6 +157,13 @@ const Member = ({ className, ...rest }) => {
         alignItems="center"
         >
 
+     
+        <Grid item>
+
+         <Avatar className={classes.avatar} >
+            <VerifiedUserIcon></VerifiedUserIcon>
+         </Avatar> <br></br>
+        </Grid>
         <Grid item>
          <Typography
           color="textSecondary"
@@ -168,14 +175,9 @@ const Member = ({ className, ...rest }) => {
             Matching 
          </Typography>
         </Grid>
-        <Grid item>
-
-         <Avatar className={classes.avatar} >
-            <VerifiedUserIcon></VerifiedUserIcon>
-         </Avatar> <br></br>
-        </Grid>
 
         <Grid item>
+          
 
          <Typography
           color="success.main"
