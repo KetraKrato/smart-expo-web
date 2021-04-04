@@ -33,15 +33,15 @@ import Popover from "@material-ui/core/Popover";
 import { useNavigate } from "react-router-dom";
 import Klee from "./Klee.jpg";
 import { userService } from "../../services";
-function createData(id, name, sex, age, height, weight, detail) {
+function createData(id, img, name, sex, age, heightb, weightb) {
   return {
     id,
+    img,
     name,
     sex,
     age,
-    height,
-    weight,
-    detail,
+    heightb,
+    weightb,
   };
 }
 
@@ -337,13 +337,13 @@ export default function EnhancedTable() {
   const id = open ? "simple-popover" : undefined;
 
   const [rows, setRows] = React.useState([
-    createData(1, "Nattatam Watanakajonchaikul", "Male", 22, 170, 65.6),
-    createData(2, "Watanaka Tinkuran", "Female", 10, 180, 46),
-    createData(3, "LLLLLLLL dfsdfsdfsdfdsf", "Female", 25, 175, 44),
-    createData(4, "Watanakas Tinkuran", "Female", 10, 165, 53.5),
-    createData(5, "Watanakaa Tinkuran", "Female", 10, 155, 48.9),
-    createData(6, "Watanakad Tinkuran", "Female", 10, 150, 65),
-    createData(7, "Watanakaf Tinkuran", "Female", 10, 140, 78),
+    createData(1, Klee, "Nattatam Watanakajonchaikul", "Male", 22, 170, 65.6),
+    createData(2, Klee, "Watanaka Tinkuran", "Female", 10, 180, 46),
+    createData(3, Klee, "LLLLLLLL dfsdfsdfsdfdsf", "Female", 25, 175, 44),
+    createData(4, Klee, "Watanakas Tinkuran", "Female", 10, 165, 53.5),
+    createData(5, Klee, "Watanakaa Tinkuran", "Female", 10, 155, 48.9),
+    createData(6, Klee, "Watanakad Tinkuran", "Female", 10, 150, 65),
+    createData(7, Klee, "Watanakaf Tinkuran", "Female", 10, 140, 78),
   ]);
 
   //call data form backend
@@ -364,6 +364,7 @@ export default function EnhancedTable() {
           datas.name == "Dangerous" &&
           createData(
             memb.id,
+            Klee,
             memb.firstName + "  " + memb.lastName,
             memb.sex,
             memb.age,
@@ -414,8 +415,8 @@ export default function EnhancedTable() {
           fommatdataUser[f].name,
           getImgGender.data.member[0].member.gender,
           getImgGender.data.member[0].member.age,
-          fommatdataUser[f].company,
-          fommatdataUser[f].position
+          fommatdataUser[f].heightb,
+          fommatdataUser[f].weightb
         )
       );
     }
@@ -525,21 +526,22 @@ export default function EnhancedTable() {
                                     checked={isItemSelected}
                                     inputProps={{ 'aria-labelledby': labelId }}
                                   /> */}
-                              {!row.face?.member_picture ? (
+                              {!row.img ? (
                                 <Avatar className={classes.avatar}>
                                   <GroupIcon></GroupIcon>
                                 </Avatar>
                               ) : (
                                 <div>
-                                  {row.face?.member_picture.member.type ? (
+                                  {
+                                    /* {row.face?.member_picture.member.type ? (
                                     <Avatar className={classes.avatarVerify}>
                                       <VerifiedUserIcon></VerifiedUserIcon>
                                     </Avatar>
-                                  ) : (
+                                  ) : */
                                     <Avatar className={classes.avatarWarning}>
                                       <PersonAddDisabledIcon></PersonAddDisabledIcon>
                                     </Avatar>
-                                  )}
+                                  }
                                 </div>
                               )}
                             </TableCell>
@@ -592,8 +594,10 @@ export default function EnhancedTable() {
                                     <Avatar
                                       alt="image_detection"
                                       className={classes.avatar}
-                                      //src={apiConstants.uri+row.face_path?.substring(6,row.face_path.length)}
-                                      src={Klee}
+                                      src={
+                                        apiConstants.uri +
+                                        row.img?.substring(6, row.img.length)
+                                      }
                                     />
                                   </Grid>
                                   <Grid item>{row.name}</Grid>
@@ -611,13 +615,6 @@ export default function EnhancedTable() {
                                 <Avatar
                                   alt="image_detection"
                                   className={classes.avatar}
-                                  src={
-                                    apiConstants.uri +
-                                    row.face.member_picture.image_path?.substring(
-                                      6,
-                                      row.face.member_picture.image_path.length
-                                    )
-                                  }
                                 />
                               </TableCell>
                             ) : (
@@ -656,9 +653,9 @@ export default function EnhancedTable() {
                                 />
                               </TableCell>
                             ) : (
-                              <TableCell>{row.height}</TableCell>
+                              <TableCell>{row.heightb}</TableCell>
                             )}
-                            {row.position?.member_picture ? (
+                            {row.weight?.member_picture ? (
                               <TableCell align="left">
                                 <Avatar
                                   alt="image_detection"
@@ -673,7 +670,7 @@ export default function EnhancedTable() {
                                 />
                               </TableCell>
                             ) : (
-                              <TableCell>{row.weight}</TableCell>
+                              <TableCell>{row.weightb}</TableCell>
                             )}
                             {/* <TableCell>
                                   <Button onClick={handleClickPop}>

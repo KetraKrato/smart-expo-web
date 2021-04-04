@@ -190,7 +190,7 @@ const RegisterView = () => {
 
                 // }}
                 initialValues={{
-                  groupId: 0,
+                  groupId: Number,
                   firstName: "",
                   lastName: "",
                   email: "",
@@ -205,8 +205,36 @@ const RegisterView = () => {
                   type: 1,
                 }}
                 validationSchema={Yup.object().shape({
-                  // email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                  // name: Yup.string().max(255).required('name is required'),
+                  email: Yup.string()
+                    .email("Must be a valid email")
+                    .max(255)
+                    .required("Email is required"),
+                  titleName: Yup.string()
+                    .max(255)
+                    .required("NameTitle is required"),
+                  firstName: Yup.string().max(255).required("Name is required"),
+                  lastName: Yup.string()
+                    .max(255)
+                    .required("Surname is required"),
+                  idCard: Yup.string()
+                    .max(255)
+                    .required("ID CardNumber is required"),
+                  nationality: Yup.string()
+                    .max(255)
+                    .required("Nationality is required"),
+                  age: Yup.string().max(3).required("required"),
+                  birthday: Yup.string()
+                    .max(255)
+                    .required("Birthday is required"),
+                  address: Yup.string()
+                    .max(255)
+                    .required("Address is required"),
+                  company: Yup.string()
+                    .max(255)
+                    .required("Company is required"),
+                  // home_phone: Yup.string()
+                  //   .max(255)
+                  //   .required("Address is required"),
                   // policy: Yup.boolean().oneOf([true], 'This field must be checked')
                 })}
                 onSubmit={(data) => {
@@ -276,6 +304,10 @@ const RegisterView = () => {
                           </InputLabel>
                           <Select
                             native
+                            error={Boolean(
+                              touched.titleName && errors.titleName
+                            )}
+                            helperText={touched.titleName && errors.titleName}
                             value={values.titleName}
                             onChange={handleChange}
                             label="NameTitle"
@@ -294,9 +326,9 @@ const RegisterView = () => {
                       <Grid item xs={5}>
                         <TextField
                           className={classes.Name}
-                          error={Boolean(touched.name && errors.name)}
+                          error={Boolean(touched.firstName && errors.firstName)}
                           fullWidth
-                          helperText={touched.name && errors.name}
+                          helperText={touched.firstName && errors.firstName}
                           label="Name"
                           margin="normal"
                           name="firstName"
@@ -311,9 +343,9 @@ const RegisterView = () => {
                       <Grid item xs={5}>
                         <TextField
                           className={classes.Name}
-                          error={Boolean(touched.surname && errors.surname)}
+                          error={Boolean(touched.lastName && errors.lastName)}
                           fullWidth
-                          helperText={touched.surname && errors.surname}
+                          helperText={touched.lastName && errors.lastName}
                           label="Surname"
                           margin="normal"
                           name="lastName"
@@ -329,13 +361,9 @@ const RegisterView = () => {
                     <Grid container spacing={0}>
                       <Grid item xs={12}>
                         <TextField
-                          error={Boolean(
-                            touched.IdCardNumber && errors.IdCardNumber
-                          )}
+                          error={Boolean(touched.idCard && errors.idCard)}
                           fullWidth
-                          helperText={
-                            touched.IdCardNumber && errors.IdCardNumber
-                          }
+                          helperText={touched.idCard && errors.idCard}
                           label="ID CardNumber"
                           margin="normal"
                           name="idCard"
@@ -372,6 +400,8 @@ const RegisterView = () => {
                                 Sex
                               </InputLabel>
                               <Select
+                                // error={Boolean(touched.gender && errors.gender)}
+                                // helperText={touched.gender && errors.gender}
                                 native
                                 value={values.gender}
                                 onChange={handleChange}
@@ -553,6 +583,9 @@ const RegisterView = () => {
                                 Position
                               </InputLabel>
                               <Select
+                                error={Boolean(
+                                  touched.position && errors.position
+                                )}
                                 native
                                 value={values.groupId}
                                 onChange={handleChange}
@@ -574,7 +607,7 @@ const RegisterView = () => {
                             <TextField
                               error={Boolean(touched.company && errors.company)}
                               fullWidth
-                              //helperText={touched.race && errors.race}
+                              helperText={touched.company && errors.company}
                               label="Company"
                               margin="normal"
                               name="company"
@@ -591,7 +624,7 @@ const RegisterView = () => {
                             <TextField
                               className={classes.fixTextbox}
                               id="outlined-multiline-static"
-                              //error={Boolean(touched.address && errors.address)}
+                              //error={Boolean(touched.home_phone&& errors.home_phone)}
                               fullWidth
                               // multiline
                               // rows={4}
@@ -622,7 +655,7 @@ const RegisterView = () => {
                             />
                             <TextField
                               //className={classes.Name}
-                              error={Boolean(touched.name && errors.name)}
+                              error={Boolean(touched.email && errors.email)}
                               fullWidth
                               className={classes.fixTextbox}
                               helperText={touched.email && errors.email}

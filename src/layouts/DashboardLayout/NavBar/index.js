@@ -1,65 +1,65 @@
-import React, { useEffect } from 'react';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import React, { useEffect } from "react";
+import { Link as RouterLink, useLocation } from "react-router-dom";
+import PropTypes from "prop-types";
 import {
   Box,
   Divider,
   Drawer,
   Hidden,
   List,
-  makeStyles
-} from '@material-ui/core';
-import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
+  makeStyles,
+} from "@material-ui/core";
+import VideoLibraryIcon from "@material-ui/icons/VideoLibrary";
 import {
   BarChart as BarChartIcon,
   Settings as SettingsIcon,
   User as UserIcon,
-} from 'react-feather';
-import UpdateIcon from '@material-ui/icons/Update';
-import NavItem from './NavItem';
-import RoomIcon from '@material-ui/icons/Room';
-import AirplayIcon from '@material-ui/icons/Airplay';
-import VideoCallIcon from '@material-ui/icons/VideoCall';
-import TelegramIcon from '@material-ui/icons/Telegram';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import DevicesIcon from '@material-ui/icons/Devices';
-import ListItem from '@material-ui/core/ListItem';
-import EventIcon from '@material-ui/icons/Event';
-import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import PersonPinIcon from '@material-ui/icons/PersonPin';
+} from "react-feather";
+import UpdateIcon from "@material-ui/icons/Update";
+import NavItem from "./NavItem";
+import RoomIcon from "@material-ui/icons/Room";
+import AirplayIcon from "@material-ui/icons/Airplay";
+import VideoCallIcon from "@material-ui/icons/VideoCall";
+import TelegramIcon from "@material-ui/icons/Telegram";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import DevicesIcon from "@material-ui/icons/Devices";
+import ListItem from "@material-ui/core/ListItem";
+import EventIcon from "@material-ui/icons/Event";
+import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
+import HighlightOffIcon from "@material-ui/icons/HighlightOff";
+import PersonPinIcon from "@material-ui/icons/PersonPin";
 // import Collapse from '@material-ui/core/Collapse';
 // import ListItemIcon from '@material-ui/core/ListItemIcon';
 // import StarBorder from '@material-ui/icons/StarBorder';
 // import ListItemText from '@material-ui/core/ListItemText';
 const items = [
   {
-    href: '/app/dashboard',
+    href: "/app/dashboard",
     icon: BarChartIcon,
-    title: 'Dashboard'
+    title: "Dashboard",
   },
 
   {
-    href: '/app/event',
+    href: "/app/event",
     icon: EventIcon,
-    title: 'Event Management'
+    title: "Event Management",
   },
   {
-    href: '/app/locations',
+    href: "/app/locations",
     icon: PersonPinIcon,
-    title: 'Lcation Report'
+    title: "Location Report",
   },
   {
-    href: '/app/history',
+    href: "/app/history",
     icon: UpdateIcon,
-    title: 'History'
+    title: "History",
   },
   {
-    href: '/app/staff',
+    href: "/app/staff",
     icon: PeopleAltIcon,
-    title: 'Staff Management'
+    title: "Staff Management",
   },
- 
+
   // {
   //   href: '/app/map',
   //   icon: RoomIcon,
@@ -92,30 +92,30 @@ const items = [
   //   title: 'Settings'
   // },
   {
-    href: '/app/blacklist',
+    href: "/app/blacklist",
     icon: HighlightOffIcon,
-    title: 'Blacklist'
+    title: "Blacklist",
   },
   {
-    href: '/404',
+    href: "/404",
     icon: ExitToAppIcon,
-    title: 'Logout'
-  }
+    title: "Logout",
+  },
 ];
 
 const useStyles = makeStyles((theme) => ({
   mobileDrawer: {
-    width: 256
+    width: 256,
   },
   desktopDrawer: {
     width: 256,
     top: 64,
-    height: 'calc(100% - 64px)'
+    height: "calc(100% - 64px)",
   },
   avatar: {
-    cursor: 'pointer',
+    cursor: "pointer",
     width: 64,
-    height: 64
+    height: 64,
   },
   nested: {
     paddingLeft: theme.spacing(4),
@@ -127,8 +127,8 @@ const NavBar = ({ onMobileClose, openMobile }) => {
   const location = useLocation();
   const [open, setOpen] = React.useState(false);
   const handleClick = () => {
-      setOpen(!open);
-    };
+    setOpen(!open);
+  };
 
   useEffect(() => {
     if (openMobile && onMobileClose) {
@@ -142,20 +142,19 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       <Divider />
       <Box p={2}>
         <List>
-          {items.map(item => (
+          {items.map((item) => (
             <div>
-               <ListItem button>
+              <ListItem button>
+                <NavItem
+                  href={item.href}
+                  key={item.title}
+                  title={item.title}
+                  icon={item.icon}
+                  // onClick={handleClick}
+                />
+              </ListItem>
 
-            <NavItem
-              href={item.href}
-              key={item.title}
-              title={item.title}
-              icon={item.icon}
-              // onClick={handleClick}
-            />
-               </ListItem>
-
-             {/* <Collapse in={open} timeout="auto" unmountOnExit>
+              {/* <Collapse in={open} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
                   <NavItem
                   href={item.href}
@@ -177,18 +176,18 @@ const NavBar = ({ onMobileClose, openMobile }) => {
   return (
     <>
       {/* <Hidden lgUp> */}
-        <Drawer
-          anchor="left"
-          classes={{ paper: classes.mobileDrawer }}
-          onClose={onMobileClose}
-          open={openMobile}
-          variant="temporary"
-        >
-          {content}
-        </Drawer>
+      <Drawer
+        anchor="left"
+        classes={{ paper: classes.mobileDrawer }}
+        onClose={onMobileClose}
+        open={openMobile}
+        variant="temporary"
+      >
+        {content}
+      </Drawer>
       {/* </Hidden> */}
       {/* <Hidden mdDown> */}
-        {/* <Drawer
+      {/* <Drawer
           anchor="left"
           classes={{ paper: classes.desktopDrawer }}
           open
@@ -203,12 +202,12 @@ const NavBar = ({ onMobileClose, openMobile }) => {
 
 NavBar.propTypes = {
   onMobileClose: PropTypes.func,
-  openMobile: PropTypes.bool
+  openMobile: PropTypes.bool,
 };
 
 NavBar.defaultProps = {
   onMobileClose: () => {},
-  openMobile: false
+  openMobile: false,
 };
 
 export default NavBar;
