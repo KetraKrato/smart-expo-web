@@ -6,11 +6,11 @@ import { connect } from 'react-redux';
 import videojs from 'video.js'
 const url = [
     {
-        url:"rtmp://localhost/live/STREAM_NAME",
+        url:"rtmp://0.0.0.0/live/STREAM_NAME12",
         name:"Camera 1"
     },
     {
-        url:"rtmp://202.69.69.180:443/webcast/bshdlive-pc",
+        url:"rtmp://0.0.0.0/live/STREAM_NAME12",
         name:"Camera 2"
     }
 ]
@@ -52,7 +52,7 @@ componentDidUpdate(previousProps, previousState) {
             autoplay: true,
             controls: true,
             sources: [{
-              src: 'rtmp://0.0.0.0/live/STREAM_NAME1',
+              src: 'rtmp://0.0.0.0/live/STREAM_NAME12',
               type: 'rtmp/flv'
             }]
           }

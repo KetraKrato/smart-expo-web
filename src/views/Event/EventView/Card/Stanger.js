@@ -203,7 +203,7 @@ const Stanger = ({ className, ...rest }) => {
            align="center"
         
          >   <Box  color="success.main" >
-               {rest.product.score_match.toFixed(2)}
+               {rest.product.score_match.toFixed(2) }
              </Box>
 
          </Typography>

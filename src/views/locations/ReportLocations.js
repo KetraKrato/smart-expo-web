@@ -151,6 +151,8 @@ export default function Pricing() {
   }
 
   function AgeAnalz(rest) {
+    // console.log("test",rest)
+
     let DataAge = [
       {
         age: "-",
@@ -181,10 +183,12 @@ export default function Pricing() {
         value: 0,
       },
     ];
-    rest.map((i) => {
+    rest[0].map((i) => {
       let agekey = 0,
         countKey = 0;
-      for (const [key, value] of Object.entries(i)) {
+        // console.log("hello")
+        for (const [key, value] of Object.entries(i)) {
+      
         if (key == "age") {
           agekey = parseInt(value);
         } else if (key == "count") {
@@ -201,35 +205,33 @@ export default function Pricing() {
       else if (agekey > 24 && agekey < 60) DataAge[5].value += countKey;
       else if (agekey > 60) DataAge[6].value += countKey;
     });
-
     return DataAge;
   }
 
   React.useEffect(async () => {
     console.log("start");
-
+    let sucess = false
     let concludes = await historyService
       .getConcludeLocations()
       .then((data) => {
         console.log(data);
         data.data.event[0].locations.map((i) => {
-          i.devices.map(async (j) => {
-            let response = await historyService
-              .getDeviceConcludion(j.id)
-              .then((data) => {
-                console.log(data);
-                return data;
-              })
-              .catch((e) => {
-                throw e;
-              });
-            setDevice(response);
-            let analy = AgeAnalz(response.data.history.age);
-            setAge(analy);
-            i.deviceDetail = response.data;
-            i.ageAnaly = analy;
-          });
+         let  ageList = []
+          i.devices.map((k)=>{
+              data?.data?.report?.map((j)=>{
+              if(k.id ==j.id) {
+                ageList.push(j.age)
+                }
+               })
+
+          })
+          let analy = AgeAnalz(ageList);
+          i.ageAnaly = analy;
+          setAge(analy);
+          sucess = true
+          console.log("tes",analy)
         });
+       
 
         return data;
       })
@@ -237,12 +239,14 @@ export default function Pricing() {
         throw e;
       });
     console.log("Conclude Data");
-    console.log(concludes.data.event[0].locations);
+    if(sucess) {
     setConClude(concludes.data.event[0].locations);
+    }
   }, []);
 
-  useEffect(() => {}, [device]);
+  // useEffect(() => {}, [device]);
 
+  useEffect(() => {}, [conclude]);
   useEffect(() => {}, [age]);
   return (
     <Grid container spacing={3} alignItems="flex-start">
@@ -257,8 +261,8 @@ export default function Pricing() {
         >
           <Card>
             <CardHeader
-              title={tier.LocationName}
-              subheader={tier.LocationDetail}
+              title={tier?.LocationName}
+              subheader={tier?.LocationDetail}
               titleTypographyProps={{ align: "center" }}
               subheaderTypographyProps={{ align: "center" }}
               action={tier.title === "Pro" ? <StarIcon /> : null}
@@ -267,7 +271,7 @@ export default function Pricing() {
             <CardContent>
               <div className={classes.cardPricing}>
                 <Typography component="h2" variant="h1" color="textPrimary">
-                  {tier.devices
+                  {tier?.devices
                     .map((i) => i.face_count)
                     .reduce((acc, bill) => bill + acc)}
                 </Typography>
@@ -277,7 +281,7 @@ export default function Pricing() {
               </div>
 
               <div>
-                {tier.devices
+                {tier?.devices
                   .sort((a, b) => (a.face_count > b.face_count ? 1 : -1))
                   .map((i) => (
                     <Grid
@@ -409,6 +413,7 @@ export default function Pricing() {
               </div> */}
               <Box>
                 {tier?.ageAnaly?.map((i) => {
+                  console.log(i)
                   switch (true) {
                     case i.age === "-":
                       return listAge(youngImg, "Young", "1-15", i.value);
